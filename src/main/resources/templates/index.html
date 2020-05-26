@@ -5,6 +5,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1 th:text = "'Welcome ' + ${name} + '!'"></h1>
+	<h1 th:text="'Welcome ' + ${name} + '!'"></h1>
+	<div>
+		<a th:href="@{welcome}">Sign in</a>
+	</div>
 </body>
 </html>
