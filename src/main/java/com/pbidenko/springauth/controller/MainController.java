@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pbidenko.springauth.entity.Role;
-import com.pbidenko.springauth.entity.Roles;
 import com.pbidenko.springauth.entity.User;
-import com.pbidenko.springauth.repositories.UserRepo;
+import com.pbidenko.springauth.repository.UserRepo;
 
 @Controller
 public class MainController {
@@ -35,5 +34,10 @@ public class MainController {
 
 		return "index";
 	}
+	
+//	@GetMapping("/login")
+//	public String login() {
+//		return "login";
+//	}
 
 }

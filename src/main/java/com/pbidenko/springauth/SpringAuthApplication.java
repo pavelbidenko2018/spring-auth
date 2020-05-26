@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.pbidenko.springauth.repositories")
+@EnableJpaRepositories(basePackages = "com.pbidenko.springauth.repository")
 public class SpringAuthApplication {
 
 	public static void main(String[] args) {
