@@ -3,9 +3,13 @@ package com.pbidenko.springauth.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users")
+@Table(name = "usr")
 public class User {
 
 	@Id
@@ -23,14 +27,15 @@ public class User {
 	private int id;
 	private String name;
 
-	@ElementCollection
-	@JoinTable(name = "roles", joinColumns = @JoinColumn(name = "userrole"))
-	private Set<Roles> roles = new HashSet<Roles>();
+	@ElementCollection(targetClass = Role.class, fetch=FetchType.EAGER)
+	@CollectionTable(name="roles",joinColumns = @JoinColumn(name="usr_id"))
+	@Enumerated(EnumType.STRING)
+	private Set<Role> roleSet = new HashSet<Role>();
 
-	public User(String name, Set<Roles> roles) {
+	public User(String name, Set<Role> roleSet) {
 		super();
 		this.name = name;
-		this.roles = roles;
+		this.roleSet = roleSet;
 	}
 
 	public User() {
@@ -44,12 +49,12 @@ public class User {
 		this.name = name;
 	}
 
-	public Set<Roles> getRoles() {
-		return roles;
+	public Set<Role> getRolesSet() {
+		return roleSet;
 	}
 
-	public void setRoles(Set<Roles> roles) {
-		this.roles = roles;
+	public void setRolesSet(Set<Role> roles) {
+		this.roleSet = roles;
 	}
 
 	public int getId() {
@@ -61,4 +66,3 @@ public class User {
 	}
 
 }
-
