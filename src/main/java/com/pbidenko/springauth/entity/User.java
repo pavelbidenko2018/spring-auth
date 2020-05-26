@@ -1,34 +1,45 @@
 package com.pbidenko.springauth.entity;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(name = "users")
+@Table(name = "usr")
 public class User {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "usr_id")
 	private int id;
-
-	@Column(name = "name")
 	private String name;
-	
-	@Transient
-	private List<Roles> roles; 
+
+	@ElementCollection(targetClass = Role.class, fetch=FetchType.EAGER)
+	@CollectionTable(name="roles",joinColumns = @JoinColumn(name="usr_id"))
+	@Enumerated(EnumType.STRING)
+	private Set<Role> roleSet = new HashSet<Role>();
+
+	public User(String name, Set<Role> roleSet) {
+		super();
+		this.name = name;
+		this.roleSet = roleSet;
+	}
 
 	public User() {
 	};
-
-	public User(String name, List<Roles> roles) {
-		this.name = name;
-		this.roles = roles;
-	}
 
 	public String getName() {
 		return name;
@@ -38,12 +49,12 @@ public class User {
 		this.name = name;
 	}
 
-	public List<Roles> getRoles() {
-		return roles;
+	public Set<Role> getRolesSet() {
+		return roleSet;
 	}
 
-	public void setRoles(List<Roles> roles) {
-		this.roles = roles;
+	public void setRolesSet(Set<Role> roles) {
+		this.roleSet = roles;
 	}
 
 	public int getId() {
