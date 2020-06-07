@@ -1,13 +1,125 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-	<h1 th:text="'Welcome ' + ${name} + '!'"></h1>
-	<div>
-		<a th:href="@{welcome}">Log in</a>
-	</div>
+    <div class="site-wrapper">
+        <header class="main-header">
+            <nav>
+                <ul class="site-navigation">
+                    <li>A propos</li>
+                    <li>Formation</li>
+                    <li>Artistes associés</li>
+                    <li>Nouvelles</li>
+                    <li>Kommunalka</li>
+                </ul>
+
+                <ul class="language-menu">
+                    <li>FR</li>
+                    <li>EN</li>
+                    <li>FL</li>
+                </ul>
+            </nav>
+            <img class="img-logo" src="../static/images/logo.png" alt="logo">
+
+            <div class="registration-form">
+                <form action="" method="POST">
+                    <input type="email" name="email" id="email" required>
+                    <input type="password" name="pwd" id="pwd" required>
+                    <input type="submit" value="Sign in">
+                </form>
+            </div>
+
+        </header>
+        <main>
+            <section class="about-section">
+                <div class="text-block">
+                    <h1>About</h1>
+                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+                    <p class="main-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat eum animi dolor nemo necessitatibus inventore dolore quo, distinctio delectus sed quas soluta, nostrum mollitia! Fugit consequuntur cumque, odit sed atque tempore nobis
+                        reprehenderit laboriosam accusamus aspernatur error laborum vitae amet. Animi nulla molestiae quam cupiditate pariatur voluptatibus, sapiente suscipit omnis laudantium rerum id dolor sunt numquam alias asperiores hic fugiat enim
+                        cum et. Veniam officiis rem aliquam cum odio ullam, ex sit qui, quaerat hic velit amet quod iste enim assumenda expedita sunt voluptatum libero odit. Tenetur architecto rerum ut minima fuga qui quod ipsam provident illum ad. Nostrum
+                        ut at repellendus deserunt repellat aut molestias laboriosam, minima laborum illo nihil magnam? Dolorum officiis quidem facilis ad cum nihil maiores! Quo deleniti sequi eius, similique eos libero facilis iste blanditiis aperiam
+                        consectetur corporis mollitia accusamus molestiae voluptate dolore modi rerum perferendis quidem at nemo. Culpa, provident quam praesentium, quidem vel ullam dignissimos tenetur deleniti esse in rerum odio. Recusandae quia porro
+                        quasi adipisci architecto culpa consectetur, vero voluptates temporibus aliquam sit eveniet doloribus commodi cupiditate illo aperiam voluptatum ad sequi perferendis, nam necessitatibus quod. Dolorem error ab esse beatae ducimus,
+                        doloribus pariatur magnam et ratione saepe tempora voluptate consectetur reprehenderit sint cum asperiores deserunt iusto atque in neque dignissimos amet commodi. Saepe, sapiente commodi? Perferendis modi quibusdam molestias reiciendis
+                        eaque porro laudantium error autem commodi sapiente suscipit, quidem saepe maiores necessitatibus accusantium ab nam officia harum provident. Accusamus sapiente, voluptates, rerum eius laborum nobis deleniti quidem perspiciatis
+                        obcaecati maiores doloribus.</p>
+                </div>
+                <div class="section-img-holder">
+                    <img src="../static/images/about.jpg" alt="about img">
+                </div>
+            </section>
+            <!-- End of about -->
+
+            <section class="news-section">
+                <div class="text-block">
+                    <h1>Nouvelles</h1>
+                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+
+                </div>
+                <div class="news-line">
+                    <div class="section-img-holder">
+
+                    </div>
+                </div>
+            </section>
+            <!-- End of news-section -->
+
+            <section class="contacts-section">
+                <div class="text-block">
+                    <h1>Nouvelles</h1>
+                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+
+                </div>
+                <div class="news-line">
+                    <div class="text-block">
+                        <h1>Contacts</h1>
+                        <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+                    </div>
+                    <div class="contacts">
+                        <p>212-8506</p>
+                        <p>info@kommunalka.be</p>
+                    </div>
+                </div>
+            </section>
+            <!-- End of contacts section -->
+
+            <footer>
+                <div class="footer-logo"></div>
+                <nav class="footer-menu">
+                    <ul>
+                        <li>A propos</li>
+                        <li>Formation</li>
+                        <li>Artistes associés</li>
+                        <li>Nouvelles</li>
+                        <li>Kommunalka</li>
+                    </ul>
+                </nav>
+                <div class="social-icons">
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                        <li>YouTube</li>
+                        <li>Twitter</li>
+                    </ul>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <h1 th:text="'Welcome ' + ${name} + '!'"></h1>
+    <div>
+        <a th:href="@{welcome}">Log in</a>
+    </div>
 </body>
+
 </html>
