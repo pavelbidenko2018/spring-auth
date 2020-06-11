@@ -15,7 +15,11 @@
     <div class="site-wrapper">
         <header class="main-header">
             <nav>
-                <div class="logo-holder"><img class="img-logo" th:src="@{images/logo-grey3.png}" src="../static/images/logo-grey3.png" alt="logo"></div>
+
+                <div class=logo__holder>
+                    <p>kommu <br> nalka</p>
+                </div>
+                <!-- <img class="img-logo" th:src="@{images/logo-grey3.png}" src="../static/images/logo-grey3.png" alt="logo"></div> -->
                 <ul class="site-navigation">
                     <li><a href="#">A propos</a></li>
                     <li><a href="#">Formation</a></li>
@@ -38,10 +42,12 @@
         </header>
         <div class="hero-img">
 
+            <h1><span>Trouvez</span> <span>des</span> <span>personnes</span> <span>partageant</span> <span>les</span> <span>mêmes</span> <span>idées.</span> <br> <span>Apprenez</span> <span>des</span> <span>professionnels</span></h1>
+
             <!-- Auth window -->
             <div class="modals" id="auth__window" role="dialog">
 
-                <form class="modal-content" action="login" method="POST">
+                <form class="modal-content" th:action="@{/login}" method="post">
 
                     <div class="close-btn">
                         <h5>S'identifier</h5>
@@ -49,11 +55,11 @@
                     </div>
 
                     <div class="container">
-                        <label for="uname">Nom d'utilisateur ou Email *</label>
-                        <input type="email" placeholder="Enter Username" name="uname" required>
+                        <label for="usr">Nom d'utilisateur ou Email *</label>
+                        <input type="email" placeholder="Enter Username" name="username" id="usr" required>
 
                         <label for="pwd">Mot de passe *</label>
-                        <input type="password" placeholder="Mot de passe *" name="pwd" required>
+                        <input type="password" placeholder="Mot de passe *" name="password" id="pwd" required>
 
                         <button type="submit">S'identifier</button>
                     </div>
@@ -84,9 +90,6 @@
                     </div>
 
                     <div class="container">
-                        <!-- <label for="uname">Nom d'utilisateur *</label>
-                        <input type="text" placeholder="Saisissez le nom d'utilisateur souhaité" name="uname" required> -->
-
                         <label for="usr">Nom d'utilisateur *</label>
                         <input type="text" placeholder="Saisissez le nom d'utilisateur souhaité" name="usr" required>
 
@@ -120,7 +123,7 @@
         </div>
 
         <main>
-            <section class="about-section">
+            <!-- <section class="about-section">
                 <div class="text-block">
                     <h1>About</h1>
                     <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
@@ -135,65 +138,78 @@
                         obcaecati maiores doloribus.</p>
                 </div>
                 <div class="section-img-holder">
-                    <img src="../static/images/about.jpg" alt="about img">
+                    <img th:src="@{/images/about.jpg}" src="../static/images/about.jpg" alt="about img">
                 </div>
-            </section>
+            </section> -->
             <!-- End of about -->
 
-            <section class="news-section">
-                <div class="text-block">
-                    <h1>Nouvelles</h1>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+            <section class="news__section">
 
-                </div>
-                <div class="news-line">
-                    <div class="section-img-holder">
-
+                <div class="news__block">
+                    <h5>Nouvelles</h5>
+                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-1.jpg}" src="../static/images/nouvelle-1.jpg" alt="nouvelle">
                     </div>
+                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
                 </div>
+
+                <div class="news__block">
+                    <h5>Nouvelles</h5>
+                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-2.jpg}" src="../static/images/nouvelle-2.jpg" alt="nouvelle">
+                    </div>
+                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+                </div>
+
+                <div class="news__block">
+                    <h5>Nouvelles</h5>
+                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-3.jpg}" src="../static/images/nouvelle-3.jpg" alt="nouvelle">
+                    </div>
+                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+                </div>
+
+                <div class="news__block">
+                    <h5>Nouvelles</h5>
+                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-1.jpg}" src="../static/images/nouvelle-1.jpg" alt="nouvelle">
+                    </div>
+                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+                </div>
+
             </section>
             <!-- End of news-section -->
 
-            <section class="contacts-section">
+            <section class="contacts__section">
                 <div class="text-block">
-                    <h1>Nouvelles</h1>
+                    <h1>Contacts</h1>
                     <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+                </div>
+                <div class="contacts">
+                    <p>212-8506</p>
+                    <p>info@kommunalka.be</p>
+                </div>
+    </div>
+    </section>
+    <!-- End of contacts section -->
 
-                </div>
-                <div class="news-line">
-                    <div class="text-block">
-                        <h1>Contacts</h1>
-                        <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
-                    </div>
-                    <div class="contacts">
-                        <p>212-8506</p>
-                        <p>info@kommunalka.be</p>
-                    </div>
-                </div>
-            </section>
-            <!-- End of contacts section -->
-
-            <footer>
-                <div class="footer-logo"></div>
-                <nav class="footer-menu">
-                    <ul>
-                        <li>A propos</li>
-                        <li>Formation</li>
-                        <li>Artistes associés</li>
-                        <li>Nouvelles</li>
-                        <li>Kommunalka</li>
-                    </ul>
-                </nav>
-                <div class="social-icons">
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Instagram</li>
-                        <li>YouTube</li>
-                        <li>Twitter</li>
-                    </ul>
-                </div>
-            </footer>
-        </main>
+    <footer>
+        <div class="footer-logo"></div>
+        <nav class="footer-menu">
+            <ul>
+                <li>A propos</li>
+                <li>Formation</li>
+                <li>Artistes associés</li>
+                <li>Nouvelles</li>
+                <li>Kommunalka</li>
+            </ul>
+        </nav>
+        <div class="social-icons">
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>YouTube</li>
+                <li>Twitter</li>
+            </ul>
+        </div>
+    </footer>
+    </main>
     </div>
 
     <h1 th:text="'Welcome ' + ${name} + '!'"></h1>
