@@ -6,6 +6,7 @@
     <title>Insert title here</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -14,32 +15,110 @@
     <div class="site-wrapper">
         <header class="main-header">
             <nav>
+                <div class="logo-holder"><img class="img-logo" th:src="@{images/logo-grey3.png}" src="../static/images/logo-grey3.png" alt="logo"></div>
                 <ul class="site-navigation">
-                    <li>A propos</li>
-                    <li>Formation</li>
-                    <li>Artistes associés</li>
-                    <li>Nouvelles</li>
-                    <li>Kommunalka</li>
+                    <li><a href="#">A propos</a></li>
+                    <li><a href="#">Formation</a></li>
+                    <li><a href="#">Artistes associés</a></li>
+                    <li><a href="#">Nouvelles</a></li>
+                    <li><a href="#">Kommunalka</a></li>
                 </ul>
 
+                <a class="registration-link" href="#" onclick="showModal('block')">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i><span>Se connecter / S'enregistrer</span>
+                </a>
+
                 <ul class="language-menu">
-                    <li>FR</li>
-                    <li>EN</li>
-                    <li>FL</li>
+                    <li><a href="#">Fr</a></li>
+                    <li><a href="#">En</a></li>
+                    <li><a href="#">Fl</a></li>
                 </ul>
             </nav>
 
-            <img class="img-logo" th:src="@{/images/logo.png} " src="../static/images/logo.png" alt="logo">
+        </header>
+        <div class="hero-img">
 
-            <div class="registration-form">
-                <form action="" method="POST">
-                    <input type="email" name="email" id="email" required>
-                    <input type="password" name="pwd" id="pwd" required>
-                    <input type="submit" value="Sign in">
+            <!-- Auth window -->
+            <div class="modals" id="auth__window" role="dialog">
+
+                <form class="modal-content" action="login" method="POST">
+
+                    <div class="close-btn">
+                        <h5>S'identifier</h5>
+                        <span onclick="hideModalWindow()" class="close" title="Close Modal">&times;</span>
+                    </div>
+
+                    <div class="container">
+                        <label for="uname">Nom d'utilisateur ou Email *</label>
+                        <input type="email" placeholder="Enter Username" name="uname" required>
+
+                        <label for="pwd">Mot de passe *</label>
+                        <input type="password" placeholder="Mot de passe *" name="pwd" required>
+
+                        <button type="submit">S'identifier</button>
+                    </div>
+
+                    <div class="container">
+                        <a href="#">Mot de passe oublié?</a>
+                    </div>
+
+                    <div class="form-divider">
+                        <h5>Ou</h5>
+                    </div>
+
+                    <div class="container">
+                        <a class="create-account" onclick="document.getElementById('add__window').style.display='block';" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
+                    </div>
+
                 </form>
             </div>
 
-        </header>
+            <!-- Add new user window -->
+            <div class="modals" id="add__window" role="dialog">
+
+                <form class="modal-content" action="add" method="POST">
+
+                    <div class="close-btn">
+                        <h5>S'inscrire</h5>
+                        <span onclick="hideModalWindow()" class="close" title="Close Modal">&times;</span>
+                    </div>
+
+                    <div class="container">
+                        <!-- <label for="uname">Nom d'utilisateur *</label>
+                        <input type="text" placeholder="Saisissez le nom d'utilisateur souhaité" name="uname" required> -->
+
+                        <label for="usr">Nom d'utilisateur *</label>
+                        <input type="text" placeholder="Saisissez le nom d'utilisateur souhaité" name="usr" required>
+
+                        <label for="email">Email *</label>
+                        <input type="email" placeholder="Saisissez votre adresse e-mail" name="email" required>
+
+                        <label for="pwd">Mot de passe *</label>
+                        <input type="password" placeholder="Mot de passe *" name="pwd" required>
+
+                        <label for="repwd">Répéter le mot de passe *</label>
+                        <input type="password" placeholder="Mot de passe *" name="repwd" required>
+
+                        <button type="submit">S'identifier</button>
+                    </div>
+
+                    <div class="container">
+                        <a href="#">Mot de passe oublié?</a>
+                    </div>
+
+                    <div class="form-divider">
+                        <h5>Ou</h5>
+                    </div>
+
+                    <div class="container">
+                        <a class="create-account" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
         <main>
             <section class="about-section">
                 <div class="text-block">
@@ -121,6 +200,37 @@
     <div>
         <a th:href="@{welcome}">Log in</a>
     </div>
+
+    <script>
+        var auth__window = document.getElementById("auth__window");
+        var add__window = document.getElementById("add__window");
+
+        var form = document.getElementsByClassName("modal-content")[0];
+
+        window.onclick = function(event) {
+
+            if (event.target == auth__window || event.target == add__window) {
+                auth__window.style.display = 'none';
+                add__window.style.display = 'none';
+
+            }
+        }
+
+        function hideModalWindow() {
+            var modals = document.getElementsByClassName('modals');
+            Array.from(modals).forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+
+        function showModal(action) {
+            document.getElementById("auth__window").style.display = action;
+        }
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
