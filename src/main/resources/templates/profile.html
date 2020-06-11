@@ -6,5 +6,7 @@
 </head>
 <body>
 	<h1 th:text="'This is profile of ' + ${username}"></h1>
+	<h5>[[${#httpServletRequest.remoteUser}]]</h5>
+	<a th:href="@{/logout}">Log out</a>
 </body>
 </html>
