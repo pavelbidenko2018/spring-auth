@@ -25,12 +25,9 @@ public class Usr {
 	@Column(name = "usr_id")
 	private int id;
 
-	@Column(name = "first_name")
-	private String firstname;
-
-	@Column(name = "last_name")
-	private String lastname;
-
+	@Column(name = "username")
+	private String username;
+	
 	@Column(name = "email")
 	private String email;
 
@@ -42,34 +39,31 @@ public class Usr {
 	@Enumerated(EnumType.STRING)
 	private Set<Role> roleSet = new HashSet<Role>();
 
-	public Usr(String firstname, String lastname, String pwd, String email, Set<Role> roleSet) {
+	public Usr(String username, String pwd, String email, Set<Role> roleSet) {
 		super();
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.username = username;
 		this.pwd = pwd;
 		this.email = email;
 
 		this.roleSet = roleSet;
 	}
 
+	public Usr(String username, String email, String pwd) {
+		this.username = username;
+		this.email = email;
+		this.pwd = pwd;
+	};
+	
 	public Usr() {
 	};
 
 	
-	public String getFirstname() {
-		return firstname;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {

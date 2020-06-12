@@ -13,6 +13,8 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.pbidenko.springauth.entity.Role;
+
 @Component
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -22,23 +24,22 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 		String redirectUrl = null;
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		authorities.forEach(n->System.out.println(n.getClass() + ": " + n.getAuthority()));
+		
 		for (GrantedAuthority grantedAuthority : authorities) {
-			System.out.println("role " + grantedAuthority.getAuthority());
-			if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+			if (grantedAuthority.getAuthority().equals(Role.ADMIN.toString())) {
 				redirectUrl = "/my_profile";
 				break;
-			} else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+			} else if (grantedAuthority.getAuthority().equals(Role.USER.toString())) {
 				redirectUrl = "/my_profile";
 				break;
 			}
 		}
-		redirectUrl = "/my_profile";
-		System.out.println("redirectUrl " + redirectUrl);
+				
 		if (redirectUrl == null) {
 			throw new IllegalStateException();
 		}
 		
-		System.out.println("Redirect URL: " + redirectUrl);
 		new DefaultRedirectStrategy().sendRedirect(request, response, redirectUrl);
 
 	}

@@ -6,11 +6,11 @@
 </head>
 <body>
 <h1>Sign in</h1>
-<form method="post" action="registration" name="user">
-<input type="text" name="firstname" placeholder="First name">
-<input type="text" name="lastname" placeholder="Last name">
+<form method="post" th:action="@{/registration}" name="user">
+<input type="text" name="username" placeholder="User name">
 <input type="email" name="email" placeholder="Email">
 <input type="password" name="pwd" placeholder="Password">
+<input type="password" name="repwd" placeholder="Repeat password">
 <button type="submit">OK</button>
 
 </form>

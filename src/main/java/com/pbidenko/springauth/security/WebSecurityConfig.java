@@ -41,9 +41,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 			.formLogin()
 			.loginPage("/login").successHandler(successHandler)
+			.failureUrl("/?login_error=1")
 			.permitAll()
 		.and().logout().addLogoutHandler(logoutHandler).permitAll()
+	
 		.and().csrf().disable();
+		
 	}
 
 	@Bean

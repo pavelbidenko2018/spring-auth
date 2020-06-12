@@ -15,7 +15,6 @@
     <div class="site-wrapper">
         <header class="main-header">
             <nav>
-
                 <div class=logo__holder>
                     <p>kommu <br> nalka</p>
                 </div>
@@ -123,26 +122,6 @@
         </div>
 
         <main>
-            <!-- <section class="about-section">
-                <div class="text-block">
-                    <h1>About</h1>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
-                    <p class="main-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat eum animi dolor nemo necessitatibus inventore dolore quo, distinctio delectus sed quas soluta, nostrum mollitia! Fugit consequuntur cumque, odit sed atque tempore nobis
-                        reprehenderit laboriosam accusamus aspernatur error laborum vitae amet. Animi nulla molestiae quam cupiditate pariatur voluptatibus, sapiente suscipit omnis laudantium rerum id dolor sunt numquam alias asperiores hic fugiat enim
-                        cum et. Veniam officiis rem aliquam cum odio ullam, ex sit qui, quaerat hic velit amet quod iste enim assumenda expedita sunt voluptatum libero odit. Tenetur architecto rerum ut minima fuga qui quod ipsam provident illum ad. Nostrum
-                        ut at repellendus deserunt repellat aut molestias laboriosam, minima laborum illo nihil magnam? Dolorum officiis quidem facilis ad cum nihil maiores! Quo deleniti sequi eius, similique eos libero facilis iste blanditiis aperiam
-                        consectetur corporis mollitia accusamus molestiae voluptate dolore modi rerum perferendis quidem at nemo. Culpa, provident quam praesentium, quidem vel ullam dignissimos tenetur deleniti esse in rerum odio. Recusandae quia porro
-                        quasi adipisci architecto culpa consectetur, vero voluptates temporibus aliquam sit eveniet doloribus commodi cupiditate illo aperiam voluptatum ad sequi perferendis, nam necessitatibus quod. Dolorem error ab esse beatae ducimus,
-                        doloribus pariatur magnam et ratione saepe tempora voluptate consectetur reprehenderit sint cum asperiores deserunt iusto atque in neque dignissimos amet commodi. Saepe, sapiente commodi? Perferendis modi quibusdam molestias reiciendis
-                        eaque porro laudantium error autem commodi sapiente suscipit, quidem saepe maiores necessitatibus accusantium ab nam officia harum provident. Accusamus sapiente, voluptates, rerum eius laborum nobis deleniti quidem perspiciatis
-                        obcaecati maiores doloribus.</p>
-                </div>
-                <div class="section-img-holder">
-                    <img th:src="@{/images/about.jpg}" src="../static/images/about.jpg" alt="about img">
-                </div>
-            </section> -->
-            <!-- End of about -->
-
             <section class="news__section">
 
                 <div class="news__block">
@@ -168,7 +147,7 @@
 
                 <div class="news__block">
                     <h5>Nouvelles</h5>
-                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-4.jpg}" src="../static/images/nouvelle-4.jpg" alt="nouvelle">
+                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-1.jpg}" src="../static/images/nouvelle-1.jpg" alt="nouvelle">
                     </div>
                     <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
                 </div>
@@ -212,13 +191,22 @@
     </main>
     </div>
 
-     <div>
-        <a th:href="@{/login}">Log in</a>
+    <h1 th:text="'Welcome ' + ${name} + '!'"></h1>
+    <div>
+        <a th:href="@{welcome}">Log in</a>
     </div>
 
     <script>
         var auth__window = document.getElementById("auth__window");
         var add__window = document.getElementById("add__window");
+
+        window.addEventListener('hashchange', function() {
+            if (window.location.hash === "#login_error") {
+                console.log("hash changed");
+                auth__window.style.display = 'block';
+            }
+
+        }, false);
 
         var form = document.getElementsByClassName("modal-content")[0];
 
@@ -227,7 +215,6 @@
             if (event.target == auth__window || event.target == add__window) {
                 auth__window.style.display = 'none';
                 add__window.style.display = 'none';
-
             }
         }
 
