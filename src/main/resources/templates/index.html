@@ -52,6 +52,7 @@
                         <h5>S'identifier</h5>
                         <span onclick="hideModalWindow()" class="close" title="Close Modal">&times;</span>
                     </div>
+                    <div id="authErrorForm" class="login__error animate">Login or password error</div>
 
                     <div class="container">
                         <label for="usr">Nom d'utilisateur ou Email *</label>
@@ -197,13 +198,20 @@
     </div>
 
     <script>
+   
         var auth__window = document.getElementById("auth__window");
         var add__window = document.getElementById("add__window");
+        var authErrorForm = document.getElementById('authErrorForm');
+        
+        if(window.location.hash.substring(1) == 'login_error'){
+        	console.log(window.location.hash);
+        	auth__window.style.display = 'block';
+        	authErrorForm.style.display = 'block';
+        }            	
 
         window.addEventListener('hashchange', function() {
-            if (window.location.hash === "#login_error") {
-                console.log("hash changed");
-                auth__window.style.display = 'block';
+            if (window.location.hash == "#login_error") {
+               auth__window.style.display = 'block';
             }
 
         }, false);

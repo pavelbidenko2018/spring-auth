@@ -269,12 +269,14 @@ a.create-account:hover {
     opacity: 0.8;
 }
 
-button.cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
+.login__error{
+	display:none;
+	background:#DE5854;
+	padding:5px;
+	border-radius:4px;
+	opacity:0.6;
+	
 }
-
 
 /* Add Zoom Animation */
 
