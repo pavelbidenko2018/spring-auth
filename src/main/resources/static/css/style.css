@@ -19,7 +19,6 @@ body {
 }
 
 .main-header {
-    background-size: cover;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -59,12 +58,6 @@ body {
     font-size: 2em;
     line-height: 0.8em;
 }
-
-
-/* .logo__holder img {
-    height: 60px;
-    display: block;
-} */
 
 .site-navigation,
 .language-menu {
@@ -141,7 +134,6 @@ a.registration-link span {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    /* background: rgb(294, 164, 96, .8); */
     border-radius: 8px;
     line-height: 1.5em;
     letter-spacing: 5px;
@@ -149,7 +141,6 @@ a.registration-link span {
 
 .hero-img>h1>span {
     background: rgb(151, 0, 0);
-    /* background-color: #DE5854; */
 }
 
 
@@ -269,14 +260,14 @@ a.create-account:hover {
     opacity: 0.8;
 }
 
-.login__error{
-	display:none;
-	background:#DE5854;
-	padding:5px;
-	border-radius:4px;
-	opacity:0.6;
-	
+.login__error {
+    display: none;
+    background: #DE5854;
+    padding: 5px;
+    border-radius: 4px;
+    opacity: 0.6;
 }
+
 
 /* Add Zoom Animation */
 

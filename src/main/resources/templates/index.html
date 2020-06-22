@@ -18,7 +18,6 @@
                 <div class=logo__holder>
                     <p>kommu <br> nalka</p>
                 </div>
-                <!-- <img class="img-logo" th:src="@{images/logo-grey3.png}" src="../static/images/logo-grey3.png" alt="logo"></div> -->
                 <ul class="site-navigation">
                     <li><a href="#">A propos</a></li>
                     <li><a href="#">Formation</a></li>
@@ -125,32 +124,12 @@
         <main>
             <section class="news__section">
 
-                <div class="news__block">
-                    <h5>Nouvelles</h5>
-                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-1.jpg}" src="../static/images/nouvelle-1.jpg" alt="nouvelle">
+                <div class="news__block" th:each = "article:${activeArticleList}">
+                    <h5 th:text="${article.title}"/>
+                    <div class="news__img__holder">
+                    <img class="news__image" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" alt="nouvelle_img">
                     </div>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
-                </div>
-
-                <div class="news__block">
-                    <h5>Nouvelles</h5>
-                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-2.jpg}" src="../static/images/nouvelle-2.jpg" alt="nouvelle">
-                    </div>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
-                </div>
-
-                <div class="news__block">
-                    <h5>Nouvelles</h5>
-                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-3.jpg}" src="../static/images/nouvelle-3.jpg" alt="nouvelle">
-                    </div>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
-                </div>
-
-                <div class="news__block">
-                    <h5>Nouvelles</h5>
-                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-1.jpg}" src="../static/images/nouvelle-1.jpg" alt="nouvelle">
-                    </div>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+                    <p class="preambule-text" th:text="${article.description}"/>
                 </div>
 
             </section>
@@ -198,25 +177,23 @@
     </div>
 
     <script>
-   
-        var auth__window = document.getElementById("auth__window");
-        var add__window = document.getElementById("add__window");
-        var authErrorForm = document.getElementById('authErrorForm');
-        
-        if(window.location.hash.substring(1) == 'login_error'){
-        	console.log(window.location.hash);
-        	auth__window.style.display = 'block';
-        	authErrorForm.style.display = 'block';
-        }            	
+        const auth__window = document.getElementById("auth__window");
+        const add__window = document.getElementById("add__window");
+        const authErrorForm = document.getElementById('authErrorForm');
+        const form = document.getElementsByClassName("modal-content")[0];
+
+        if (window.location.hash.substring(1) == 'login_error') {
+            console.log(window.location.hash);
+            auth__window.style.display = 'block';
+            authErrorForm.style.display = 'block';
+        }
 
         window.addEventListener('hashchange', function() {
             if (window.location.hash == "#login_error") {
-               auth__window.style.display = 'block';
+                auth__window.style.display = 'block';
             }
 
         }, false);
-
-        var form = document.getElementsByClassName("modal-content")[0];
 
         window.onclick = function(event) {
 
@@ -227,7 +204,7 @@
         }
 
         function hideModalWindow() {
-            var modals = document.getElementsByClassName('modals');
+            const modals = document.getElementsByClassName('modals');
             Array.from(modals).forEach(modal => {
                 modal.style.display = 'none';
             });
