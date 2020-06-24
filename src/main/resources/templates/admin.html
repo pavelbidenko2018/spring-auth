@@ -2,132 +2,109 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" th:href="@{/css/style.css}"
-	href="../static/css/style.css">
-<link rel="stylesheet" th:href="@{/css/admin.css}"
-	href="../static/css/admin.css">
-<link rel="stylesheet" th:href="@{/css/font-awesome.css}"
-	href="../static/css/font-awesome.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-	rel="stylesheet">
-<title>Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Admin</title>
 </head>
 
 <body>
 
-	<header class="main-header">
-		<nav>
-			<div class=logo__holder>
-				<p>
-					kommu <br> nalka
-				</p>
-			</div>
-			<ul class="site-navigation">
-				<li><a href="#">A propos</a></li>
-				<li><a href="#">Formation</a></li>
-				<li><a href="#">Artistes associés</a></li>
-				<li><a href="#">Nouvelles</a></li>
-				<li><a href="#">Kommunalka</a></li>
-			</ul>
+    <header class="main-header">
+        <nav>
+            <div class=logo__holder>
+                <p>
+                    kommu <br> nalka
+                </p>
+            </div>
+            <ul class="site-navigation">
+                <li><a href="#">A propos</a></li>
+                <li><a href="#">Formation</a></li>
+                <li><a href="#">Artistes associés</a></li>
+                <li><a href="#">Nouvelles</a></li>
+                <li><a href="#">Kommunalka</a></li>
+            </ul>
 
-			<a class="registration-link" href="#" onclick="showModal('block')">
-				<i class="fa fa-sign-in" aria-hidden="true"></i><span>Se
+            <a class="registration-link" href="#" onclick="showModal('block')">
+                <i class="fa fa-sign-in" aria-hidden="true"></i><span>Se
 					connecter / S'enregistrer</span>
-			</a>
+            </a>
 
-			<ul class="language-menu">
-				<li><a href="#">Fr</a></li>
-				<li><a href="#">En</a></li>
-				<li><a href="#">Fl</a></li>
-			</ul>
-		</nav>
+            <ul class="language-menu">
+                <li><a href="#">Fr</a></li>
+                <li><a href="#">En</a></li>
+                <li><a href="#">Fl</a></li>
+            </ul>
+        </nav>
 
-	</header>
-	<main>
-	<div class=wrapper>
-		<form id="addArticle" th:action="@{/addArticle}" method="POST"
-			enctype="multipart/form-data">
-			<fieldset class="add_article_fieldset">
-				<legend>Add article</legend>
-				<label for="article_title">Title</label> <input type="text"
-					id="article_title" name="title" required="required"> <label
-					for="Article description">Description</label>
-				<textarea id="article_descr" name="descr" required="required"></textarea>
+    </header>
+    <main>
+        <div class=wrapper>
+            <form id="addArticle" th:action="@{/addArticle}" method="POST" enctype="multipart/form-data">
+                <fieldset class="add_article_fieldset">
+                    <legend>Add article</legend>
+                    <label for="article_title">Title</label> <input type="text" id="article_title" name="title" required="required"> <label for="Article description">Description</label>
+                    <textarea id="article_descr" name="descr" required="required"></textarea>
 
-				<input type="file" id="article_file" name="file">
-				<button type="submit">Add article</button>
+                    <input type="file" id="article_file" name="file">
+                    <button type="submit">Add article</button>
 
-			</fieldset>
+                </fieldset>
 
-		</form>
+            </form>
 
-		<section class="articles__list">
-			<h1>Article list</h1>
-			<div class="article" th:each="article: ${articleList}">
-				<div class="article__id" th:text="${article.id}" />
-				<div class="article__title" th:text="${article.title}" />
-				<div class="article__descr" th:text="${article.description}" />
-				<div class="article__img">
-					<img class = "article__thumbnail" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" />
-				</div>
-				<div class="article__state">
-<!-- 				<form class="update__article__state" action = "#" th:action="@{/updateArticle/{id}(id=${article.id})}" method="POST"> 			 -->
- 			
- 				<form class="update__article__state" action = "#" method="POST"> 
- 				<input type="hidden" name="articleid" th:value = "${article.id}">				
-<!-- 				<button class = "update__article"  th:onclick ="'updateState(' + ${article.id} +')'" th:text = "${article.state}?'Desactive':'Active'"/> -->
- 				<button class = "update__article"  action="submit" th:text = "${article.state}?'Desactive':'Active'"/>
- 				</form>
-				</div>
-				
-			</div>
-		</section>
+            <section class="articles__list">
+                <h1>Article list</h1>
+                <div class="article" th:each="article: ${articleList}">
+                    <div class="article__id" th:text="${article.id}" />
+                    <div class="article__title" th:text="${article.title}" />
+                    <div class="article__descr" th:text="${article.description}" />
+                    <div class="article__img">
+                        <img class="article__thumbnail" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" />
+                    </div>
+                    <div class="article__state">
+                        <form class="update__article__state" action="#" method="POST">
+                            <input type="hidden" name="articleid" th:value="${article.id}">
+                            <button class="update__article" action="submit" th:text="${article.state}?'Desactive':'Active'" />
+                        </form>
+                    </div>
 
-	</div>
-	</main>
-	<footer> Copyright 2000 </footer>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-			
-	<script type="text/javascript">
-	debugger;
-	$( '.update__article__state' ).submit(function( event ) {
-	
-		  console.log($(this).serializeArray()[0].value);
-		  var btn = $(this).children('button');	
-			const artId = 	$(this).serializeArray()[0].value;		
-			jQuery.ajax ({
-			    url: '/updateArticle',
-			    type: "POST",
-			    data: artId,
-   				dataType: "text",
-			    contentType: "application/json; charset=utf-8",
-			    success: function(response){
-			    	console.log(typeof response);
-			    	if(response==="true"){
-			    		btn.text('Desactive')
-			    		}
-			    	else btn.text('Active');
-			    }
-			});
-			
-			
-// 		  $.post( "/updateArticle", JSON.stringify($(this).serializeArray()[0]),
-// 			function( data ) {
-// 			btn.text((data)?'Desactive':'Active');			
-			
-// 			},"json");
-		  		 	  
-		  event.preventDefault();
-		});
-	
-</script>
+                </div>
+            </section>
+
+        </div>
+    </main>
+    <footer> Copyright 2000 </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        debugger;
+        $('.update__article__state').submit(function(event) {
+
+            var btn = $(this).children('button');
+            const artId = $(this).serializeArray()[0].value;
+            jQuery.ajax({
+                url: '/updateArticle',
+                type: "POST",
+                data: artId,
+                dataType: "text",
+                contentType: "application/json; charset=utf-8",
+                success: function(response) {
+                    console.log(typeof response);
+                    if (response === "true") {
+                        btn.text('Desactive')
+                    } else btn.text('Active');
+                }
+            });
+
+            event.preventDefault();
+        });
+    </script>
 
 </body>
 

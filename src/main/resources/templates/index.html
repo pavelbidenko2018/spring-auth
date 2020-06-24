@@ -124,12 +124,12 @@
         <main>
             <section class="news__section">
 
-                <div class="news__block" th:each = "article:${activeArticleList}">
-                    <h5 th:text="${article.title}"/>
+                <div class="news__block" th:each="article:${activeArticleList}">
+                    <h5 th:text="${article.title}" />
                     <div class="news__img__holder">
-                    <img class="news__image" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" alt="nouvelle_img">
+                        <img class="news__image" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" alt="nouvelle_img">
                     </div>
-                    <p class="preambule-text" th:text="${article.description}"/>
+                    <p class="preambule-text" th:text="${article.description}" />
                 </div>
 
             </section>
