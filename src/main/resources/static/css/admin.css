@@ -1,23 +1,29 @@
 .wrapper {
-    margin-left: 40px;
-    margin-right: 40px;
+    margin: auto 40px;
+}
+
+.form__wrapper {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 fieldset {
-    margin-top: 80px;
-    border: 1px solid rgb(151, 0, 0);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    border: 1px solid #748A8D;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
 }
 
 input[type="text"],
 input[type="file"],
+input[type="date"],
 textarea {
     display: block;
     margin: 10px 0;
-    width: 30%;
+    width: 100%;
 }
 
 textarea {
@@ -26,9 +32,10 @@ textarea {
 
 .article {
     border-bottom: 1px solid #eee;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
+    display: grid;
+    grid-template-columns: 1fr 1fr 14fr 1fr 1fr;
+    row-gap: 5px;
+    column-gap: 2px;
 }
 
 .article:nth-child(odd) {
@@ -39,11 +46,10 @@ textarea {
     background-color: antiquewhite;
 }
 
-.article div{
-	display:flex;
-	justify-content: center;
-	align-items:center;
-	
+.article div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .article__title,
@@ -51,33 +57,27 @@ textarea {
 .article__state,
 .article__img,
 .article__id {
-   
     border-right: 1px solid #fff;
     padding: 8px;
 }
 
-
-.article__state {
-	width: 10%;
+.article__state form {
+    width: 80%;
 }
 
-.article__state form{
-	width:80%;
-}
 .article__state button {
-	display: inline-block;
-	background: #999;
-	width: 100%;
-	border:none;
-	padding: 5px 0;
-	color:#fff;
-	font-family: 'Quicksand' !important;
-	font-size:12px;
-
+    display: inline-block;
+    background: #999;
+    width: 100%;
+    border: none;
+    padding: 5px 0;
+    color: #fff;
+    font-family: 'Quicksand' !important;
+    font-size: 12px;
 }
 
-.article__thumbnail{
-	height:60px;
+.article__thumbnail {
+    height: 60px;
 }
 
 footer {

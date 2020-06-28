@@ -43,9 +43,9 @@
             <h1><span>Trouvez</span> <span>des</span> <span>personnes</span> <span>partageant</span> <span>les</span> <span>mêmes</span> <span>idées.</span> <br> <span>Apprenez</span> <span>des</span> <span>professionnels</span></h1>
 
             <!-- Auth window -->
-            <div class="modals" id="auth__window" role="dialog">
+            <div class="modals auth__window" role="dialog">
 
-                <form class="modal-content" th:action="@{/login}" method="post">
+                <form class="modal__content" th:action="@{/login}" method="post">
 
                     <div class="close-btn">
                         <h5>S'identifier</h5>
@@ -72,16 +72,16 @@
                     </div>
 
                     <div class="container">
-                        <a class="create-account" onclick="document.getElementById('add__window').style.display='block';" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
+                        <a class="create-account" onclick="document.getElementsByClassName('add__window')[0].style.display='block';" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
                     </div>
 
                 </form>
             </div>
 
             <!-- Add new user window -->
-            <div class="modals" id="add__window" role="dialog">
+            <div class="modals add__window" role="dialog">
 
-                <form class="modal-content" action="add" method="POST">
+                <form class="modal__content" action="add" method="POST">
 
                     <div class="close-btn">
                         <h5>S'inscrire</h5>
@@ -177,10 +177,11 @@
     </div>
 
     <script>
-        const auth__window = document.getElementById("auth__window");
-        const add__window = document.getElementById("add__window");
+        debugger;
+        const auth__window = document.getElementsByClassName("auth__window")[0];
+        const add__window = document.getElementsByClassName("add__window")[0];
         const authErrorForm = document.getElementById('authErrorForm');
-        const form = document.getElementsByClassName("modal-content")[0];
+        const form = document.getElementsByClassName("modal__content")[0];
 
         if (window.location.hash.substring(1) == 'login_error') {
             console.log(window.location.hash);
@@ -211,7 +212,7 @@
         }
 
         function showModal(action) {
-            document.getElementById("auth__window").style.display = action;
+            document.getElementsByClassName("auth__window")[0].style.display = action;
         }
     </script>
 

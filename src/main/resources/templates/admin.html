@@ -44,21 +44,32 @@
     </header>
     <main>
         <div class=wrapper>
-            <form id="addArticle" th:action="@{/addArticle}" method="POST" enctype="multipart/form-data">
-                <fieldset class="add_article_fieldset">
-                    <legend>Add article</legend>
-                    <label for="article_title">Title</label> <input type="text" id="article_title" name="title" required="required"> <label for="Article description">Description</label>
-                    <textarea id="article_descr" name="descr" required="required"></textarea>
+            <div class="modals add__window" role="dialog">
 
-                    <input type="file" id="article_file" name="file">
-                    <button type="submit">Add article</button>
+                <form class="modal__content" id="addArticle" th:action="@{/addArticle}" method="POST" enctype="multipart/form-data">
 
-                </fieldset>
+                    <div class="close-btn">
+                        <h5>Add article</h5>
+                        <span onclick="hideModalWindow()" class="close" title="Close Modal">&times;</span>
+                    </div>
 
-            </form>
+                    <fieldset class="add_article_fieldset">
+
+                        <label for="article_title">Title</label> <input type="text" id="article_title" name="title" required="required"> <label for="Article description">Description</label>
+                        <textarea id="article_descr" name="descr" required="required"></textarea>
+                        <label for="start_date">Starts on:</label>
+                        <input type="date" name="xdate" id="start_date">
+                        <label for="article_file">Attachment</label>
+                        <input type="file" id="article_file" name="file">
+                        <button type="submit">Add article</button>
+
+                    </fieldset>
+                </form>
+            </div>
 
             <section class="articles__list">
-                <h1>Article list</h1>
+                <h1>Article list | <a href="#" onclick="addArticleHandler()">Add new</a></h1>
+
                 <div class="article" th:each="article: ${articleList}">
                     <div class="article__id" th:text="${article.id}" />
                     <div class="article__title" th:text="${article.title}" />
@@ -106,6 +117,20 @@
         });
     </script>
 
+    <script>
+        function addArticleHandler() {
+
+            $(document).ready(function() {
+                console.log("--showing form--");
+                $(".modals").show();
+            })
+        }
+
+        function hideModalWindow() {
+            $(".modals").hide();
+        }
+    </script>
+    s
 </body>
 
 </html>

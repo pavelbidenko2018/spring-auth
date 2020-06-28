@@ -1,5 +1,7 @@
 package com.pbidenko.springauth.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,23 +21,32 @@ public class Article {
 	private String title;
 	private String description;
 	
+	@Column(name="start_date")
+	private LocalDate xdate;
+	
+	@Column(name="publish_date")
+	private LocalDate pdate;
+	
 	@Transient
 	private String base64imageFile;
 	
 	@Lob
-	@Column(name = "attachment", columnDefinition = "blob")	
+	@Column(name = "attachment", columnDefinition = "LONGBLOB")	
 	private byte[] attachment;
 	
 	private boolean state;	
 	
 	public Article() {}
 
-	public Article(String title, String description, byte[] attachment, boolean state) {
+	public Article(String title, String description, LocalDate xdate, byte[] attachment, boolean state) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.attachment = attachment;
 		this.state = state;
+		this.xdate = xdate;
+		this.pdate = LocalDate.now();
+		
 	}
 
 	public int getId() {
@@ -84,6 +95,22 @@ public class Article {
 
 	public void setBase64imageFile(String base64imageFile) {
 		this.base64imageFile = base64imageFile;
+	}
+	
+	public LocalDate getXdate() {
+		return xdate;
+	}
+
+	public void setXdate(LocalDate xdate) {
+		this.xdate = xdate;
+	}
+
+	public LocalDate getPdate() {
+		return pdate;
+	}
+
+	public void setPdate(LocalDate pdate) {
+		this.pdate = pdate;
 	}
 	
 }

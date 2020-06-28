@@ -1,6 +1,7 @@
 package com.pbidenko.springauth.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -47,10 +48,10 @@ public class AdminController {
 	}
 
 	@PostMapping("/addArticle")
-	public String addArticle(@RequestParam String title, @RequestParam String descr, @RequestParam MultipartFile file)
+	public String addArticle(@RequestParam String title, @RequestParam String descr, @RequestParam String xdate, @RequestParam MultipartFile file)
 			throws IOException {
 
-		articleStorageService.uploadArticle(title, descr, file, true);
+		articleStorageService.uploadArticle(title, descr, LocalDate.parse(xdate), file, true);
 
 		return "redirect:/admin";
 	}
