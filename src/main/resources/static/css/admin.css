@@ -1,0 +1,89 @@
+.wrapper {
+    margin: auto 40px;
+}
+
+.form__wrapper {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+fieldset {
+    border: 1px solid #748A8D;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+}
+
+input[type="text"],
+input[type="file"],
+input[type="date"],
+textarea {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+}
+
+textarea {
+    height: 8em;
+}
+
+.article {
+    border-bottom: 1px solid #eee;
+    display: grid;
+    grid-template-columns: 1fr 1fr 14fr 1fr 1fr;
+    row-gap: 5px;
+    column-gap: 2px;
+}
+
+.article:nth-child(odd) {
+    background-color: aliceblue
+}
+
+.article:nth-child(even) {
+    background-color: antiquewhite;
+}
+
+.article div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.article__title,
+.article__descr,
+.article__state,
+.article__img,
+.article__id {
+    border-right: 1px solid #fff;
+    padding: 8px;
+}
+
+.article__state form {
+    width: 80%;
+}
+
+.article__state button {
+    display: inline-block;
+    background: #999;
+    width: 100%;
+    border: none;
+    padding: 5px 0;
+    color: #fff;
+    font-family: 'Quicksand' !important;
+    font-size: 12px;
+}
+
+.article__thumbnail {
+    height: 60px;
+}
+
+footer {
+    margin-top: 80px;
+    width: 100%;
+    height: 5em;
+    background: #ccc;
+    text-align: center;
+}

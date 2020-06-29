@@ -18,7 +18,6 @@
                 <div class=logo__holder>
                     <p>kommu <br> nalka</p>
                 </div>
-                <!-- <img class="img-logo" th:src="@{images/logo-grey3.png}" src="../static/images/logo-grey3.png" alt="logo"></div> -->
                 <ul class="site-navigation">
                     <li><a href="#">A propos</a></li>
                     <li><a href="#">Formation</a></li>
@@ -44,14 +43,15 @@
             <h1><span>Trouvez</span> <span>des</span> <span>personnes</span> <span>partageant</span> <span>les</span> <span>mêmes</span> <span>idées.</span> <br> <span>Apprenez</span> <span>des</span> <span>professionnels</span></h1>
 
             <!-- Auth window -->
-            <div class="modals" id="auth__window" role="dialog">
+            <div class="modals auth__window" role="dialog">
 
-                <form class="modal-content" th:action="@{/login}" method="post">
+                <form class="modal__content" th:action="@{/login}" method="post">
 
                     <div class="close-btn">
                         <h5>S'identifier</h5>
                         <span onclick="hideModalWindow()" class="close" title="Close Modal">&times;</span>
                     </div>
+                    <div id="authErrorForm" class="login__error animate">Login or password error</div>
 
                     <div class="container">
                         <label for="usr">Nom d'utilisateur ou Email *</label>
@@ -72,16 +72,16 @@
                     </div>
 
                     <div class="container">
-                        <a class="create-account" onclick="document.getElementById('add__window').style.display='block';" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
+                        <a class="create-account" onclick="document.getElementsByClassName('add__window')[0].style.display='block';" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
                     </div>
 
                 </form>
             </div>
 
             <!-- Add new user window -->
-            <div class="modals" id="add__window" role="dialog">
+            <div class="modals add__window" role="dialog">
 
-                <form class="modal-content" action="add" method="POST">
+                <form class="modal__content" action="add" method="POST">
 
                     <div class="close-btn">
                         <h5>S'inscrire</h5>
@@ -124,32 +124,12 @@
         <main>
             <section class="news__section">
 
-                <div class="news__block">
-                    <h5>Nouvelles</h5>
-                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-1.jpg}" src="../static/images/nouvelle-1.jpg" alt="nouvelle">
+                <div class="news__block" th:each="article:${activeArticleList}">
+                    <h5 th:text="${article.title}" />
+                    <div class="news__img__holder">
+                        <img class="news__image" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" alt="nouvelle_img">
                     </div>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
-                </div>
-
-                <div class="news__block">
-                    <h5>Nouvelles</h5>
-                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-2.jpg}" src="../static/images/nouvelle-2.jpg" alt="nouvelle">
-                    </div>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
-                </div>
-
-                <div class="news__block">
-                    <h5>Nouvelles</h5>
-                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-3.jpg}" src="../static/images/nouvelle-3.jpg" alt="nouvelle">
-                    </div>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
-                </div>
-
-                <div class="news__block">
-                    <h5>Nouvelles</h5>
-                    <div class="news__img__holder"><img class="news__image" th:src="@{/images/nouvelle-1.jpg}" src="../static/images/nouvelle-1.jpg" alt="nouvelle">
-                    </div>
-                    <p class="preambule-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam unde qui cum, molestias est consectetur tenetur. Cumque, dolores veniam libero fugiat eveniet minima eius rerum saepe impedit asperiores? Quos, esse.</p>
+                    <p class="preambule-text" th:text="${article.description}" />
                 </div>
 
             </section>
@@ -197,18 +177,24 @@
     </div>
 
     <script>
-        var auth__window = document.getElementById("auth__window");
-        var add__window = document.getElementById("add__window");
+        debugger;
+        const auth__window = document.getElementsByClassName("auth__window")[0];
+        const add__window = document.getElementsByClassName("add__window")[0];
+        const authErrorForm = document.getElementById('authErrorForm');
+        const form = document.getElementsByClassName("modal__content")[0];
+
+        if (window.location.hash.substring(1) == 'login_error') {
+            console.log(window.location.hash);
+            auth__window.style.display = 'block';
+            authErrorForm.style.display = 'block';
+        }
 
         window.addEventListener('hashchange', function() {
-            if (window.location.hash === "#login_error") {
-                console.log("hash changed");
+            if (window.location.hash == "#login_error") {
                 auth__window.style.display = 'block';
             }
 
         }, false);
-
-        var form = document.getElementsByClassName("modal-content")[0];
 
         window.onclick = function(event) {
 
@@ -219,14 +205,14 @@
         }
 
         function hideModalWindow() {
-            var modals = document.getElementsByClassName('modals');
+            const modals = document.getElementsByClassName('modals');
             Array.from(modals).forEach(modal => {
                 modal.style.display = 'none';
             });
         }
 
         function showModal(action) {
-            document.getElementById("auth__window").style.display = action;
+            document.getElementsByClassName("auth__window")[0].style.display = action;
         }
     </script>
 
