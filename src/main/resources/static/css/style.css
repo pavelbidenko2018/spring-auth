@@ -39,15 +39,21 @@ E1E5EE
 
 
 /*
-313715
-D16014
-939F5C
-BBCE8A
-E2F9B8
+#313715
+#D16014
+#939F5C
+#BBCE8A
+#E2F9B8
 */
 
 :root {
-    --bg-color: #FF4D0A;
+    --color-red: #68232d;
+    --color-green: #566e3d;
+    --color-blue: #0c4767;
+    --color-yellow: #fe9920;
+    --color-brown: #b9a44c;
+    --color-orange: #fa7921;
+    --color-navy: #2f7468;
     --news-block-color: #FEDED2;
     /* #FBFBF8,#22435A,#DEE2E3,#768A97,#98A7B0*/
     --news-mod-color: ##FBFBF8;
@@ -80,32 +86,28 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-left: 40px;
-    margin-right: 40px;
+    padding: 10px 30px;
+    background: #f8f8f8;
 }
 
 .logo__holder {
-    float: left;
-    border: 1px solid var(--bg-color);
-    height: 60px;
-    width: 100px;
-    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.logo__holder>img {
+    display: block;
+    margin-right: 20px;
+    width: 80px;
 }
 
 .logo__holder>p {
+    font-size: 1.5em;
+    color: var(--color-red);
     margin: 0;
-    padding-left: 0;
-    position: absolute;
-    left: 10%;
-    top: 20%;
-    background: #fff;
-    text-transform: uppercase;
-    color: #4b586b;
-    font-weight: bold;
-    font-size: 2em;
-    line-height: 0.8em;
 }
 
 .site-navigation,
@@ -121,16 +123,19 @@ body {
 .modal__content button,
 h5 {
     display: block;
-    color: var(--bg-color);
-    text-transform: uppercase;
-    font-size: .8em;
+    color: var(--color-blue);
+    font-size: 1em;
     font-weight: 600;
     text-decoration: none;
 }
 
+.language-menu a {
+    color: var(--color-blue);
+}
+
 .site-navigation a:hover,
 .language-menu a:hover {
-    border-bottom: 1px solid var(--bg-color);
+    border-bottom: 1px solid var(--color-orange);
 }
 
 .site-navigation li,
@@ -148,7 +153,7 @@ a.registration-link {
     display: block;
     color: #fff;
     text-decoration: none;
-    background-color: var(--bg-color);
+    background-color: var(--color-blue);
     font-size: 0.9em;
     border-radius: 4px;
     line-height: 2.5em;
@@ -165,8 +170,8 @@ a.registration-link span {
 }
 
 .hero-img {
-    height: 360px;
-    background: url("../images/greyscale-bg.jpg") no-repeat 0 -260px;
+    height: 431px;
+    background: url("../images/bg2.jpg") no-repeat;
     position: relative;
 }
 
@@ -174,9 +179,8 @@ a.registration-link span {
     display: block;
     margin: 0;
     padding: 5px;
-    font-family: 'Roboto' !important;
-    color: #fff;
-    font-size: 2em;
+    color: var(--color-red);
+    font-size: 1.5em;
     text-transform: uppercase;
     position: absolute;
     top: 50%;
