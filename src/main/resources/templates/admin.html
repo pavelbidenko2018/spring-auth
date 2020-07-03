@@ -1,47 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
-    <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css">
-    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>Admin</title>
-</head>
+<head th:replace = "fragments/header :: head"/>
 
 <body>
 
-    <header class="main-header">
-        <nav>
-            <div class=logo__holder>
-                <img th:src="@{/images/logo-eps.png}" alt="logo">
-                <p>kommunalka</p>
-            </div>
-            <img th:src="@{/images/logo-eps.png}" alt="logo">
-            <ul class="site-navigation">
-                <li><a href="#">A propos</a></li>
-                <li><a href="#">Formation</a></li>
-                <li><a href="#">Artistes associés</a></li>
-                <li><a href="#">Nouvelles</a></li>
-                <li><a href="#">Kommunalka</a></li>
-            </ul>
-
-            <a class="registration-link" href="#" onclick="showModal('block')">
-                <i class="fa fa-sign-in" aria-hidden="true"></i><span>Se
-					connecter / S'enregistrer</span>
-            </a>
-
-            <ul class="language-menu">
-                <li><a href="#">Fr</a></li>
-                <li><a href="#">En</a></li>
-                <li><a href="#">Fl</a></li>
-            </ul>
-        </nav>
-
-    </header>
+   <header th:replace = "fragments/header::header"/>
     <main>
         <div class=wrapper>
 
@@ -96,50 +60,13 @@
         </div>
     </main>
 
-    <footer> Copyright 2000 </footer>
+	<footer th:replace = "fragments/footer::footer"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/custom.js}"></script>
+        
 
-
-    <script type="text/javascript">
-        debugger;
-
-        $(function() {
-            $('.upd').click(function() {
-                let form = $(this).closest('form');
-
-                const artId = form.serializeArray()[0].value;
-
-                $.ajax({
-                    url: '/updateArticle',
-                    type: "POST",
-                    data: artId,
-                    dataType: "text",
-                    contentType: "application/json; charset=utf-8",
-                    success: function(response) {
-                        console.log(typeof response);
-
-                    }
-                });
-
-            });
-        });
-    </script>
-
-    <script>
-        function addArticleHandler() {
-
-            $(document).ready(function() {
-                console.log("--showing form--");
-                $(".modals").show();
-            })
-        }
-
-        function hideModalWindow() {
-            $(".modals").hide();
-        }
-    </script>
-
+      
 </body>
 
 </html>
