@@ -360,14 +360,63 @@ a.create-account:hover {
 }
 
 
+/* Post slider */
+
+.post__slider {
+    border: 1px solid red;
+    position: relative;
+}
+
+.post__slider .post__wrapper {
+    width: 84%;
+    height: 350px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.post__slider .post__wrapper .post {
+    display: inline-block;
+    background-color: aqua;
+    width: 180px;
+    height: 350px;
+    margin: 0 10px;
+}
+
+.post__slider .prev {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+}
+
+.post__slider .next {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+}
+
+.next,
+.prev {
+    height: 300px;
+    color: var(--color-blue);
+    cursor: pointer;
+}
+
+
+/* Post wrapper*/
+
+.post__wrapper {
+    border: 1px solid red;
+}
+
+
 /* News section */
 
 .news__section {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(6, 1fr);
     column-gap: 10px;
     row-gap: 10px;
-    justify-items: center;
+    justify-items: center; */
     margin: 20px;
 }
 
