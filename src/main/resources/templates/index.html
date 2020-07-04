@@ -1,46 +1,14 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Insert title here</title>
-
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
-    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
+<head th:replace="fragments/header :: head" />
 
 <body>
     <div class="site-wrapper">
-        <header class="main-header">
-            <nav>
-                <div class=logo__holder>
-                    <p>kommu <br> nalka</p>
-                </div>
-                <ul class="site-navigation">
-                    <li><a href="#">A propos</a></li>
-                    <li><a href="#">Formation</a></li>
-                    <li><a href="#">Artistes associés</a></li>
-                    <li><a href="#">Nouvelles</a></li>
-                    <li><a href="#">Kommunalka</a></li>
-                </ul>
-
-                <a class="registration-link" href="#" onclick="showModal('block')">
-                    <i class="fa fa-sign-in" aria-hidden="true"></i><span>Se connecter / S'enregistrer</span>
-                </a>
-
-                <ul class="language-menu">
-                    <li><a href="#">Fr</a></li>
-                    <li><a href="#">En</a></li>
-                    <li><a href="#">Fl</a></li>
-                </ul>
-            </nav>
-
-        </header>
+        <header th:replace="fragments/header :: header" />
         <div class="hero-img">
 
-            <h1><span>Trouvez</span> <span>des</span> <span>personnes</span> <span>partageant</span> <span>les</span> <span>mêmes</span> <span>idées.</span> <br> <span>Apprenez</span> <span>des</span> <span>professionnels</span></h1>
+            <h1><span>Trouvez</span> <span>des</span> <span>personnes</span> <span>partageant</span> <span>les</span> <span>mêmes</span> <span>idées.</span> <br> <span>Apprenez</span> <span>des</span> <span>professionnels.</span></h1>
 
             <!-- Auth window -->
             <div class="modals auth__window" role="dialog">
@@ -124,13 +92,34 @@
         <main>
             <section class="news__section">
 
+                <!-- Post slider -->
+                <div class="post__slider">
+                    <h1 class="slider__title">Dernier commentaires</h1>
+                    <i class="fa fa-chevron-left prev"></i>
+                    <i class="fa fa-chevron-right next"></i>
+
+                    <div class="post__wrapper">
+                        <div class="post">1</div>
+                        <div class="post">2</div>
+                        <div class="post">3</div>
+                        <div class="post">4</div>
+                        <div class="post">5</div>
+
+                    </div>
+
+                </div>
+
                 <div class="news__block" th:each="article:${activeArticleList}">
+
                     <h5 th:text="${article.title}" />
+
                     <div class="news__img__holder">
                         <img class="news__image" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" alt="nouvelle_img">
                     </div>
                     <p class="preambule-text" th:text="${article.description}" />
+
                 </div>
+                <!-- Post slider finish -->
 
             </section>
             <!-- End of news-section -->
@@ -146,78 +135,25 @@
                 </div>
     </div>
     </section>
-    <!-- End of contacts section -->
 
-    <footer>
-        <div class="footer-logo"></div>
-        <nav class="footer-menu">
-            <ul>
-                <li>A propos</li>
-                <li>Formation</li>
-                <li>Artistes associés</li>
-                <li>Nouvelles</li>
-                <li>Kommunalka</li>
-            </ul>
-        </nav>
-        <div class="social-icons">
-            <ul>
-                <li>Facebook</li>
-                <li>Instagram</li>
-                <li>YouTube</li>
-                <li>Twitter</li>
-            </ul>
-        </div>
-    </footer>
     </main>
-    </div>
-
-    <h1 th:text="'Welcome ' + ${name} + '!'"></h1>
-    <div>
-        <a th:href="@{welcome}">Log in</a>
-    </div>
-
-    <script>
-        debugger;
-        const auth__window = document.getElementsByClassName("auth__window")[0];
-        const add__window = document.getElementsByClassName("add__window")[0];
-        const authErrorForm = document.getElementById('authErrorForm');
-        const form = document.getElementsByClassName("modal__content")[0];
-
-        if (window.location.hash.substring(1) == 'login_error') {
-            console.log(window.location.hash);
-            auth__window.style.display = 'block';
-            authErrorForm.style.display = 'block';
-        }
-
-        window.addEventListener('hashchange', function() {
-            if (window.location.hash == "#login_error") {
-                auth__window.style.display = 'block';
-            }
-
-        }, false);
-
-        window.onclick = function(event) {
-
-            if (event.target == auth__window || event.target == add__window) {
-                auth__window.style.display = 'none';
-                add__window.style.display = 'none';
-            }
-        }
-
-        function hideModalWindow() {
-            const modals = document.getElementsByClassName('modals');
-            Array.from(modals).forEach(modal => {
-                modal.style.display = 'none';
-            });
-        }
-
-        function showModal(action) {
-            document.getElementsByClassName("auth__window")[0].style.display = action;
-        }
-    </script>
+    <footer th:replace="fragments/footer::footer" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/custom.js}"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script>
+        $('.post__wrapper').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            nextArrow: $('.next'),
+            prevArrow: $('.prev'),
+        });
+    </script>
 
 </body>
 

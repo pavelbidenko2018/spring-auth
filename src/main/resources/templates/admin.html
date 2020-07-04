@@ -1,49 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
-    <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css">
-    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>Admin</title>
-</head>
+<head th:replace = "fragments/header :: head"/>
 
 <body>
 
-    <header class="main-header">
-        <nav>
-            <div class=logo__holder>
-                <p>
-                    kommu <br> nalka
-                </p>
-            </div>
-            <ul class="site-navigation">
-                <li><a href="#">A propos</a></li>
-                <li><a href="#">Formation</a></li>
-                <li><a href="#">Artistes associés</a></li>
-                <li><a href="#">Nouvelles</a></li>
-                <li><a href="#">Kommunalka</a></li>
-            </ul>
-
-            <a class="registration-link" href="#" onclick="showModal('block')">
-                <i class="fa fa-sign-in" aria-hidden="true"></i><span>Se
-					connecter / S'enregistrer</span>
-            </a>
-
-            <ul class="language-menu">
-                <li><a href="#">Fr</a></li>
-                <li><a href="#">En</a></li>
-                <li><a href="#">Fl</a></li>
-            </ul>
-        </nav>
-
-    </header>
+   <header th:replace = "fragments/header::header"/>
     <main>
         <div class=wrapper>
+
             <div class="modals add__window" role="dialog">
 
                 <form class="modal__content" id="addArticle" th:action="@{/addArticle}" method="POST" enctype="multipart/form-data">
@@ -65,6 +30,7 @@
 
                     </fieldset>
                 </form>
+
             </div>
 
             <section class="articles__list">
@@ -72,6 +38,7 @@
 
                 <div class="article" th:each="article: ${articleList}">
                     <div class="article__id" th:text="${article.id}" />
+                    <div class="article__xdate" th:text="${article.xdate}" />
                     <div class="article__title" th:text="${article.title}" />
                     <div class="article__descr" th:text="${article.description}" />
                     <div class="article__img">
@@ -80,7 +47,10 @@
                     <div class="article__state">
                         <form class="update__article__state" action="#" method="POST">
                             <input type="hidden" name="articleid" th:value="${article.id}">
-                            <button class="update__article" action="submit" th:text="${article.state}?'Desactive':'Active'" />
+                            <label class="switch">
+                            <input type="checkbox" class="upd" name="updName" id="updID" th:checked="${article.state}">
+                            <span class="slider round"></span>
+                            </label>
                         </form>
                     </div>
 
@@ -89,48 +59,14 @@
 
         </div>
     </main>
-    <footer> Copyright 2000 </footer>
+
+	<footer th:replace = "fragments/footer::footer"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/custom.js}"></script>
+        
 
-    <script type="text/javascript">
-        debugger;
-        $('.update__article__state').submit(function(event) {
-
-            var btn = $(this).children('button');
-            const artId = $(this).serializeArray()[0].value;
-            jQuery.ajax({
-                url: '/updateArticle',
-                type: "POST",
-                data: artId,
-                dataType: "text",
-                contentType: "application/json; charset=utf-8",
-                success: function(response) {
-                    console.log(typeof response);
-                    if (response === "true") {
-                        btn.text('Desactive')
-                    } else btn.text('Active');
-                }
-            });
-
-            event.preventDefault();
-        });
-    </script>
-
-    <script>
-        function addArticleHandler() {
-
-            $(document).ready(function() {
-                console.log("--showing form--");
-                $(".modals").show();
-            })
-        }
-
-        function hideModalWindow() {
-            $(".modals").hide();
-        }
-    </script>
-    s
+      
 </body>
 
 </html>

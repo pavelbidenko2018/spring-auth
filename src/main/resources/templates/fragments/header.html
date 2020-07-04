@@ -1,0 +1,38 @@
+
+<head>
+	<meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.css">
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+ <header class="main-header">
+        <nav>
+            <div class=logo__holder>
+                <img th:src="@{/images/logo-eps.png}" alt="logo">
+                <p>kommunalka</p>
+            </div>
+             <ul class="site-navigation">
+                <li><a href="#">A propos</a></li>
+                <li><a href="#">Formation</a></li>
+                <li><a href="#">Artistes associes</a></li>
+                <li><a href="#">Nouvelles</a></li>
+                <li><a href="#">Kommunalka</a></li>
+            </ul>
+
+            <a class="registration-link" href="#" onclick="showModal('block')">
+                <i class="fa fa-sign-in" aria-hidden="true"></i><span>Se
+					connecter / S'enregistrer</span>
+            </a>
+
+            <ul class="language-menu">
+                <li><a href="#">Fr</a></li>
+                <li><a href="#">En</a></li>
+                <li><a href="#">Fl</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
