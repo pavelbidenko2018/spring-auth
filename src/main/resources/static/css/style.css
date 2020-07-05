@@ -60,7 +60,8 @@ E1E5EE
 }
 
 
-/* * {
+/* 
+* {
     border: 1px solid red;
 } */
 
@@ -125,7 +126,6 @@ h5 {
     display: block;
     color: var(--color-blue);
     font-size: 1em;
-    font-weight: 800;
     text-decoration: none;
 }
 
@@ -170,8 +170,16 @@ a.registration-link span {
 }
 
 .hero-img {
-    height: 431px;
-    background: url("../images/bg2.jpg") no-repeat;
+    height: 100vh;
+    background: url("../images/bg.jpg") no-repeat;
+    background-color: #cccccc;
+    /* Used if the image is unavailable */
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-size: cover;
+    /* Resize the background image to cover the entire container */
     position: relative;
 }
 
@@ -179,17 +187,20 @@ a.registration-link span {
     display: block;
     margin: 0;
     padding: 5px;
-    color: var(--color-red);
-    font-size: 1.5em;
+    color: var(--color-green);
+    font-size: 2.5em;
     text-transform: uppercase;
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    border: 1px solid var(--color-green);
+    /* background: var(--color-orange);
+    opacity: 0.6; */
     border-radius: 8px;
     line-height: 1.5em;
-    letter-spacing: 5px;
+    letter-spacing: 2px;
 }
 
 .hero-img>h1>span {
@@ -363,60 +374,66 @@ a.create-account:hover {
 /* Post slider */
 
 .post__slider {
-    border: 1px solid red;
     position: relative;
+    text-align: center;
+}
+
+.post__slider h1 {
+    margin: 20px auto;
+    color: var(--color-blue);
+    font-size: 1em;
+    text-transform: uppercase;
 }
 
 .post__slider .post__wrapper {
-    width: 84%;
-    height: 350px;
+    width: 80%;
+    height: 380px;
     margin: 0 auto;
     overflow: hidden;
+    padding: 10px 0;
 }
 
 .post__slider .post__wrapper .post {
     display: inline-block;
     background-color: aqua;
-    width: 180px;
-    height: 350px;
+    width: 200px;
+    height: 360px;
     margin: 0 10px;
+    background: var(--color-yellow);
+    border-radius: 5px;
+    box-shadow: .5rem .5rem .5rem -.5rem #333;
+}
+
+.post__slider .post__wrapper .post .slider__image {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .post__slider .prev {
     position: absolute;
     top: 50%;
     left: 20px;
+    color: var(--color-blue);
+    cursor: pointer;
+    font-size: 2em;
 }
 
 .post__slider .next {
     position: absolute;
     top: 50%;
     right: 20px;
-}
-
-.next,
-.prev {
-    height: 300px;
     color: var(--color-blue);
     cursor: pointer;
-}
-
-
-/* Post wrapper*/
-
-.post__wrapper {
-    border: 1px solid red;
+    font-size: 2em;
 }
 
 
 /* News section */
 
 .news__section {
-    /* display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    column-gap: 10px;
-    row-gap: 10px;
-    justify-items: center; */
     margin: 20px;
 }
 
@@ -429,11 +446,6 @@ a.create-account:hover {
     font-size: 1em;
 }
 
-.news__image {
-    width: 100%;
-    margin: 3px 0;
-}
-
 .news__block p {
     margin-top: 0;
     margin-bottom: 0;
@@ -444,4 +456,50 @@ a.create-account:hover {
 
 .news__block h5 {
     margin: 0;
+}
+
+footer {
+    margin-top: 100%;
+    width: 100%;
+    background-color: var(--color-blue);
+    color: #fff;
+    font-size: 0.9em;
+}
+
+footer .main__content {
+    display: flex;
+}
+
+footer .main__content .box {
+    flex-basis: 50%;
+    padding: 10px 20px;
+}
+
+.box h2 {
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.box .content {
+    margin: 20px 0 0 0;
+}
+
+.left .content .social {
+    margin: 20px 0 0 0;
+}
+
+.left .content .social a {
+    padding: 0 2px;
+}
+
+.left .content .social a span {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    background: var(--color-navy);
+    color: white;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 2.25em;
 }
