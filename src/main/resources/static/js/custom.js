@@ -35,8 +35,8 @@
         function showModal(action) {
             document.getElementsByClassName("auth__window")[0].style.display = action;
         }
-        
-        
+
+
         $(function() {
             $('.upd').click(function() {
                 let form = $(this).closest('form');
@@ -57,8 +57,6 @@
 
             });
         });
-   
-
 
         function addArticleHandler() {
 
@@ -71,4 +69,22 @@
         function hideModalWindow() {
             $(".modals").hide();
         }
-  
+
+        $(document).ready(
+            function() {
+
+                const $menu = $('.hidden__menu ul');
+
+                $(document).mouseup(e => {
+                    if (!$menu.is(e.target) &&
+                        $menu.has(e.target).length === 0) {
+                        $menu.hide();
+                    }
+                });
+
+                $('.burger').on('click', () => {
+                    $menu.show();
+                });
+
+            }
+        )
