@@ -6,7 +6,8 @@
 <body>
     <div class="site-wrapper">
         <header th:replace="fragments/header :: header" />
-        <div class="hero-img">
+
+        <div class="hero__img">
 
             <h1><span>Trouvez</span> <span>des</span> <span>personnes</span> <span>partageant</span> <span>les</span> <span>mêmes</span> <span>idées.</span> <br> <span>Apprenez</span> <span>des</span> <span>professionnels.</span></h1>
 
@@ -101,7 +102,6 @@
                     <div class="post__wrapper">
                         <div class="post" th:each="article:${activeArticleList}">
 
-
                             <img class="slider__image" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" alt="nouvelle_img">
 
                             <i class="fa fa-user">User</i> &nbsp;
@@ -129,7 +129,7 @@
             $('.post__wrapper').slick({
                 slidesToShow: 4,
                 slidesToScroll: 1,
-                autoplay: true,
+                autoplay: false,
                 autoplaySpeed: 2000,
                 nextArrow: $('.next'),
                 prevArrow: $('.prev'),

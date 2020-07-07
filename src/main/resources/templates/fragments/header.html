@@ -8,13 +8,15 @@
     <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<header class="main-header">
+
+<header class="main__header">
     <nav>
         <div class=logo__holder>
             <img th:src="@{/images/logo-eps.png}" alt="logo">
             <p>kommunalka</p>
         </div>
-        <ul class="site-navigation">
+
+        <ul class="site__navigation">
             <li><a href="#">A propos</a></li>
             <li><a href="#">Formation</a></li>
             <li><a href="#">Artistes associes</a></li>
@@ -22,15 +24,28 @@
             <li><a href="#">Kommunalka</a></li>
         </ul>
 
-        <a class="registration-link" href="#" onclick="showModal('block')">
+        <div class="hidden__menu">
+            <div class="burger">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </div>
+            <ul class="hidden__navigation">
+                <li><a class="hidden__link" href="#">A propos</a></li>
+                <li><a class="hidden__link" href="#">Formation</a></li>
+                <li><a class="hidden__link" href="#">Artistes associes</a></li>
+                <li><a class="hidden__link" href="#">Nouvelles</a></li>
+                <li><a class="hidden__link" href="#">Kommunalka</a></li>
+            </ul>
+        </div>
+
+        <a class="registration__link" href="#" onclick="showModal('block')">
             <i class="fa fa-sign-in" aria-hidden="true"></i><span>Se
 					connecter / S'enregistrer</span>
         </a>
 
-        <ul class="language-menu">
-            <li><a href="#">Fr</a></li>
-            <li><a href="#">En</a></li>
-            <li><a href="#">Fl</a></li>
+        <ul class="language__menu">
+            <li><a href="#"><span>Fr</span></a></li>
+            <li><a href="#"><span>En</span></a></li>
+            <li><a href="#"><span>Fl</span></a></li>
         </ul>
     </nav>
 
