@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
+<head th:replace = "fragments/header::head"/>
+
 <body>
-	<h1 th:text="'This is profile of ' + ${username}"></h1>
-	<h5>[[${#httpServletRequest.remoteUser}]]</h5>
-	<a th:href="@{/logout}">Log out</a>
+<header th:replace = "fragments/header::header" />
+<h1 th:text="'This is profile of ' + ${username}"></h1>	
+<footer th:replace = "fragments/footer::footer"/>
 </body>
 </html>

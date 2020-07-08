@@ -37,10 +37,15 @@
             </ul>
         </div>
 
-        <a class="registration__link" href="#" onclick="showModal('block')">
-            <i class="fa fa-sign-in" aria-hidden="true"></i><span>Se
-					connecter / S'enregistrer</span>
+        <a sec:authorize="!isAuthenticated()" class="registration__link" href="#" onclick="showModal('block')"> <i class="fa fa-sign-in" aria-hidden="true"></i><span>Se connecter / S'enregistrer</span>
         </a>
+
+        <div class="user__greeting" sec:authorize="isAuthenticated()">
+            <span class="fa fa-user"></span>
+            <span class="text" th:text="'Bonjour, ' + ${username}" />
+            <a class="logout__link" th:href="@{/logout}"><span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
 
         <ul class="language__menu">
             <li><a href="#"><span>Fr</span></a></li>

@@ -7,29 +7,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.pbidenko.springauth.entity.Usr;
 import com.pbidenko.springauth.repository.UsrRepo;
 
 @Controller
-public class Profile {
-	
+public class ProfileController {
+
 	@Autowired
 	UsrRepo usrRepo;
-	
+
 	@GetMapping("/my_profile")
-	public String profile(Model model)
-	{
+	public String profile(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = "";
-		
+
 		if (principal instanceof UserDetails) {
-		username = ((UserDetails)principal).getUsername();
+			username = ((UserDetails) principal).getUsername();
 		} else {
 			username = principal.toString();
 		}
-		
+
 		model.addAttribute("username", username);
-		
+
 		return "profile";
 	}
 }

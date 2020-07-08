@@ -1,6 +1,5 @@
 package com.pbidenko.springauth.service;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.Base64;
@@ -12,24 +11,27 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pbidenko.springauth.entity.Article;
 import com.pbidenko.springauth.exception.ArticleNotFoundByIdException;
 import com.pbidenko.springauth.repository.ArticleRepo;
+import com.pbidenko.springauth.utils.ImageUtils;
 
 @Service
 public class ArticleStorageService {
 
 	@Autowired
 	private ArticleRepo articleRepo;
+	
+	@Autowired
+	private ImageUtils imageUtils;
 
 	public void uploadArticle(String title, String description, LocalDate xdate, MultipartFile file, boolean state) {
 
-		try {
-			byte[] b = file.getBytes();
-			articleRepo.save(new Article(title, description, xdate, b, state));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		int width = 354;
+		int height = 450;
+		byte[] imageInByte = imageUtils.resizeImage(file, width, height);
+
+		articleRepo.save(new Article(title, description, xdate, imageInByte, state));
 
 	}
-
+	
 	public Iterable<Article> getArticleList() {
 
 		Iterable<Article> articleList = articleRepo.findAll();

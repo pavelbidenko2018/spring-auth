@@ -9,84 +9,13 @@
 
         <div class="hero__img">
 
-            <h1><span>Trouvez</span> <span>des</span> <span>personnes</span> <span>partageant</span> <span>les</span> <span>mêmes</span> <span>idées.</span> <br> <span>Apprenez</span> <span>des</span> <span>professionnels.</span></h1>
-
-            <!-- Auth window -->
-            <div class="modals auth__window" role="dialog">
-
-                <form class="modal__content" th:action="@{/login}" method="post">
-
-                    <div class="close-btn">
-                        <h5>S'identifier</h5>
-                        <span onclick="hideModalWindow()" class="close" title="Close Modal">&times;</span>
-                    </div>
-                    <div id="authErrorForm" class="login__error animate">Login or password error</div>
-
-                    <div class="container">
-                        <label for="usr">Nom d'utilisateur ou Email *</label>
-                        <input type="email" placeholder="Enter Username" name="username" id="usr" required>
-
-                        <label for="pwd">Mot de passe *</label>
-                        <input type="password" placeholder="Mot de passe *" name="password" id="pwd" required>
-
-                        <button type="submit">S'identifier</button>
-                    </div>
-
-                    <div class="container">
-                        <a href="#">Mot de passe oublié?</a>
-                    </div>
-
-                    <div class="form-divider">
-                        <h5>Ou</h5>
-                    </div>
-
-                    <div class="container">
-                        <a class="create-account" onclick="document.getElementsByClassName('add__window')[0].style.display='block';" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
-                    </div>
-
-                </form>
-            </div>
-
-            <!-- Add new user window -->
-            <div class="modals add__window" role="dialog">
-
-                <form class="modal__content" action="add" method="POST">
-
-                    <div class="close-btn">
-                        <h5>S'inscrire</h5>
-                        <span onclick="hideModalWindow()" class="close" title="Close Modal">&times;</span>
-                    </div>
-
-                    <div class="container">
-                        <label for="usr">Nom d'utilisateur *</label>
-                        <input type="text" placeholder="Saisissez le nom d'utilisateur souhaité" name="usr" required>
-
-                        <label for="email">Email *</label>
-                        <input type="email" placeholder="Saisissez votre adresse e-mail" name="email" required>
-
-                        <label for="pwd">Mot de passe *</label>
-                        <input type="password" placeholder="Mot de passe *" name="pwd" required>
-
-                        <label for="repwd">Répéter le mot de passe *</label>
-                        <input type="password" placeholder="Mot de passe *" name="repwd" required>
-
-                        <button type="submit">S'identifier</button>
-                    </div>
-
-                    <div class="container">
-                        <a href="#">Mot de passe oublié?</a>
-                    </div>
-
-                    <div class="form-divider">
-                        <h5>Ou</h5>
-                    </div>
-
-                    <div class="container">
-                        <a class="create-account" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
-                    </div>
-
-                </form>
-            </div>
+            <!-- 			<h1> -->
+            <!-- 				<span>Trouvez</span> <span>des</span> <span>personnes</span> <span>partageant</span> -->
+            <!-- 				<span>les</span> <span>mêmes</span> <span>idées.</span> <br> -->
+            <!-- 				<span>Apprenez</span> <span>des</span> <span>professionnels.</span> -->
+            <!-- 			</h1> -->
+            <div th:replace="fragments/popup::auth__window" />
+            <div th:replace="fragments/popup::new__user" />
 
         </div>
 
@@ -96,17 +25,21 @@
                 <!-- Post slider -->
                 <div class="post__slider">
                     <h1 class="slider__title">Dernier commentaires</h1>
-                    <i class="fa fa-chevron-left prev"></i>
-                    <i class="fa fa-chevron-right next"></i>
+                    <i class="fa fa-chevron-left prev"></i> <i class="fa fa-chevron-right next"></i>
 
                     <div class="post__wrapper">
                         <div class="post" th:each="article:${activeArticleList}">
 
-                            <img class="slider__image" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" alt="nouvelle_img">
+                            <div>
+                                <img class="slider__image" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" alt="nouvelle_img">
+                            </div>
 
-                            <i class="fa fa-user">User</i> &nbsp;
-                            <i class="fa fa-calendar" th:text="${article.xdate}"></i>
-
+                            <div>
+                                <span class="fa fa-user"></span>
+                                <span class="text">User</span>&nbsp;
+                                <span class="fa fa-calendar"></span>
+                                <span class="text" th:text="${article.xdate}" />
+                            </div>
                         </div>
 
                     </div>
