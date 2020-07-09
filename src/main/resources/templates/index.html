@@ -9,11 +9,6 @@
 
         <div class="hero__img">
 
-            <!-- 			<h1> -->
-            <!-- 				<span>Trouvez</span> <span>des</span> <span>personnes</span> <span>partageant</span> -->
-            <!-- 				<span>les</span> <span>mêmes</span> <span>idées.</span> <br> -->
-            <!-- 				<span>Apprenez</span> <span>des</span> <span>professionnels.</span> -->
-            <!-- 			</h1> -->
             <div th:replace="fragments/popup::auth__window" />
             <div th:replace="fragments/popup::new__user" />
 
@@ -51,11 +46,8 @@
     </div>
 
     <footer th:replace="fragments/footer::footer" />
+    <th:block th:include="fragments/scripts :: scripts"></th:block>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/custom.js}"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
     <script>
         $(document).ready(function() {
