@@ -1,80 +1,94 @@
 <!DOCTYPE html>
-<html>
-<head th:replace="fragments/header::head" />
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="fragments/header::common_head" />
+    <th:block th:include="fragments/header::main_head" />
+    <th:block th:include="fragments/header::profile" />
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
 
 <body>
-    <header th:replace="fragments/header::header" />
-    <div class="profile__wrapper">
-        <main>
-            <div class="left__panel">
-                <div class="user__image__holder">
-                    <span class="fa fa-user"></span>
+
+    <header th:replace="fragments/header::header"></header>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col col-lg-3 col-md-4 col-sm-6">
+
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-lg-8">
+                        <div class="image_holder">
+                            <img class="image_preview" src="" alt="">
+                            <img class="image_preview" src="C:\Temp\files\f78428c3-a82e-4b63-8c4c-2e25a9eee5b1_2020-07-16.jpg" alt="" style="display: inline;">
+                        </div>
+                    </div>
+
                 </div>
-                <a id="image__loader" href=""><span class="fa fa-pencil-square-o"></span></a>
-            </div>
-            <div class="rigth__panel">
-                <div class="user__details">
-                    <form class="form__content" action="">
-                        <div class="field__holder">
-                            <label for="userfirstnameId">Nom</label>
-                            <input type="text" name="userfirstname" id="userfirstnameId">
+                <div class="row image_upload justify-content-center align-items-center">
+
+                    <form id="imageFormID" th:action="@{'/loadImage/' + ${usr.id}}" method="POST" enctype="multipart/form-data">
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="file" name="file" aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
                         </div>
-                        <div class="field__holder">
-                            <label for="usersecondnameId">Prenom</label>
-                            <input type="text" name="usersecondname" id="usersecondnameId">
-                        </div>
-                        <div class="field__holder">
-                            <label for="userprofessionId">Métiers ou les disciplines artistiques</label>
-                            <select name="userprofession" id="userprofessionId">
-                    <option value="">Realisateur</option>
-                    <option value="">Realisateur</option>
-                    <option value="">Realisateur</option>
-                    <option value="">Realisateur</option>
-                    </select>
-                        </div>
-                        <div class="field__holder">
-                            <label for="usercountryId">Pays de résidence</label>
-                            <select name="usercountry" id="usercountryId">
-                    <option value=""></option>
-                    </select>
-                        </div>
-                        <div class="field__holder">
-                            <label for="usernationalityId">Nationalité</label>
-                            <input type="text" name="usernationality" id="usernationalityId">
-                        </div>
-                        <div class="field__holder">
-                            <label for="userageId">Âge</label>
-                            <input type="text" name="userage" id="userageId">
-                        </div>
-                        <button type="submit">Submit</button>
+
+                        <button type="submit" class="btn btn-primary">Load</button>
                     </form>
+
                 </div>
+
             </div>
-        </main>
+            <div class=" col col-lg-9 col-md-8 col-sm-6">
+                <form id="mainProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
+                    <div class="form-group">
+                        <label for="nameID">Prenom</label>
+                        <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" th:name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="surnameID">Nom</label>
+                        <input type="text" class="form-control" id="surnameID" placeholder="Votre nom" th:name="surname">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="countryID">Pays</label>
+                        <select class="form-control" name="" id="countryID" th:name="country">
+                            <option>Select the country...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nationalityID">Nationalite</label>
+                        <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" th:name="nationality">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ageID">Age</label>
+                        <input type="text" class="form-control" id="ageID" placeholder="Age" th:name="age">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
     </div>
-    <footer th:replace="fragments/footer::footer" />
-    <th:block th:include="fragments/scripts :: scripts"></th:block>
-
-
-    <script>
-        $(document).ready(function() {
-
-            var url = "https://restcountries.eu/rest/v2/all";
-
-            $.getJSON(url, function(data) {
-                $.each(data, function(index, value) {
-                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
-                    $('#countries').append($('<option></option>').val(value.name).html(value.name));
-                });
-            });
-
-            // SHOW SELECTED VALUE.
-            $('#countries').change(function() {
-                $('#msg').text('Selected Item: ' + this.options[this.selectedIndex].text);
-            });
-        });
-    </script>
 
 </body>
+
+<footer th:replace="fragments/footer::footer"></footer>
+
+<th:block th:include="fragments/scripts::scripts"></th:block>
+<th:block th:include="fragments/scripts::profile"></th:block>
+
+
 
 </html>

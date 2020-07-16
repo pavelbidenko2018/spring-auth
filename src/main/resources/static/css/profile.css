@@ -1,0 +1,37 @@
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.container .image_upload {
+    margin-top: 20px;
+    border: 1px solid #eee;
+}
+
+.container .left-row {
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    background: #eee;
+}
+
+.image_holder {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 50%;
+    text-align: center;
+    border: 2px solid var(--color-yellow)
+}
+
+
+/* .image_holder:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+} */
+
+.image_preview {
+    display: none;
+    width: 140px;
+    border-radius: 50%;
+}

@@ -23,7 +23,7 @@ public class Registration {
 		return "registration";
 	}
 
-	@PostMapping("registration")
+	@PostMapping("/addUser")
 	public String addUser(@RequestParam String username, @RequestParam String email, @RequestParam String pwd, @RequestParam String repwd, Model model) {
 		
 		if(!pwd.equals(repwd)) {
