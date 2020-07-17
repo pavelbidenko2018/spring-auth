@@ -4,9 +4,9 @@ $(document).ready(function() {
 });
 
 function loadUserData() {
-    $("#mainProfileForm").submit(function(e) {
+    $("#mainProfileForm").submit(function(event) {
         debugger;
-        e.preventDefault();
+        event.preventDefault();
         const form = $(this);
         $.ajax({
             type: "POST",
@@ -30,38 +30,63 @@ function loadUserData() {
 }
 
 function loadUserImage() {
+    let res = '';
 
-    $('#imageFormID').on('submit', function(e) {
-        debugger;
+    $('#imageFormID').submit(function(e) {
         e.preventDefault();
-
-        const form = $(this);
-
+        const requestURL = $(this).attr('action');
         let fd = new FormData();
         let files = $('#file')[0].files[0];
-
         fd.append("file", files);
 
+
+        uploadWithAjax(requestURL, fd, files)
+            .then((response) => {
+
+                $('.image_preview').attr('src', res);
+                $('.image_preview').show();
+
+                $('.image_preview').attr('src', response.status);
+                $('.image_preview').show();
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+        setTimeout(function() {}, 1000);
+
+    });
+
+}
+
+function uploadWithAjax(requestURL, fd, files) {
+
+    return new Promise((resolve, reject) => {
         $.ajax({
             type: "POST",
-            url: $(form).attr('action'),
+            url: requestURL,
             data: fd,
             contentType: false,
             processData: false,
             success: function(response) {
-                if (response.status !== 'error') {
-                    $('.image_preview').attr('src', response.status);
-                    $('.image_preview').show();
-                }
+                res = response;
+                resolve(response);
+
             },
 
             error: function(jqXHR, status, errorThrown) {
-                console.log(jqXHR.responseText);
+                reject(jqXHR, status, errorThrown)
             }
 
-        })
+        });
     })
+
 }
+
+// if (imgPath !== '') {
+//     $(".image_preview").attr('src', imgPath);
+//     $(".image_preview").show();
+// }
 
 // function submitWithAjaxRequest(blob, form) {
 //     let fileName = $('#file').val();

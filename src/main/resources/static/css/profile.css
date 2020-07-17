@@ -15,7 +15,7 @@
     background: #eee;
 }
 
-.image_holder {
+.image_placeholder {
     width: 100%;
     background-color: #ddd;
     border-radius: 50%;
@@ -23,15 +23,8 @@
     border: 2px solid var(--color-yellow)
 }
 
-
-/* .image_holder:after {
+.image_placeholder:after {
     content: "";
     display: block;
     padding-bottom: 100%;
-} */
-
-.image_preview {
-    display: none;
-    width: 140px;
-    border-radius: 50%;
 }

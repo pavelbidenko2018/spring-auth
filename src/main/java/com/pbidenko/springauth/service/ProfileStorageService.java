@@ -39,24 +39,27 @@ public class ProfileStorageService {
 	public String saveImage(MultipartFile file, int id) {
 
 		Path path = null;
+		String originalFileName = file.getOriginalFilename();
+		String newImagePath = getStorageName(originalFileName);
 		try {
 			byte[] bytes = file.getBytes();
+	
 
 			String userImageLocation = fileLocation + "/" + id + "/";
-			String originalFileName = file.getOriginalFilename();
+			
 
-			path = Paths.get(fileLocation + getStorageName(originalFileName));
+			path = Paths.get(fileLocation + newImagePath);
 
 			Files.write(path, bytes);
 			
-			profileRepository.updatePhoto(getStorageName(originalFileName));
+			profileRepository.updatePhoto(newImagePath);
 		
 	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return path.toString();	
+		return "/users/" + newImagePath;	
 
 	}
 
