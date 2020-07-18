@@ -1,12 +1,11 @@
 package com.pbidenko.springauth.controller;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.pbidenko.springauth.entity.Usr;
 import com.pbidenko.springauth.entity.UsrProfile;
@@ -31,7 +29,7 @@ public class ProfileController {
 
 	@Autowired
 	UsrStorageService usrStorageService;
-	
+
 	@GetMapping("/my_profile")
 	public String profile(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -74,11 +72,20 @@ public class ProfileController {
 
 	@PostMapping("/loadImage/{id}")
 	@ResponseBody
-	Map<String, Object> loadImage(@RequestParam("file") MultipartFile file,@PathVariable int id) {
-		Map<String, Object> response = new HashMap<String, Object>();		
-		
+	Map<String, Object> loadImage(@RequestParam("image") String imageString, @PathVariable int id) {
+		Map<String, Object> response = new HashMap<String, Object>();
+		byte[] decodedBytes = null;
+		String partSeparator = ",";
+		if (imageString.contains(partSeparator)) {
+			String encodedImg = imageString.split(partSeparator)[1];
+			 decodedBytes = Base64.getDecoder().decode(encodedImg.getBytes(StandardCharsets.UTF_8));
+
+		} else {
+			decodedBytes = Base64.getDecoder().decode(imageString.getBytes(StandardCharsets.UTF_8));
+		}
+
 		try {
-			String success = profileStorageService.saveImage(file,id);
+			String success = profileStorageService.saveImage(decodedBytes, id);
 			response.put("status", success);
 		} catch (Exception e) {
 			response.computeIfPresent("status", (k, v) -> v = "error");

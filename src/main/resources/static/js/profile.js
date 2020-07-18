@@ -1,9 +1,55 @@
 $(document).ready(function() {
+
+
+    $image_crop = $('#image_demo').croppie({
+        enableExif: true,
+        viewport: {
+            width: 180,
+            height: 180,
+            type: 'circle' //square
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+    });
+
+    $('#file').on('change', function() {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            $image_crop.croppie('bind', {
+                url: event.target.result
+            }).then(function() {
+                console.log('jQuery bind complete');
+            });
+        }
+        reader.readAsDataURL(this.files[0]);
+        $('#uploadimageModal').modal('show');
+    });
+
+    $('.save_upload').click(function(event) {
+        $image_crop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function(response) {
+            $.ajax({
+                url: "/loadImage/1",
+                type: "POST",
+                data: { "image": response },
+                success: function(result) {
+                    $('#uploadimageModal').modal('hide');
+                    $('.image_holder').html(result.status);
+                }
+            });
+        })
+    });
+
     loadUserData();
-    loadUserImage();
+
 });
 
 function loadUserData() {
+
     $("#mainProfileForm").submit(function(event) {
         debugger;
         event.preventDefault();
@@ -29,59 +75,61 @@ function loadUserData() {
 
 }
 
-function loadUserImage() {
+$('.crop_image').click(function(event) {
+    $image_crop.croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+    }).then(function(response) {
+        $.ajax({
+            url: "upload.php",
+            type: "POST",
+            data: { "image": response },
+            success: function(data) {
+                $('#uploadimageModal').modal('hide');
+                $('#uploaded_image').html(data);
+            }
+        });
+    })
+});
+
+$("#fuck").click(function(e) {
+    e.preventDefault();
+    loadUserImage(1);
+})
+
+
+function loadUserImage(id) {
     let res = '';
 
-    $('#imageFormID').submit(function(e) {
-        e.preventDefault();
-        const requestURL = $(this).attr('action');
-        let fd = new FormData();
-        let files = $('#file')[0].files[0];
-        fd.append("file", files);
+    const requestURL = `/loadImage/${id}`;
+    let fd = new FormData();
+    let files = $('#file')[0].files[0];
+    fd.append("file", files);
 
+    uploadWithAjax(requestURL, fd, files);
 
-        uploadWithAjax(requestURL, fd, files)
-            .then((response) => {
-
-                $('.image_preview').attr('src', res);
-                $('.image_preview').show();
-
-                $('.image_preview').attr('src', response.status);
-                $('.image_preview').show();
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-
-        setTimeout(function() {}, 1000);
-
-    });
 
 }
 
 function uploadWithAjax(requestURL, fd, files) {
 
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            type: "POST",
-            url: requestURL,
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                res = response;
-                resolve(response);
+    $.ajax({
+        type: "POST",
+        url: requestURL,
+        data: fd,
+        contentType: false,
+        processData: false,
+        timeout: 30000, // sets timeout to 3 seconds
+        success: function(response) {
+            $('.image_holder').html(('<b>  Order Id selected: <img src="' + response.status + '" alt="Smiley face "></b>'))
+        },
 
-            },
+        error: function(jqXHR, status, errorThrown) {}
 
-            error: function(jqXHR, status, errorThrown) {
-                reject(jqXHR, status, errorThrown)
-            }
-
-        });
-    })
-
+    });
 }
+
+
 
 // if (imgPath !== '') {
 //     $(".image_preview").attr('src', imgPath);

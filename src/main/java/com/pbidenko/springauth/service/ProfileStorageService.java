@@ -36,39 +36,45 @@ public class ProfileStorageService {
 	}
 
 	@Transactional
-	public String saveImage(MultipartFile file, int id) {
+	public String saveImage(byte[] imageBytes, int id) {
 
 		Path path = null;
-		String originalFileName = file.getOriginalFilename();
-		String newImagePath = getStorageName(originalFileName);
-		try {
-			byte[] bytes = file.getBytes();
+		String originalFileName = getStorageName();
 	
-
+		try {
+			
 			String userImageLocation = fileLocation + "/" + id + "/";
 			
+			path = Paths.get(fileLocation + originalFileName);
 
-			path = Paths.get(fileLocation + newImagePath);
-
-			Files.write(path, bytes);
+			Files.write(path, imageBytes);
 			
-			profileRepository.updatePhoto(newImagePath);
+			profileRepository.updatePhoto(originalFileName);
 		
 	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "/users/" + newImagePath;	
+		StringBuilder responseBuilder = new StringBuilder();
+//		responseBuilder.append("<img th:src=\"@{/users/");
+//		responseBuilder.append(originalFileName);
+//		responseBuilder.append("}\" alt=\"profile image\">");
+		
+		responseBuilder.append("<img src=\"/users/");
+		responseBuilder.append(originalFileName);
+		responseBuilder.append("\" alt=\"profile image\">");
+		
+		System.out.println(responseBuilder);
+		return responseBuilder.toString();	
 
 	}
 
-	private String getStorageName(String originalFileName) {
+	private String getStorageName() {
 
-		String extention = originalFileName.substring(originalFileName.lastIndexOf("."));
 		String storageFileName = UUID.randomUUID().toString() + "_"
 				+ new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		return storageFileName + extention;
+		return storageFileName + ".png";
 	}
 
 }

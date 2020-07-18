@@ -18,34 +18,45 @@
             <div class="col col-lg-3 col-md-4 col-sm-6">
 
                 <div class="row justify-content-center align-items-center">
-                    <div class="col-lg-8">
-                        <div class="image_holder">
-                            <img class="image_preview" src="" alt="">
-                        </div>
+
+                    <div class="image_holder">
                     </div>
 
                 </div>
                 <div class="row image_upload justify-content-center align-items-center">
 
-                    <form id="imageFormID" th:action="@{'/loadImage/' + ${usr.id}}" method="POST" enctype="multipart/form-data">
+                    <div class="custom_file">
 
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="file" name="file" aria-describedby="inputGroupFileAddon01">
-                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                            </div>
-                        </div>
+                        <label for="file"><span class="fa fa-edit"></span> 
+                        <input type="file" class="custom-file-input" id="file" name="file">
+                        </label>
 
-                        <button type="submit" class="btn btn-primary">Load</button>
-                    </form>
+                    </div>
 
                 </div>
 
+                <div class="modal" id="uploadimageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="image_demo" style="width:350px; margin-top:20px"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary save_upload">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class=" col col-lg-9 col-md-8 col-sm-6">
+            <div class="col col-lg-9 col-md-8 col-sm-6">
                 <form id="mainProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
                     <div class="form-group">
                         <label for="nameID">Prenom</label>
