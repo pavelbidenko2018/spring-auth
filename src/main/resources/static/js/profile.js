@@ -26,7 +26,7 @@ $(document).ready(function() {
         $('#uploadimageModal').modal('show');
     });
 
-    loadUserData();
+
     loadImage();
 
 });
@@ -46,6 +46,7 @@ function loadImage() {
                 success: function(result) {
                     $('#uploadimageModal').modal('hide');
                     $('.image_holder').html(result.status);
+                    location.reload();
                 }
             }).done(function(result) {
                 location.reload();
@@ -61,48 +62,3 @@ function setInFrame(result) {
     $('.image_holder').html(result.status);
 
 }
-
-function loadUserData() {
-
-    $("#mainProfileForm").submit(function(event) {
-        debugger;
-        event.preventDefault();
-        const form = $(this);
-        $.ajax({
-            type: "POST",
-            url: $(form).attr('action'),
-            data: $(form).serialize(),
-            dataType: "json",
-
-            success: function(data) {
-                if (data.status == 'success') {
-                    $(form)[0].reset();
-                }
-            },
-
-            error: function(jqXHR, status, errorThrown) {
-                console.log(jqXHR.responseText);
-            }
-
-        })
-    })
-
-}
-
-// $('.save_upload').click(function(event) {
-//     $image_crop.croppie('result', {
-//         type: 'canvas',
-//         size: 'viewport'
-//     }).then(function(response) {
-//         $.ajax({
-//             url: "/loadImage/1",
-//             type: "POST",
-//             data: { "image": response },
-//             success: function(result) {
-//                 $('#uploadimageModal').modal('hide');
-//                 $('.image_holder').html(result.status);
-//                 alert('Picture is uploaded...');
-//             }
-//         });
-//     })
-// });
