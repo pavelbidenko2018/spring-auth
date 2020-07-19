@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="fragments/header::common_head" />
+    <th:block th:include="fragments/header::main_head" />
+    <th:block th:include="fragments/header::profile" />
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+
+<body>
+
+    <header th:replace="fragments/header::header"></header>
+	<h1>ThiS IS UPDATE PAGE</h1>
+    <div class="container">
+
+        <div class="row">
+            <div class="col col-lg-3 col-md-4 col-sm-6">
+
+                <div class="row justify-content-center align-items-center">
+
+                    <div class="image_holder">
+                    <img th:src = "@{'/users/' + ${profile.userpic}}"/>
+                    </div>
+
+                </div>
+                <div class="row image_upload justify-content-center align-items-center">
+
+                    <div class="custom_file">
+
+                        <label for="file"><span class="fa fa-edit"></span> 
+                                <input type="file" class="custom-file-input" id="file" name="file">
+                            </label>
+
+                    </div>
+
+                </div>
+
+                <div class="modal" id="uploadimageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="image_demo" style="width:350px; margin-top:20px"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary save_upload" th:value="${usr.id}">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col col-lg-9 col-md-8 col-sm-6">
+                <form id="mainProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
+                    <div class="form-group">
+                        <label for="nameID">Prenom</label>
+                        <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" th:name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="surnameID">Nom</label>
+                        <input type="text" class="form-control" id="surnameID" placeholder="Votre nom" th:name="surname">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="countryID">Pays</label>
+                        <select class="form-control" name="" id="countryID" th:name="country">
+                            <option>Select the country...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nationalityID">Nationalite</label>
+                        <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" th:name="nationality">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ageID">Age</label>
+                        <input type="text" class="form-control" id="ageID" placeholder="Age" th:name="age">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="msg"></div>
+
+    </div>
+
+</body>
+
+<footer th:replace="fragments/footer::footer"></footer>
+
+<th:block th:include="fragments/scripts::scripts"></th:block>
+<th:block th:include="fragments/scripts::profile"></th:block>
+
+
+
+</html>

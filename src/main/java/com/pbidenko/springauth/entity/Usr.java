@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -34,6 +35,9 @@ public class Usr {
 	@Column(name = "pwd")
 	private String pwd;
 	
+	@OneToOne(mappedBy = "authUser")
+	private UsrProfile profile;
+		
 	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 	@CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "usr_id"))
 	@Enumerated(EnumType.STRING)
@@ -105,5 +109,15 @@ public class Usr {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+
+	public UsrProfile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(UsrProfile profile) {
+		this.profile = profile;
+	}
+	
+	
 
 }
