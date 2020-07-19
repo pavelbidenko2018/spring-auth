@@ -11,10 +11,10 @@ import org.springframework.stereotype.Repository;
 import com.pbidenko.springauth.entity.UsrProfile;
 
 @Repository
-public interface UsrProfileRepo extends CrudRepository<UsrProfile, Long>{
+public interface UsrProfileRepo extends CrudRepository<UsrProfile, Integer>{
 		
 	public Iterable<UsrProfile> findAll();
-	public Optional<UsrProfile> findById(long id);
+	public Optional<UsrProfile> findById(int id);
 	
 	@Modifying
 	@Query(value = "update UsrProfile u set userpic =:photo where authUser = 1")

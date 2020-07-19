@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
     $image_crop = $('#image_demo').croppie({
         enableExif: true,
         viewport: {
@@ -27,26 +26,41 @@ $(document).ready(function() {
         $('#uploadimageModal').modal('show');
     });
 
+    loadUserData();
+    loadImage();
+
+});
+
+function loadImage() {
     $('.save_upload').click(function(event) {
+        let val = $(this).val();
         $image_crop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function(response) {
             $.ajax({
-                url: "/loadImage/1",
+                url: "loadImage/" + val,
                 type: "POST",
+                cache: false,
                 data: { "image": response },
                 success: function(result) {
                     $('#uploadimageModal').modal('hide');
                     $('.image_holder').html(result.status);
                 }
-            });
+            }).done(function(result) {
+                location.reload();
+
+            })
+
         })
-    });
+    })
+}
 
-    loadUserData();
+function setInFrame(result) {
 
-});
+    $('.image_holder').html(result.status);
+
+}
 
 function loadUserData() {
 
@@ -75,92 +89,20 @@ function loadUserData() {
 
 }
 
-$('.crop_image').click(function(event) {
-    $image_crop.croppie('result', {
-        type: 'canvas',
-        size: 'viewport'
-    }).then(function(response) {
-        $.ajax({
-            url: "upload.php",
-            type: "POST",
-            data: { "image": response },
-            success: function(data) {
-                $('#uploadimageModal').modal('hide');
-                $('#uploaded_image').html(data);
-            }
-        });
-    })
-});
-
-$("#fuck").click(function(e) {
-    e.preventDefault();
-    loadUserImage(1);
-})
-
-
-function loadUserImage(id) {
-    let res = '';
-
-    const requestURL = `/loadImage/${id}`;
-    let fd = new FormData();
-    let files = $('#file')[0].files[0];
-    fd.append("file", files);
-
-    uploadWithAjax(requestURL, fd, files);
-
-
-}
-
-function uploadWithAjax(requestURL, fd, files) {
-
-    $.ajax({
-        type: "POST",
-        url: requestURL,
-        data: fd,
-        contentType: false,
-        processData: false,
-        timeout: 30000, // sets timeout to 3 seconds
-        success: function(response) {
-            $('.image_holder').html(('<b>  Order Id selected: <img src="' + response.status + '" alt="Smiley face "></b>'))
-        },
-
-        error: function(jqXHR, status, errorThrown) {}
-
-    });
-}
-
-
-
-// if (imgPath !== '') {
-//     $(".image_preview").attr('src', imgPath);
-//     $(".image_preview").show();
-// }
-
-// function submitWithAjaxRequest(blob, form) {
-//     let fileName = $('#file').val();
-//     let formArr = $('#mainform').serializeArray();
-//     let formData = new FormData()
-//     formData.append('file', blob, fileName);
-//     $.each(formArr, function(index, item) {
-//         formData.append(item.name, item.value);
-//     })
-
-//     $.ajax({
-//         url: $(form).attr('action'),
-//         type: 'POST',
-//         cache: false,
-//         contentType: false,
-//         processData: false,
-//         data: formData,
-//         success: function(data) {
-//             if (data.status == 'success') {
-//                 location.reload();
-//             } else {
-//                 alert("Failed to upload image")
+// $('.save_upload').click(function(event) {
+//     $image_crop.croppie('result', {
+//         type: 'canvas',
+//         size: 'viewport'
+//     }).then(function(response) {
+//         $.ajax({
+//             url: "/loadImage/1",
+//             type: "POST",
+//             data: { "image": response },
+//             success: function(result) {
+//                 $('#uploadimageModal').modal('hide');
+//                 $('.image_holder').html(result.status);
+//                 alert('Picture is uploaded...');
 //             }
-//         },
-//         error: function(jqXHR, status, errorThrown) {
-//             alert("Failed to upload image");
-//         }
+//         });
 //     })
-// }
+// });
