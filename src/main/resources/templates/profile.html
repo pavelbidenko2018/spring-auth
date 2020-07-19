@@ -20,17 +20,17 @@
                 <div class="row justify-content-center align-items-center">
 
                     <div class="image_holder">
-                    <img th:src = "@{'/users/' + ${profile.userpic}}"/>
+                        <img th:src="@{'/users/' + ${profile.userpic}}" />
                     </div>
 
                 </div>
                 <div class="row image_upload justify-content-center align-items-center">
 
                     <div class="custom_file">
+                        <form action="#">
+                            <input type="file" id="file" name="file">
+                        </form>
 
-                        <label for="file"><span class="fa fa-edit"></span> 
-                                <input type="file" class="custom-file-input" id="file" name="file">
-                            </label>
 
                     </div>
 
@@ -58,40 +58,10 @@
 
             </div>
             <div class="col col-lg-9 col-md-8 col-sm-6">
-                <form id="mainProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
-                    <div class="form-group">
-                        <label for="nameID">Prenom</label>
-                        <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" th:name="name">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="surnameID">Nom</label>
-                        <input type="text" class="form-control" id="surnameID" placeholder="Votre nom" th:name="surname">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="countryID">Pays</label>
-                        <select class="form-control" name="" id="countryID" th:name="country">
-                            <option>Select the country...</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nationalityID">Nationalite</label>
-                        <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" th:name="nationality">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ageID">Age</label>
-                        <input type="text" class="form-control" id="ageID" placeholder="Age" th:name="age">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
             </div>
         </div>
 
-        <div id="msg"></div>
 
     </div>
 
