@@ -1,9 +1,12 @@
 package com.pbidenko.springauth.service;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
@@ -11,9 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.pbidenko.springauth.entity.Usr;
 import com.pbidenko.springauth.entity.UsrProfile;
+import com.pbidenko.springauth.exception.ProfileNotFoundException;
 import com.pbidenko.springauth.repository.UsrProfileRepo;
 import com.pbidenko.springauth.repository.UsrRepo;
 
@@ -36,7 +40,17 @@ public class ProfileStorageService {
 	}
 
 	@Transactional
-	public String saveImage(byte[] imageBytes, int id) {
+	public String saveImage(String imageString, int id) {
+		
+		byte[] decodedBytes = null;
+		String partSeparator = ",";
+		if (imageString.contains(partSeparator)) {
+			String encodedImg = imageString.split(partSeparator)[1];
+			 decodedBytes = Base64.getDecoder().decode(encodedImg.getBytes(StandardCharsets.UTF_8));
+
+		} else {
+			decodedBytes = Base64.getDecoder().decode(imageString.getBytes(StandardCharsets.UTF_8));
+		}
 
 		Path path = null;
 		String originalFileName = getStorageName();
@@ -44,10 +58,14 @@ public class ProfileStorageService {
 		try {
 			
 			String userImageLocation = fileLocation + "/" + id + "/";
+						
+			File dir = new File(userImageLocation);
+			if(!dir.exists()) dir.mkdirs();
 			
-			path = Paths.get(fileLocation + originalFileName);
-
-			Files.write(path, imageBytes);
+			path = Paths.get(dir.toString() + "/" + originalFileName);
+		
+			
+			Files.write(path, decodedBytes);
 			
 			profileRepository.updatePhoto(originalFileName);
 		
@@ -57,19 +75,22 @@ public class ProfileStorageService {
 		}
 		
 		StringBuilder responseBuilder = new StringBuilder();
-//		responseBuilder.append("<img th:src=\"@{/users/");
-//		responseBuilder.append(originalFileName);
-//		responseBuilder.append("}\" alt=\"profile image\">");
-		
+
 		responseBuilder.append("<img src=\"/users/");
 		responseBuilder.append(originalFileName);
 		responseBuilder.append("\" alt=\"profile image\">");
 		
-		System.out.println(responseBuilder);
 		return responseBuilder.toString();	
 
 	}
 
+	public UsrProfile findByUsr(Usr usr) throws ProfileNotFoundException {
+		
+		int usrID = usr.getId();
+		UsrProfile profile = profileRepository.findById(usrID).orElseThrow(()->new ProfileNotFoundException(usrID));
+		return profile;
+	}
+	
 	private String getStorageName() {
 
 		String storageFileName = UUID.randomUUID().toString() + "_"
