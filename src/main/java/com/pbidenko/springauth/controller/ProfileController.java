@@ -1,5 +1,7 @@
 package com.pbidenko.springauth.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
