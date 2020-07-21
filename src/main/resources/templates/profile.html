@@ -20,7 +20,7 @@
                 <div class="row justify-content-center align-items-center">
 
                     <div class="image_holder">
-                        <img id="userpic" th:if="${profile.userpic!=null}" th:src="@{'/users/' + ${usr.id} + '/' + ${profile.userpic}}">
+                        <img id="userpic" th:if="${profile!=null}" th:src="@{'/users/' + ${usr.id} + '/' + ${profile.userpic}}">
                     </div>
 
                 </div>
