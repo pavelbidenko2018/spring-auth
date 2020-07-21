@@ -14,7 +14,7 @@
 
     <div class="container">
 
-        <div class="row">
+        <div class="row row_main">
             <div class="col col-lg-3 col-md-4 col-sm-6">
 
                 <div class="row justify-content-center align-items-center">
@@ -27,11 +27,9 @@
                 <div class="row image_upload justify-content-center align-items-center">
 
                     <div class="custom_file">
-
                         <label for="file"><span class="fa fa-edit"></span> 
                         <input type="file" class="custom-file-input" id="file" name="file">
                         </label>
-
                     </div>
 
                 </div>
@@ -58,48 +56,53 @@
 
             </div>
             <div class="col col-lg-9 col-md-8 col-sm-6">
-                <form id="mainProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
-                    <div class="form-group">
-                        <label for="nameID">Prenom</label>
-                        <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" th:name="name">
-                    </div>
+                <div>
+                    <form id="mainProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
 
-                    <div class="form-group">
-                        <label for="surnameID">Nom</label>
-                        <input type="text" class="form-control" id="surnameID" placeholder="Votre nom" th:name="surname">
-                    </div>
+                        <div class="inline_block">
+                            <label for="nameID">Prenom:</label>
+                            <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" th:name="name" th:value="${profile.name}" th:readonly="${true}">
+                            <span class="fa fa-edit editable"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="countryID">Pays</label>
-                        <select class="form-control" name="" id="countryID" th:name="country">
+                        <div class="inline_block">
+                            <label for="surnameID">Nom:</label>
+                            <input type="text" class="form-control" id="surnameID" placeholder="Votre nom" th:name="surname" th:value="${profile.surname}" th:readonly="${true}">
+                            <span class="fa fa-edit editable"></span>
+                        </div>
+
+                        <div class="inline_block">
+                            <label for="countryID">Pays:</label>
+                            <select class="form-control" name="" id="countryID" th:name="country">
                             <option>Select the country...</option>
                         </select>
-                    </div>
+                            <span class="fa fa-edit editable"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="nationalityID">Nationalite</label>
-                        <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" th:name="nationality">
-                    </div>
+                        <div class="inline_block">
+                            <label for="nationalityID">Nationalite:</label>
+                            <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" th:name="nationality" th:value="${profile.nationality}" th:readonly="${true}">
+                            <span class="fa fa-edit editable"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="ageID">Age</label>
-                        <input type="text" class="form-control" id="ageID" placeholder="Age" th:name="age">
-                    </div>
+                        <div class="inline_block">
+                            <label for="ageID">Age:</label>
+                            <input type="text" class="form-control" id="ageID" placeholder="Age" th:name="age" th:value="${profile.age}" th:readonly="${true}">
+                            <span class="fa fa-edit editable"></span>
+                        </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
             </div>
         </div>
 
     </div>
 
+    <footer th:replace="fragments/footer::footer"></footer>
 </body>
-
-<footer th:replace="fragments/footer::footer"></footer>
-
 <th:block th:include="fragments/scripts::scripts"></th:block>
 <th:block th:include="fragments/scripts::profile"></th:block>
-
-
 
 </html>
