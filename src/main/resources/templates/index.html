@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <th:block th:include="fragments/header::common_head" />
+    <th:block th:include="fragments/header::main_head" />
+</head>
+
+<body>
+    <div class="site-wrapper">
+        <header th:replace="fragments/header :: header" />
+
+        <div class="hero__img">
+
+            <div th:replace="fragments/popup::auth__window" />
+            <div th:replace="fragments/popup::new__user" />
+
+        </div>
+
+        <main>
+            <section class="news__section">
+
+                <!-- Post slider -->
+                <div class="post__slider">
+                    <h1 class="slider__title">Dernier commentaires</h1>
+                    <i class="fa fa-chevron-left prev"></i> <i class="fa fa-chevron-right next"></i>
+
+                    <div class="post__wrapper">
+                        <div class="post" th:each="article:${activeArticleList}">
+
+                            <div>
+                                <img class="slider__image" th:src="'data:image/jpeg;base64,' + ${article.base64imageFile}" alt="nouvelle_img">
+                            </div>
+
+                            <div>
+                                <span class="fa fa-user"></span>
+                                <span class="text">User</span>&nbsp;
+                                <span class="fa fa-calendar"></span>
+                                <span class="text" th:text="${article.xdate}" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+            <!-- End of news-section -->
+        </main>
+    </div>
+
+    <footer th:replace="fragments/footer::footer" />
+    <th:block th:include="fragments/scripts :: scripts"></th:block>
+
+
+    <script>
+        $(document).ready(function() {
+            $('.post__wrapper').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: false,
+                autoplaySpeed: 2000,
+                nextArrow: $('.next'),
+                prevArrow: $('.prev'),
+            });
+        })
+    </script>
+
+</body>
+
+</html>

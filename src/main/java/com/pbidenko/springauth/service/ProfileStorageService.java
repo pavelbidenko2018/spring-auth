@@ -19,7 +19,6 @@ import com.pbidenko.springauth.entity.Usr;
 import com.pbidenko.springauth.entity.UsrProfile;
 import com.pbidenko.springauth.exception.ProfileNotFoundException;
 import com.pbidenko.springauth.repository.UsrProfileRepo;
-import com.pbidenko.springauth.repository.UsrRepo;
 
 @Service
 public class ProfileStorageService {
@@ -28,7 +27,9 @@ public class ProfileStorageService {
 	private UsrProfileRepo profileRepository;
 
 	@Autowired
-	private UsrRepo usrRepository;
+	private UsrStorageService usrService;
+	
+	
 
 	@Value("${image.file}")
 	String fileLocation;
@@ -67,7 +68,7 @@ public class ProfileStorageService {
 			
 			Files.write(path, decodedBytes);
 			
-			profileRepository.updatePhoto(originalFileName);
+			profileRepository.updatePhoto(originalFileName,usrService.findById(String.valueOf(id)));
 		
 	
 		} catch (Exception e) {

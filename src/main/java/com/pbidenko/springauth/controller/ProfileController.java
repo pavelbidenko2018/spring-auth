@@ -1,5 +1,7 @@
 package com.pbidenko.springauth.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +51,7 @@ public class ProfileController {
 			model.addAttribute("profile", profile);
 			
 		} catch (ProfileNotFoundException e) {
+			model.addAttribute("profile", null);
 			e.printStackTrace();
 		}
 
