@@ -27,9 +27,7 @@ public class ProfileStorageService {
 	private UsrProfileRepo profileRepository;
 
 	@Autowired
-	private UsrStorageService usrService;
-	
-	
+	private UsrStorageService usrService;	
 
 	@Value("${image.file}")
 	String fileLocation;
@@ -63,8 +61,7 @@ public class ProfileStorageService {
 			File dir = new File(userImageLocation);
 			if(!dir.exists()) dir.mkdirs();
 			
-			path = Paths.get(dir.toString() + "/" + originalFileName);
-		
+			path = Paths.get(dir.toString() + "/" + originalFileName);		
 			
 			Files.write(path, decodedBytes);
 			
@@ -97,6 +94,12 @@ public class ProfileStorageService {
 		String storageFileName = UUID.randomUUID().toString() + "_"
 				+ new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		return storageFileName + ".png";
+	}
+
+	public void updateProfile(UsrProfile profileExists) {
+					
+		profileRepository.save(profileExists);
+		
 	}
 
 }

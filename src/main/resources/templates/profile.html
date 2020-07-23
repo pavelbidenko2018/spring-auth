@@ -73,9 +73,9 @@
 
                         <div class="inline_block">
                             <label for="countryID">Pays:</label>
-                            <select class="form-control" name="" id="countryID" th:name="country">
-                            <option>Select the country...</option>
-                        </select>
+                            <select id="countryID" class="country form-control" th:name="country" th:value="${profile.country}">
+                                <option th:value = "${profile.country}" th:text="${profile.country}"></option>
+                            </select>
                             <span class="fa fa-edit editable"></span>
                         </div>
 
@@ -92,6 +92,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        <div id="mainFormSplashID" class="splash_window"></div>
                     </form>
                 </div>
 

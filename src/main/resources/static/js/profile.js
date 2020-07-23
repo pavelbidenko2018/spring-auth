@@ -55,13 +55,33 @@ $(document).ready(function() {
             $(this).siblings("input").attr('readonly', null);
 
         }
-
     )
-
 
     loadUserData();
 
+    populateCountries();
+
 });
+
+function populateCountries() {
+
+    let dropdown = $("#countryID");
+    const url = "https://restcountries.eu/rest/v2/all";
+
+    // dropdown.empty();
+
+    //  dropdown.append('<option selected="true" disabled>Choose State/Province</option>');
+    dropdown.prop('selectedIndex', 0);
+
+    $.getJSON(url, gotData);
+}
+
+function gotData(data) {
+
+    $(data).each(function(index, item) {
+        $("#countryID").append($("<option />").val(item.name).text(item.name));
+    });
+}
 
 function loadUserData() {
 
@@ -76,7 +96,8 @@ function loadUserData() {
             dataType: "json",
 
             success: function(data) {
-                if (data.status == 'success') {
+                if (data.status !== null) {
+                    showInfoBox(data.status);
                     $(form)[0].reset();
                 }
             },
@@ -88,4 +109,16 @@ function loadUserData() {
         })
     })
 
+}
+
+function showInfoBox(status) {
+    let splash = $("#mainFormSplashID");
+
+    splash.empty();
+    splash.append((status === "edit") ? "Data updated" : "Data send OK")
+        .css("display", 'block')
+        .delay(1000)
+        .fadeIn(500, function() {
+            $(this).fadeOut(500);
+        });
 }

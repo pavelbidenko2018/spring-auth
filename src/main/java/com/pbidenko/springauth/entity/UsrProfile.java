@@ -113,6 +113,17 @@ public class UsrProfile {
 	public void setProfessionSet(Set<ProfessionsClassified> professionSet) {
 		this.professionSet = professionSet;
 	}
+
+	public int getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 

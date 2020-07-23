@@ -38,22 +38,20 @@ public class ProfileController {
 			username = ((UserDetails) principal).getUsername();
 		} else {
 			username = principal.toString();
-		}		
+		}
 
 		Usr usr = usrStorageService.findByEmail(username);
 		model.addAttribute("username", username);
 		model.addAttribute("usr", usr);
-		
+
 		try {
 			UsrProfile profile = profileStorageService.findByUsr(usr);
 			model.addAttribute("profile", profile);
-			
+
 		} catch (ProfileNotFoundException e) {
 			model.addAttribute("profile", null);
 			e.printStackTrace();
 		}
-
-	
 
 		return "profile";
 	}
@@ -63,16 +61,27 @@ public class ProfileController {
 	public Map<String, Object> saveProfile(UsrProfile profile, @PathVariable String id) {
 
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("status", "success");
+		response.put("status", null);
 
 		Usr usr = usrStorageService.findById(id);
-		profile.setAuthUser(usr);
 
 		try {
+			UsrProfile profileExists = profileStorageService.findByUsr(usr);
+			
+			profileExists.setName(profile.getName());
+			profileExists.setSurname(profile.getSurname());
+			profileExists.setAge(profile.getAge());
+			profileExists.setCountry(profile.getCountry());
+			profileExists.setProfessionSet(profile.getProfessionSet());
+			profileExists.setNationality(profile.getNationality());
+					
+			profileStorageService.save(profileExists);	
+			response.compute("status", (k, v) -> v = "edit");
+			
+		} catch (ProfileNotFoundException e) {
+			profile.setAuthUser(usr);
 			profileStorageService.save(profile);
-		} catch (Exception e) {
-
-			response.computeIfPresent("status", (k, v) -> v = "failure");
+			response.compute("status", (k, v) -> v = "add");
 		}
 
 		return response;
@@ -83,12 +92,12 @@ public class ProfileController {
 	@ResponseBody
 	Map<String, Object> loadImage(@RequestParam("image") String imageString, @PathVariable int id) {
 		Map<String, Object> response = new HashMap<String, Object>();
-	
+
 		try {
 			String success = profileStorageService.saveImage(imageString, id);
 			response.put("status", success);
 		} catch (Exception e) {
-			
+
 			response.computeIfPresent("status", (k, v) -> v = "error");
 		}
 
