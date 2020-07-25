@@ -13,92 +13,9 @@
     <header th:replace="fragments/header::header"></header>
 
     <div class="container">
-
-        <div class="row row_main">
-            <div class="col col-lg-3 col-md-4 col-sm-6">
-
-                <div class="row justify-content-center align-items-center">
-
-                    <div class="image_holder">
-                        <img id="userpic" th:if="${profile!=null}" th:src="@{'/users/' + ${usr.id} + '/' + ${profile.userpic}}">
-                    </div>
-
-                </div>
-                <div class="row image_upload justify-content-center align-items-center">
-
-                    <div class="custom_file">
-                        <label for="file"><span class="fa fa-edit"></span> 
-                        <input type="file" class="custom-file-input" id="file" name="file">
-                        </label>
-                    </div>
-
-                </div>
-
-                <div class="modal" id="uploadimageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="image_demo" style="width:350px; margin-top:20px"></div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary save_upload" th:value="${usr.id}">Upload</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col col-lg-9 col-md-8 col-sm-6">
-                <div>
-                    <form id="mainProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
-
-                        <div class="inline_block">
-                            <label for="nameID">Prenom:</label>
-                            <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" th:name="name" th:value="${profile.name}" th:readonly="${true}">
-                            <span class="fa fa-edit editable"></span>
-                        </div>
-
-                        <div class="inline_block">
-                            <label for="surnameID">Nom:</label>
-                            <input type="text" class="form-control" id="surnameID" placeholder="Votre nom" th:name="surname" th:value="${profile.surname}" th:readonly="${true}">
-                            <span class="fa fa-edit editable"></span>
-                        </div>
-
-                        <div class="inline_block">
-                            <label for="countryID">Pays:</label>
-                            <select id="countryID" class="country form-control" th:name="country" th:value="${profile.country}">
-                                <option th:value = "${profile.country}" th:text="${profile.country}"></option>
-                            </select>
-                            <span class="fa fa-edit editable"></span>
-                        </div>
-
-                        <div class="inline_block">
-                            <label for="nationalityID">Nationalite:</label>
-                            <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" th:name="nationality" th:value="${profile.nationality}" th:readonly="${true}">
-                            <span class="fa fa-edit editable"></span>
-                        </div>
-
-                        <div class="inline_block">
-                            <label for="ageID">Age:</label>
-                            <input type="text" class="form-control" id="ageID" placeholder="Age" th:name="age" th:value="${profile.age}" th:readonly="${true}">
-                            <span class="fa fa-edit editable"></span>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <div id="mainFormSplashID" class="splash_window"></div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-
+   		<th:block th:include = "fragments/cropper::image_cropper"></th:block>
+        <th:block th:if="${profile==null}" th:include="fragments/new_profile::newprofile"></th:block>
+        <th:block th:unless="${profile==null}" th:include="fragments/edit_profile::editprofile"></th:block>
     </div>
 
     <footer th:replace="fragments/footer::footer"></footer>
@@ -107,3 +24,23 @@
 <th:block th:include="fragments/scripts::profile"></th:block>
 
 </html>
+
+
+<!-- -Photo
+-Champ de texte :
+Parcours artistique (1500 signes espaces compris)
+-Espace pour télécharger Cv (pdf, word)
+-Titre du projet
+-Champ de texte :
+Description du projet (3000 signes espaces compris)
+ 
+-Espace pour télécharger des fichiers (pdf et image)
+ 
+-Espace pour télécharger des liens vidéo, ou (idéal) application YouTube
+ou autre qui permet de voir les vidéos téléchargées sans quitter la
+plateforme. 
+ 
+- Champ de texte sous chaque information (dans description du projet,
+chaque photos et vidéo) du profil (sous forme de commentaire ou de
+publication) afin que les autres utilisateurs puissent laisser leurs
+commentaires. -->

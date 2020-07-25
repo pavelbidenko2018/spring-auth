@@ -1,3 +1,6 @@
+/*custom font*/
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
 :root {
     --color-red: #68232d;
     --color-green: #566e3d;
@@ -10,8 +13,8 @@
     --news-mod-color: ##FBFBF8;
 }
 
+
 body {
-    font-family: 'Roboto' !important;
     font-family: 'Quicksand' !important;
     font-size: 14px;
     font-weight: normal;
@@ -55,6 +58,7 @@ body {
 
 .site__navigation {
     padding: 0;
+    margin:0;
     list-style: none;
 }
 

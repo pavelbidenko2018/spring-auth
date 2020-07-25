@@ -61,6 +61,8 @@ $(document).ready(function() {
 
     populateCountries();
 
+    stepBar();
+
 });
 
 function populateCountries() {
@@ -69,8 +71,8 @@ function populateCountries() {
     const url = "https://restcountries.eu/rest/v2/all";
 
     // dropdown.empty();
-
     //  dropdown.append('<option selected="true" disabled>Choose State/Province</option>');
+
     dropdown.prop('selectedIndex', 0);
 
     $.getJSON(url, gotData);
@@ -121,4 +123,41 @@ function showInfoBox(status) {
         .fadeIn(500, function() {
             $(this).fadeOut(500);
         });
+}
+
+function stepBar() {
+    debugger;
+    const previousBtn = $("#previous");
+    const nextBtn = $("#next");
+    const finishBtn = $("#finish");
+    const bullets = [...$(".bullet")];
+    const content = $("#content");
+
+    const MAX_STEPS = 3;
+    let currentStep = 1;
+
+    $(nextBtn).click(() => {
+        $(bullets[currentStep - 1]).addClass('completed');
+        currentStep++;
+        $(previousBtn).prop('disabled', false);
+        if (currentStep === MAX_STEPS) {
+            $(nextBtn).prop('disabled', true);
+            $(finishBtn).prop('disabled', false);
+        }
+        $(content).text(`Step ${currentStep}`);
+    });
+    $(previousBtn).click(() => {
+        $(bullets[currentStep - 2]).removeClass('completed');
+        currentStep--;
+        $(finishBtn).prop('disabled', false);
+        $(nextBtn).prop('disabled', false);
+        if (currentStep === 1) {
+            $(previousBtn).prop('disabled', true);
+        }
+    })
+
+    $(finishBtn).click(() => {
+        location.reload();
+    })
+
 }
