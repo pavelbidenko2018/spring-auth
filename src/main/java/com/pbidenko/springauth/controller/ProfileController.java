@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.pbidenko.springauth.entity.Usr;
 import com.pbidenko.springauth.entity.UsrProfile;
@@ -55,10 +56,16 @@ public class ProfileController {
 
 		return "profile";
 	}
-
+	
 	@PostMapping("/saveProfile/{id}")
+	public ModelAndView saveProfile(UsrProfile profile, @RequestParam String profdescription, @RequestParam String project) {
+		
+		return new ModelAndView("redirect:/my_profile");
+	}
+
+	@PostMapping("/updateProfile/{id}")
 	@ResponseBody
-	public Map<String, Object> saveProfile(UsrProfile profile, @PathVariable String id) {
+	public Map<String, Object> updateProfile(UsrProfile profile, @PathVariable String id) {
 
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("status", null);

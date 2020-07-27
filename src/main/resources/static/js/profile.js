@@ -178,7 +178,7 @@ function stepBar() {
 
     $(previousBtn).click(() => {
         $(bullets[currentStep - 1]).removeClass('completed').addClass('active');
-        $(bullets[currentStep]).removeClass('active');
+        $(bullets[currentStep]).removeClasss('active');
 
         $(finishBtn).prop('disabled', false);
         $(nextBtn).prop('disabled', false);
