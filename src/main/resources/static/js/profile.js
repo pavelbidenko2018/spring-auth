@@ -61,6 +61,10 @@ $(document).ready(function() {
 
     populateCountries();
 
+    populateProfessions();
+
+    addProject();
+
     stepBar();
 
 });
@@ -70,19 +74,39 @@ function populateCountries() {
     let dropdown = $("#countryID");
     const url = "https://restcountries.eu/rest/v2/all";
 
-    // dropdown.empty();
-    //  dropdown.append('<option selected="true" disabled>Choose State/Province</option>');
+    dropdown.prop('selectedIndex', 0);
+
+    $.getJSON(url, getCountries);
+}
+
+function populateProfessions() {
+    let dropdown = $("professionID");
+
+    let url = "./js/professions.json";
 
     dropdown.prop('selectedIndex', 0);
 
-    $.getJSON(url, gotData);
+    $.getJSON(url, getProfessions);
 }
 
-function gotData(data) {
+function getProfessions(data) {
+    console.log(data);
+    $(data).each(function(index, item) {
+        $('#professionID').append($("<option />").val(item.function).text(item.function))
+    })
+}
+
+function getCountries(data) {
 
     $(data).each(function(index, item) {
         $("#countryID").append($("<option />").val(item.name).text(item.name));
     });
+}
+
+function addProject() {
+    $('#addProjectBtn').click(event => {
+        $('.project_info').show();
+    })
 }
 
 function loadUserData() {
@@ -131,29 +155,40 @@ function stepBar() {
     const nextBtn = $("#next");
     const finishBtn = $("#finish");
     const bullets = [...$(".bullet")];
+    const fieldsets = [...$("fieldset")];
     const content = $("#content");
 
-    const MAX_STEPS = 3;
-    let currentStep = 1;
+    const MAX_STEPS = 4;
+    let currentStep = 2;
 
     $(nextBtn).click(() => {
-        $(bullets[currentStep - 1]).addClass('completed');
-        currentStep++;
+        $(bullets[currentStep - 1]).addClass('completed').removeClass('active');
+        $(bullets[currentStep]).addClass('active');
         $(previousBtn).prop('disabled', false);
-        if (currentStep === MAX_STEPS) {
+
+        $(content).text(`Step ${currentStep}`);
+        $(fieldsets[currentStep - 2]).hide();
+        $(fieldsets[currentStep - 1]).show();
+
+        if (currentStep === MAX_STEPS - 1) {
             $(nextBtn).prop('disabled', true);
             $(finishBtn).prop('disabled', false);
-        }
-        $(content).text(`Step ${currentStep}`);
+        } else { currentStep++; }
     });
+
     $(previousBtn).click(() => {
-        $(bullets[currentStep - 2]).removeClass('completed');
-        currentStep--;
+        $(bullets[currentStep - 1]).removeClass('completed').addClass('active');
+        $(bullets[currentStep]).removeClass('active');
+
         $(finishBtn).prop('disabled', false);
         $(nextBtn).prop('disabled', false);
-        if (currentStep === 1) {
+        $(fieldsets[currentStep - 1]).hide();
+        $(fieldsets[currentStep - 2]).show();
+
+        if (currentStep === 2) {
             $(previousBtn).prop('disabled', true);
-        }
+        } else currentStep--;
+
     })
 
     $(finishBtn).click(() => {

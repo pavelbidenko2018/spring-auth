@@ -1,11 +1,11 @@
 .container {
+    min-width: 400px;
     margin-top: 20px;
     margin-bottom: 20px;
     background: #f5f5f5;
     padding: 20px;
     border-radius: 10px;
 }
-
 
 .container .image_upload {
     margin-top: 20px;
@@ -23,11 +23,39 @@
     background: #eee;
 }
 
+
+/*********************************/
+
 .image_holder {
     height: 185px;
     width: 185px;
-	background: #f5f5f5;    
-    border-radius: 100%;  
+    background: #f5f5f5;
+    border-radius: 100%;
+}
+
+.image_holder2 {
+    border: 1px solid #fff;
+    height: 185px;
+    width: 185px;
+    background: #f5f5f5;
+    border-radius: 100%;
+    position: relative;
+}
+
+.image_holder2 span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 10em;
+}
+
+
+/*********************************/
+
+.custom_file>label {
+    margin: 0;
 }
 
 .custom_file>label>span {
@@ -51,6 +79,7 @@ label {
 }
 
 .inline_block {
+    margin: 20px 0;
     display: flex;
     align-items: center;
 }
@@ -66,23 +95,28 @@ label {
     padding: 20px;
 }
 
-#mainProfileForm,
-#imageForm {
-    position: relative;
-    border-radius: 3px;
+#profile_form {
+    width: 90%;
+    margin: 20px 0;
 }
 
-#mainProfileForm fieldset,
-#imageForm fieldset {
+fieldset {
     background: white;
     border: 0 none;
     border-radius: 3px;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.4);
     padding: 20px 30px;
+    margin: 30px 0;
     box-sizing: border-box;
-    width: 90%;
-    margin: 0 10%;
     position: relative;
+}
+
+fieldset.professional_info {
+    display: none;
+}
+
+fieldset.project_info {
+    display: none;
 }
 
 .splash_window {
@@ -100,8 +134,20 @@ label {
     transform: translate(-50%, -50%);
 }
 
+#addProjectBtn {
+    padding: 5px 10px;
+    border: 1px solid var(--color-navy);
+    transition: 250ms background-color;
+}
 
-/* **************************** */
+#addProjectBtn:hover {
+    cursor: pointer;
+    background-color: var(--color-navy);
+    color: white;
+}
+
+
+/******************************/
 
 
 /*custom font*/
@@ -116,18 +162,6 @@ label {
 }
 
 
-/*form styles*/
-
-.form_holder {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    background-color: DodgerBlue;
-}
-
-
 /* Progress bar */
 
 .hidden {
@@ -136,13 +170,13 @@ label {
 
 .response button {
     padding: 5px 10px;
-    border: 1px solid black;
+    border: 1px solid var(--color-navy);
     transition: 250ms background-color;
 }
 
 .response button:hover {
     cursor: pointer;
-    background-color: black;
+    background-color: var(--color-navy);
     color: white;
 }
 
@@ -156,15 +190,20 @@ label {
 }
 
 .bar_container {
-    max-width: 400px;
+    width: 70%;
+    min-width: 400px;
     margin: 20px auto 0 auto;
-    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #stepProgressBar {
-    width: 300px;
+    width: 90%;
+    min-width: 400px;
     margin: 0 auto;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -176,31 +215,49 @@ label {
 
 .step-text {
     margin-bottom: 10px;
-    color: #28a745;
+    color: var(--color-navy);
+}
+
+.bullet_holder {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.step {
+    font-size: 0.8em;
+    color: var(--color-blue);
+    width: 12%;
 }
 
 .bullet {
-    height: 20px;
-    width: 20px;
+    height: 32px;
+    width: 32px;
     border-radius: 100%;
-    border: 1px solid #28a745;
+    border: 1px solid var(--color-navy);
     position: relative;
     display: inline-block;
     transition: background-color 500ms;
-    line-height: 20px;
+    line-height: 32px;
+    font-size: 1.25em;
 }
 
 .bullet.completed {
     color: #fff;
-    background: #28a745;
+    background: var(--color-navy);
+}
+
+.bullet.active {
+    color: #fff;
+    background: var(--color-yellow);
 }
 
 .bullet.completed::after {
     content: '';
     position: absolute;
     height: 4px;
-    width: 100px;
-    background: #28a745;
-    bottom: 8px;
-    right: -106px;
+    width: 173px;
+    background: var(--color-navy);
+    bottom: 14px;
+    right: -173px;
 }

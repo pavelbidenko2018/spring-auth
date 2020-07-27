@@ -1,90 +1,105 @@
 <!-- Profile form for new user -->
 <th:block th:fragment="newprofile">
-   
+
     <div class="bar_container">
 
         <div id="stepProgressBar">
 
             <div class="step">
-                <p class="step-text">Step 1</p>
-                <div class="bullet">1</div>
+                <p class="step-text">Registration</p>
+                <div class="bullet completed">1</div>
             </div>
             <div class="step">
-                <p class="step-text">Step 2</p>
-                <div class="bullet">2</div>
+                <p class="step-text">General</p>
+                <div class="bullet active">2</div>
             </div>
             <div class="step">
-                <p class="step-text">Step 3</p>
+                <p class="step-text">Professionale</p>
                 <div class="bullet">3</div>
             </div>
-
-        </div>      
-        <div class="">
-            <div class="image_holder">
-                   <img id="userpic" th:if="${profile!=null}" th:src="@{'/users/' + ${usr.id} + '/' + ${profile.userpic}}">
+            <div class="step">
+                <p class="step-text">Projects</p>
+                <div class="bullet">4</div>
             </div>
-            
-            <div class="image_upload justify-content-center align-items-center">
 
-                <div class="custom_file">
-                    <label for="file"><span class="fa fa-edit"></span> 
+        </div>
+
+        <!-- <div class="image_holder2">
+            <span class="fa fa-user"></span>
+            <img id="userpic" th:if="${profile!=null}" th:src="@{'/users/' + ${usr.id} + '/' + ${profile.userpic}}">
+        </div>
+
+        <div class="image_upload">
+            <div class="custom_file">
+                <label for="file"><span class="fa fa-edit"></span> 
                     <input type="file" class="custom-file-input" id="file" name="file">
                     </label>
+            </div>
+        </div> -->
+
+        <form id="profile_form" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
+            <fieldset class="main_info">
+                <div class="inline_block">
+
+                    <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" aria-label="Prenom" th:name="name">
+
                 </div>
 
+                <div class="inline_block">
+                    <input type="text" class="form-control" id="surnameID" placeholder="Votre nom" aria-label="Nom" th:name="surname">
+                </div>
+
+                <div class="inline_block">
+
+                    <select id="countryID" class="country form-control" th:name="country" aria-label="Pays">
+                    <option value="">Votre pays...</option> 
+                    </select>
+
+                </div>
+
+                <div class="inline_block">
+                    <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" aria-label="Nationalite" th:name="nationality">
+                </div>
+
+                <div class="inline_block">
+                    <input type="text" class="form-control" id="ageID" placeholder="Age" aria-label="Age" th:name="age">
+                </div>
+
+            </fieldset>
+
+            <fieldset class="professional_info">
+
+                <div class="inline_block">
+                    <select id="professionID" class="profession form-control" aria-label="Profession" th:name="profession">
+                    <option value="">Votre metier artistique...</option>
+                    </select>
+                </div>
+
+                <div class="inline_block">
+                    <textarea class="form-control" th:name="profdescription" id="" cols="30" rows="10">Parcours artistique</textarea>
+                </div>
+
+            </fieldset>
+
+            <fieldset class="project_info">
+                <div class="inline_block">
+                    <textarea class="form-control" th:name="project" id="" cols="30" rows="10">Description du projet</textarea>
+                </div>
+            </fieldset>
+
+            <div id="mainFormSplashID" class="splash_window"></div>
+
+            <div class="response">
+                <p id="content">Step Number 1</p>
+                <button type="button" id="previous" disabled>Prevoius</button>
+                <button type="button" id="next">Next</button>
+                <button id="finish" type="submit">Finish</button>
             </div>
-          
-                <form id="mainProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
 
-                    <div class="inline_block">
-                        <label for="nameID">Prenom:</label>
-                        <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" th:name="name">
-                       
-                    </div>
-
-                    <div class="inline_block">
-                        <label for="surnameID">Nom:</label>
-                        <input type="text" class="form-control" id="surnameID" placeholder="Votre nom" th:name="surname">
-                       
-                    </div>
-
-                    <div class="inline_block">
-                        <label for="countryID">Pays:</label>
-                        <select id="countryID" class="country form-control" th:name="country">
-                        </select>
-                       
-                    </div>
-
-                    <div class="inline_block">
-                        <label for="nationalityID">Nationalite:</label>
-                        <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" th:name="nationality">
-                       
-                    </div>
-
-                    <div class="inline_block">
-                        <label for="ageID">Age:</label>
-                        <input type="text" class="form-control" id="ageID" placeholder="Age" th:name="age">
-                       
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <div id="mainFormSplashID" class="splash_window"></div>
-                
-        
         </form>
-        
-        </div>
-
-        <div class="response">
-            <p id="content">Step Number 1</p>
-            <button id="previous" disabled>Prevoius</button>
-            <button id="next">Next</button>
-            <button id="finish" disabled>Finish</button>
-        </div>
 
     </div>
 
 </th:block>
 
 <!-- End of new user block -->
-

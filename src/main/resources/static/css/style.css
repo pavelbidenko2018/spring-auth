@@ -13,7 +13,6 @@
     --news-mod-color: ##FBFBF8;
 }
 
-
 body {
     font-family: 'Quicksand' !important;
     font-size: 14px;
@@ -25,7 +24,7 @@ body {
 
 .main__header {
     width: 100%;
-    background: #333;
+    background: var(--color-blue);
 }
 
 .main__header nav {
@@ -46,19 +45,19 @@ body {
 
 .logo__holder img {
     display: block;
-    margin-right: 20px;
+    margin-right: 15px;
     width: 80px;
 }
 
 .logo__holder p {
-    font-size: 1.75em;
-    color: var(--color-yellow);
+    font-size: 1.25em;
+    color: #fff;
     margin: 0;
 }
 
 .site__navigation {
     padding: 0;
-    margin:0;
+    margin: 0;
     list-style: none;
 }
 

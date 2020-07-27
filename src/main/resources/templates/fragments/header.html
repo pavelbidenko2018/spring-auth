@@ -2,39 +2,40 @@
     <th:block th:fragment="common_head">
         <meta charset="ISO-8859-1">
     </th:block>
-    <title>Insert title here</title>
 
     <th:block th:fragment="main_head">
         <meta charset="ISO-8859-1">
-        <title>Insert title here</title>
+        <title>Javier</title>
         <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
         <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.css">
         <link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" href="../static/css/fontawesome.min.css">
         <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css">
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     </th:block>
+
     <th:block th:fragment="profile">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-        <!-- <link rel="stylesheet" th:href="@{/css/bootstrap.css}"> -->
         <link rel="stylesheet" th:href="@{/css/croppie.css}">
         <link rel="stylesheet" th:href="@{/css/bootstrap-grid.css}">
+        <link rel="stylesheet" th:href="@{/css/profile.css}" href="../static/css/profile.css">
     </th:block>
+
 </head>
 
 <header class="main__header">
     <nav>
         <div class=logo__holder>
-            <img th:src="@{/images/logo-eps.png}" alt="logo">
+            <img th:src="@{/images/logo-eps2.png}" alt="logo">
             <p>kommunalka</p>
         </div>
 
-        <ul class="site__navigation">
+        <!-- <ul class="site__navigation">
             <li><a href="#">A propos</a></li>
             <li><a href="#">Formation</a></li>
             <li><a href="#">Artistes associes</a></li>
             <li><a href="#">Nouvelles</a></li>
             <li><a href="#">Kommunalka</a></li>
-        </ul>
+        </ul> -->
 
         <div class="hidden__menu">
             <div class="burger">
@@ -59,11 +60,11 @@
             </a>
         </div>
 
-        <ul class="language__menu">
+        <!-- <ul class="language__menu">
             <li><a href="#"><span>Fr</span></a></li>
             <li><a href="#"><span>En</span></a></li>
             <li><a href="#"><span>Fl</span></a></li>
-        </ul>
+        </ul> -->
     </nav>
 
 </header>
