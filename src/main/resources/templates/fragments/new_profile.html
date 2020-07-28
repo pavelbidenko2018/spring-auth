@@ -37,12 +37,10 @@
             </div>
         </div> -->
 
-        <form id="profile_form" th:action="@{'/saveProfile/' + ${usr.id}}" method="POST">
+        <form id="newProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" th:object="${profile}" enctype="multipart/form-data" method="POST">
             <fieldset class="main_info">
                 <div class="inline_block">
-
                     <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" aria-label="Prenom" th:name="name">
-
                 </div>
 
                 <div class="inline_block">
@@ -50,16 +48,16 @@
                 </div>
 
                 <div class="inline_block">
-
-                    <select id="countryID" class="country form-control" th:name="country" aria-label="Pays">
+                    <select class="country form-control" id="countryID" th:name="country" aria-label="Pays">
                     <option value="">Votre pays...</option> 
                     </select>
-
                 </div>
 
                 <div class="inline_block">
                     <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" aria-label="Nationalite" th:name="nationality">
                 </div>
+
+                <input type="hidden" th:name="filePath">
 
                 <div class="inline_block">
                     <input type="text" class="form-control" id="ageID" placeholder="Age" aria-label="Age" th:name="age">
@@ -70,27 +68,29 @@
             <fieldset class="professional_info">
 
                 <div class="inline_block">
-                    <select id="professionID" class="profession form-control" aria-label="Profession" th:name="profession">
+                    <select class="occupation form-control" id="occupationID" aria-label="Occupation" th:name="occupation">
                     <option value="">Votre metier artistique...</option>
                     </select>
                 </div>
 
                 <div class="inline_block">
-                    <textarea class="form-control" th:name="profdescription" id="" cols="30" rows="10">Parcours artistique</textarea>
+                    <textarea class="form-control" id="descriptionID" placeholder="Votre parsour artistique" th:name="description" cols="30" rows="10"></textarea>
                 </div>
 
             </fieldset>
 
             <fieldset class="project_info">
                 <div class="inline_block">
-                    <textarea class="form-control" th:name="project" id="" cols="30" rows="10">Description du projet</textarea>
+                    <textarea class="form-control" id="projectDescriptionID" placeholder="Description du projet" th:name="projectDescription" cols="30" rows="10"></textarea>
+                </div>
+                <div class="inline_block">
+                    <input type="file" class="form-control" id="projectFileID" th:name="projectFile">
                 </div>
             </fieldset>
 
             <div id="mainFormSplashID" class="splash_window"></div>
 
             <div class="response">
-                <!-- <p id="content">Step Number 1</p> -->
                 <button type="button" id="previous" disabled>Prevoius</button>
                 <button type="button" id="next">Next</button>
                 <button id="finish" type="submit">Finish</button>

@@ -9,10 +9,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pbidenko.springauth.entity.Usr;
@@ -48,17 +52,22 @@ public class ProfileController {
 		try {
 			UsrProfile profile = profileStorageService.findByUsr(usr);
 			model.addAttribute("profile", profile);
+			model.addAttribute("project", profile.getProject());
 
 		} catch (ProfileNotFoundException e) {
 			model.addAttribute("profile", null);
+			model.addAttribute("project",null);
 			e.printStackTrace();
 		}
 
 		return "profile";
 	}
-	
-	@PostMapping("/saveProfile/{id}")
-	public ModelAndView saveProfile(UsrProfile profile, @RequestParam String profdescription, @RequestParam String project) {
+
+	@PostMapping(value = "/saveProfile/{id}", consumes = "multipart/form-data")
+
+	public ModelAndView saveProfile(@ModelAttribute UsrProfile profile, @RequestPart MultipartFile projectFile) {
+		
+		profileStorageService.saveNewProfile(profile);
 		
 		return new ModelAndView("redirect:/my_profile");
 	}
@@ -74,19 +83,19 @@ public class ProfileController {
 
 		try {
 			UsrProfile profileExists = profileStorageService.findByUsr(usr);
-			
+
 			profileExists.setName(profile.getName());
 			profileExists.setSurname(profile.getSurname());
 			profileExists.setAge(profile.getAge());
 			profileExists.setCountry(profile.getCountry());
 			profileExists.setProfessionSet(profile.getProfessionSet());
 			profileExists.setNationality(profile.getNationality());
-					
-			profileStorageService.save(profileExists);	
+
+			profileStorageService.save(profileExists);
 			response.compute("status", (k, v) -> v = "edit");
-			
+
 		} catch (ProfileNotFoundException e) {
-			profile.setAuthUser(usr);
+//			profile.setAuthUser(usr);
 			profileStorageService.save(profile);
 			response.compute("status", (k, v) -> v = "add");
 		}

@@ -35,8 +35,8 @@ public class Usr {
 	@Column(name = "pwd")
 	private String pwd;
 	
-	@OneToOne(mappedBy = "authUser")
-	private UsrProfile profile;
+//	@OneToOne(mappedBy = "authUser")
+//	private UsrProfile profile;
 		
 	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 	@CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "usr_id"))
@@ -110,13 +110,13 @@ public class Usr {
 		this.pwd = pwd;
 	}
 
-	public UsrProfile getProfile() {
-		return profile;
-	}
-
-	public void setProfile(UsrProfile profile) {
-		this.profile = profile;
-	}
+//	public UsrProfile getProfile() {
+//		return profile;
+//	}
+//
+//	public void setProfile(UsrProfile profile) {
+//		this.profile = profile;
+//	}
 	
 	
 

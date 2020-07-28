@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pbidenko.springauth.entity.Project;
 import com.pbidenko.springauth.entity.Usr;
 import com.pbidenko.springauth.entity.UsrProfile;
 import com.pbidenko.springauth.exception.ProfileNotFoundException;
@@ -100,6 +101,17 @@ public class ProfileStorageService {
 					
 		profileRepository.save(profileExists);
 		
+	}
+
+	public void saveNewProfile(UsrProfile profile) {
+		
+		Project userProject = profile.getProject();
+		String userProjectFilePath = userProject.getFilePath();
+		
+		if(userProject.getFilePath()!=null) {
+			byte[] fileBytes;
+		};
+				
 	}
 
 }

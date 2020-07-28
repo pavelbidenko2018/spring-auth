@@ -15,6 +15,7 @@ $(document).ready(function() {
 
     $('#file').on('change', function() {
         var reader = new FileReader();
+
         reader.onload = function(event) {
             $image_crop.croppie('bind', {
                 url: event.target.result
@@ -67,6 +68,14 @@ $(document).ready(function() {
 
     stepBar();
 
+    $("#newProfileForm").submit(function(event) {
+
+        // event.preventDefault();
+        // const form = $(this);
+        // ajaxPost(form);
+
+    })
+
 });
 
 function populateCountries() {
@@ -80,7 +89,7 @@ function populateCountries() {
 }
 
 function populateProfessions() {
-    let dropdown = $("professionID");
+    let dropdown = $("occupationID");
 
     let url = "./js/professions.json";
 
@@ -90,9 +99,8 @@ function populateProfessions() {
 }
 
 function getProfessions(data) {
-    console.log(data);
     $(data).each(function(index, item) {
-        $('#professionID').append($("<option />").val(item.function).text(item.function))
+        $('#occupationID').append($("<option />").val(item.function).text(item.function))
     })
 }
 
@@ -109,16 +117,51 @@ function addProject() {
     })
 }
 
+function ajaxPost(form) {
+    // PREPARE FORM DATA
+    let formData = {
+        name: $("#nameID").val(),
+        surname: $("#surnameID").val(),
+        country: $("#countryID").val(),
+        age: $("#ageID").val(),
+        nationality: $("#nationalityID").val(),
+        occupation: $("#occupationID").val(),
+        decription: $("descriptionID").val(),
+        project: {
+            projectDescription: $("#projectDescriptionID").val(),
+            filePath: $("#filePathID").val()
+        }
+    }
+
+    console.log("formData before post: " + formData);
+
+    // DO POST
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: $(form).attr("action"),
+        data: JSON.stringify(formData),
+        dataType: 'json',
+        success: function(result) {},
+        error: function(e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
+    });
+
+}
+
 function loadUserData() {
 
     $("#mainProfileForm").submit(function(event) {
-        debugger;
+
         event.preventDefault();
         const form = $(this);
+
         $.ajax({
             type: "POST",
             url: $(form).attr('action'),
-            data: $(form).serialize(),
+            data: $(formData).serialize(),
             dataType: "json",
 
             success: function(data) {
@@ -150,6 +193,7 @@ function showInfoBox(status) {
 }
 
 function stepBar() {
+
     debugger;
     const previousBtn = $("#previous");
     const nextBtn = $("#next");
@@ -178,7 +222,7 @@ function stepBar() {
 
     $(previousBtn).click(() => {
         $(bullets[currentStep - 1]).removeClass('completed').addClass('active');
-        $(bullets[currentStep]).removeClasss('active');
+        $(bullets[currentStep]).removeClass('active');
 
         $(finishBtn).prop('disabled', false);
         $(nextBtn).prop('disabled', false);

@@ -95,12 +95,14 @@ label {
     padding: 20px;
 }
 
-#profile_form {
+#newProfileForm {
     width: 90%;
     margin: 20px 0;
 }
 
 fieldset {
+    width: 100%;
+    border: 1px solid red;
     background: white;
     border: 0 none;
     border-radius: 3px;

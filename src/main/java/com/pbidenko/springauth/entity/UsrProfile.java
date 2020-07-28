@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -14,7 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="usr_profile")
+@Table(name = "usr_profile")
 public class UsrProfile {
 
 	@Id
@@ -26,6 +27,9 @@ public class UsrProfile {
 	private String nationality;
 	private int age;
 	private String userpic;
+	
+	private String occupation;
+	private String description;
 
 	@OneToOne
 	@MapsId
@@ -34,8 +38,10 @@ public class UsrProfile {
 
 	@ElementCollection(targetClass = ProfessionsClassified.class, fetch = FetchType.EAGER)
 	@CollectionTable(name = "professions", joinColumns = @JoinColumn(name = "profile_id"))
-
 	private Set<ProfessionsClassified> professionSet = new HashSet<ProfessionsClassified>();
+
+	@Embedded
+	private Project project;
 
 	public UsrProfile() {
 	};
@@ -115,16 +121,36 @@ public class UsrProfile {
 	}
 
 	public int getId() {
-		// TODO Auto-generated method stub
 		return this.id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
-	
-	
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+		
 
 }
