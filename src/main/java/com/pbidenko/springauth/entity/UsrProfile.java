@@ -8,9 +8,10 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,6 +20,7 @@ import javax.persistence.Table;
 public class UsrProfile {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
@@ -32,8 +34,7 @@ public class UsrProfile {
 	private String description;
 
 	@OneToOne
-	@MapsId
-	@JoinColumn(name = "authID")
+	@JoinColumn(name = "authID",unique = true)
 	private Usr authUser;
 
 	@ElementCollection(targetClass = ProfessionsClassified.class, fetch = FetchType.EAGER)

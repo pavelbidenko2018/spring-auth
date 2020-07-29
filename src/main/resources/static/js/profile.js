@@ -68,14 +68,6 @@ $(document).ready(function() {
 
     stepBar();
 
-    $("#newProfileForm").submit(function(event) {
-
-        // event.preventDefault();
-        // const form = $(this);
-        // ajaxPost(form);
-
-    })
-
 });
 
 function populateCountries() {
@@ -161,7 +153,7 @@ function loadUserData() {
         $.ajax({
             type: "POST",
             url: $(form).attr('action'),
-            data: $(formData).serialize(),
+            data: $(form).serialize(),
             dataType: "json",
 
             success: function(data) {

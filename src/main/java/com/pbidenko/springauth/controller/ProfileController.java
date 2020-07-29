@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,7 +55,7 @@ public class ProfileController {
 
 		} catch (ProfileNotFoundException e) {
 			model.addAttribute("profile", null);
-			model.addAttribute("project",null);
+			model.addAttribute("project", null);
 			e.printStackTrace();
 		}
 
@@ -65,10 +64,11 @@ public class ProfileController {
 
 	@PostMapping(value = "/saveProfile/{id}", consumes = "multipart/form-data")
 
-	public ModelAndView saveProfile(@ModelAttribute UsrProfile profile, @RequestPart MultipartFile projectFile) {
-		
-		profileStorageService.saveNewProfile(profile);
-		
+	public ModelAndView saveProfile(@ModelAttribute UsrProfile profile, @RequestPart MultipartFile projectFile,
+			@RequestParam String projectDescription, @PathVariable String id) {
+
+		profileStorageService.saveNewProfile(profile, projectFile, projectDescription, id);
+
 		return new ModelAndView("redirect:/my_profile");
 	}
 
@@ -106,7 +106,7 @@ public class ProfileController {
 
 	@PostMapping("/loadImage/{id}")
 	@ResponseBody
-	Map<String, Object> loadImage(@RequestParam("image") String imageString, @PathVariable int id) {
+	Map<String, Object> loadImage(@RequestParam("image") String imageString, @PathVariable String id) {
 		Map<String, Object> response = new HashMap<String, Object>();
 
 		try {
