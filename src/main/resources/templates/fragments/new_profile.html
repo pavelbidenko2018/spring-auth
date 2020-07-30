@@ -24,19 +24,6 @@
 
         </div>
 
-        <!-- <div class="image_holder2">
-            <span class="fa fa-user"></span>
-            <img id="userpic" th:if="${profile!=null}" th:src="@{'/users/' + ${usr.id} + '/' + ${profile.userpic}}">
-        </div>
-
-        <div class="image_upload">
-            <div class="custom_file">
-                <label for="file"><span class="fa fa-edit"></span> 
-                    <input type="file" class="custom-file-input" id="file" name="file">
-                    </label>
-            </div>
-        </div> -->
-
         <form id="newProfileForm" th:action="@{'/saveProfile/' + ${usr.id}}" th:object="${profile}" enctype="multipart/form-data" method="POST">
             <fieldset class="main_info">
                 <div class="inline_block">

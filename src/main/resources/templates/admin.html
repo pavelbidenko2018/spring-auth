@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:replace="fragments/header :: head" />
+<head>
+    <th:block th:include="fragments/header::common_head" />
+    <th:block th:include="fragments/header::main_head" />
+    <th:block th:include="fragments/header::admin_head" />
+
+</head>
+
 
 <body>
 

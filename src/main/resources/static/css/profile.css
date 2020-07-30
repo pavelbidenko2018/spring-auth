@@ -39,6 +39,7 @@
     width: 185px;
     background: #f5f5f5;
     border-radius: 100%;
+    margin: 0 auto;
     position: relative;
 }
 
@@ -49,6 +50,7 @@
     transform: translate(-50%, -50%);
     color: #fff;
     font-size: 10em;
+    z-index: -1;
 }
 
 
@@ -79,14 +81,42 @@ label {
 }
 
 .inline_block {
-    margin: 20px 0;
+    margin-bottom: 15px;
+}
+
+.inline_block::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.col_25 {
+    width: 15%;
+    float: left;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.col_75 {
+    width: 83%;
+    float: left;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+}
+
+.col_25 h3 {
+    display: block;
+    text-align: left;
+    font-size: 1em;
+    font-weight: 700;
+    color: #333;
 }
 
 .inline_block .editable {
     margin-left: 10px;
     cursor: pointer;
+    display: inline-block;
 }
 
 .row_main {
@@ -95,14 +125,18 @@ label {
     padding: 20px;
 }
 
-#newProfileForm {
+#newProfileForm,
+#mainProfileForm {
     width: 90%;
     margin: 20px 0;
 }
 
+#newProfileForm label {
+    display: block;
+}
+
 fieldset {
     width: 100%;
-    border: 1px solid red;
     background: white;
     border: 0 none;
     border-radius: 3px;
@@ -117,8 +151,26 @@ fieldset.professional_info {
     display: none;
 }
 
+fieldset h2 {
+    clear: both;
+    margin: 30px 0 15px 0;
+    border-bottom: 1px solid var(--color-navy);
+    color: #333;
+    padding-bottom: 2px;
+    font-size: .9em;
+    font-weight: 600;
+    text-align: left;
+}
+
 fieldset.project_info {
     display: none;
+}
+
+legend {
+    color: #333;
+    font-size: 0.9em;
+    text-align: left;
+    text-decoration: ;
 }
 
 .splash_window {
@@ -262,4 +314,12 @@ fieldset.project_info {
     background: var(--color-navy);
     bottom: 14px;
     right: -173px;
+}
+
+@media screen and (max-width: 600px) {
+    .col_25,
+    .col_75 {
+        width: 100%;
+        margin-top: 0;
+    }
 }

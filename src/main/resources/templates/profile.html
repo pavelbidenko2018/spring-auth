@@ -5,7 +5,7 @@
     <th:block th:include="fragments/header::common_head" />
     <th:block th:include="fragments/header::main_head" />
     <th:block th:include="fragments/header::profile" />
- 
+
 </head>
 
 <body>
@@ -13,7 +13,7 @@
     <header th:replace="fragments/header::header"></header>
 
     <div class="container">
-   		<th:block th:include = "fragments/cropper::image_cropper"></th:block>
+        <th:block th:include="fragments/cropper::image_cropper"></th:block>
         <th:block th:if="${profile==null}" th:include="fragments/new_profile::newprofile"></th:block>
         <th:block th:unless="${profile==null}" th:include="fragments/edit_profile::editprofile"></th:block>
     </div>
