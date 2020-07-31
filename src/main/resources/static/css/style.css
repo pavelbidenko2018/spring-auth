@@ -43,6 +43,10 @@ body {
     margin-right: 10px;
 }
 
+a.gohome_link {
+text-decoration:none;	
+}
+
 .logo__holder img {
     display: block;
     margin-right: 15px;
