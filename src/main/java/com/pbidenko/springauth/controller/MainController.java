@@ -7,11 +7,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pbidenko.springauth.entity.Usr;
 import com.pbidenko.springauth.repository.UsrRepo;
 import com.pbidenko.springauth.service.ArticleStorageService;
+import com.pbidenko.springauth.service.EmailService;
 
 @Controller
 public class MainController {
@@ -21,6 +23,9 @@ public class MainController {
 	
 	@Autowired
 	ArticleStorageService articleStorageService;
+	
+	@Autowired 
+	EmailService emailService;
 
 	@GetMapping
 	public String index(@RequestParam(required = false, name = "name", defaultValue = "User") String name,
@@ -32,6 +37,13 @@ public class MainController {
 		model.addAttribute("activeArticleList", articleStorageService.getActiveArticleList());		
 
 		return "index";
+	}
+	
+	@PostMapping("/sendEmail")
+	@ResponseBody
+	public String sendEmail(@RequestParam String userEmail, @RequestParam String message) {
+		emailService.sendMail(userEmail, "test", message);
+		return "OK";
 	}
 
 	private String getAuthorizedUser() {

@@ -87,3 +87,38 @@ $(document).ready(
 
     }
 )
+
+$("#emailForm").submit(function(event) {
+    event.preventDefault();
+
+    const form = $(this);
+
+    $.ajax({
+            method: 'POST',
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function(response) {
+                form.trigger("reset");
+                showEmailInfoBox(response);
+            },
+            error: function(jqXHR, status, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+
+        }
+
+    )
+})
+
+function showEmailInfoBox(status) {
+    let splash = $(id);
+
+    splash.empty();
+    splash.append('Email envoyée OK');
+    splash.css("display", 'block')
+        .delay(1000)
+        .fadeIn(500, function() {
+            $(this).fadeOut(500);
+        });
+
+}

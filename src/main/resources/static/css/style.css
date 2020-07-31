@@ -44,7 +44,7 @@ body {
 }
 
 a.gohome_link {
-text-decoration:none;	
+    text-decoration: none;
 }
 
 .logo__holder img {
@@ -394,6 +394,21 @@ a.create-account:hover {
     padding: 5px;
     border-radius: 4px;
     opacity: 0.6;
+}
+
+.splash_window {
+    background: var(--color-yellow);
+    opacity: .8;
+    border-radius: 1em;
+    font-size: 1.125em;
+    color: #eee;
+    padding: 0.8em;
+    display: none;
+    max-width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 
