@@ -136,4 +136,7 @@ hs_err_pid*
 # Image files #
 src/main/resources/static/users/*.*
 
+# App properties #
+src/main/resources/static/application.properties
+
 # End of https://www.gitignore.io/api/java,eclipse
