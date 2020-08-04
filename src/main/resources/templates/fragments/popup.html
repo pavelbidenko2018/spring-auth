@@ -20,7 +20,7 @@
         </div>
 
         <div class="container">
-            <a href="#">Mot de passe oublié?</a>
+            <a class="create_account" th:href="@{/forgetPassword}">Mot de passe oublié?</a>
         </div>
 
         <div class="form-divider">
@@ -28,7 +28,7 @@
         </div>
 
         <div class="container">
-            <a class="create-account" onclick="document.getElementsByClassName('add__window')[0].style.display='block';" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
+            <a class="create_account" onclick="document.getElementsByClassName('add__window')[0].style.display='block';" href="#">Vous n'avez pas de compte? Créez-en un ici.</a>
         </div>
 
     </form>
@@ -54,15 +54,15 @@
             <label for="pwd">Mot de passe *</label>
             <input type="password" placeholder="Mot de passe *" th:name="pwd" required>
 
-            <label for="repwd">R�p�ter le mot de passe *</label>
+            <label for="repwd">Répéter le mot de passe *</label>
             <input type="password" placeholder="Mot de passe *" th:name="repwd" required>
 
             <button type="submit">S'identifier</button>
         </div>
 
-        <div class="container">
-            <a href="#">Mot de passe oubli�?</a>
-        </div>
+        <!-- <div class="container">
+            <a href="#">Mot de passe oublié?</a>
+        </div> -->
 
         <div class="form-divider">
             <h5>Ou</h5>

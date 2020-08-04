@@ -74,7 +74,7 @@ public class ProfileController {
 
 	@PostMapping("/updateProfile/{id}")
 	@ResponseBody
-	public Map<String, Object> updateProfile(UsrProfile profile, @PathVariable String id) {
+	public Map<String, Object> updateProfile(@ModelAttribute("profile") UsrProfile profile, @PathVariable String id) {
 
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("status", null);
@@ -84,13 +84,9 @@ public class ProfileController {
 		try {
 			UsrProfile profileExists = profileStorageService.findByUsr(usr);
 
-			profileExists.setName(profile.getName());
-			profileExists.setSurname(profile.getSurname());
-			profileExists.setAge(profile.getAge());
-			profileExists.setCountry(profile.getCountry());
-			profileExists.setProfessionSet(profile.getProfessionSet());
-			profileExists.setNationality(profile.getNationality());
-
+			profileExists = profile;
+			profileExists.setAuthUser(usr);
+			
 			profileStorageService.save(profileExists);
 			response.compute("status", (k, v) -> v = "edit");
 

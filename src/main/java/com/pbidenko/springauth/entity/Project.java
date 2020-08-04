@@ -1,10 +1,12 @@
 package com.pbidenko.springauth.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class Project {
 
+	@Column(name="project_descr",length=3000)
 	private String projectDescription;
 	private String filePath;
 

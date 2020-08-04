@@ -23,8 +23,11 @@ body {
 }
 
 .main__header {
+    /* position: fixed;
+    top: 0; */
     width: 100%;
     background: var(--color-blue);
+    z-index: 1000;
 }
 
 .main__header nav {
@@ -283,8 +286,9 @@ a.registration__link span {
 }
 
 .form__content {
+    width: 60%;
     padding: 20px;
-    color: #fff;
+    background: #fff;
 }
 
 .popup {
@@ -321,6 +325,10 @@ a.registration__link span {
     text-align: center;
     margin: 20px 0;
     position: relative;
+}
+
+.form-divider h5 {
+    color: var(--color-orange);
 }
 
 .form-divider h5::before {
@@ -365,10 +373,10 @@ a.registration__link span {
 }
 
 .form__content button,
-a.create-account {
+a.create_account {
     display: block;
     background-color: #0d518c;
-    color: white;
+    color: var(--color-yellow);
     padding: 14px 0;
     margin: 8px 0;
     border: none;
@@ -377,13 +385,13 @@ a.create-account {
     line-height: 1em;
 }
 
-a.create-account {
+a.create_account {
     padding: 14px 0;
     background: var(--bg-color);
 }
 
 .form__content button:hover,
-a.create-account:hover {
+a.create_account:hover {
     text-decoration: none;
     opacity: 0.8;
 }

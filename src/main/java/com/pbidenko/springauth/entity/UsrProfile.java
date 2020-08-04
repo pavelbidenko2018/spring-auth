@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -31,10 +32,12 @@ public class UsrProfile {
 	private String userpic;
 	
 	private String occupation;
+	
+	@Column(length=3000)
 	private String description;
 
 	@OneToOne
-	@JoinColumn(name = "authID",unique = true)
+	@JoinColumn(name = "authID",unique = true, nullable = false)
 	private Usr authUser;
 
 	@ElementCollection(targetClass = ProfessionsClassified.class, fetch = FetchType.EAGER)

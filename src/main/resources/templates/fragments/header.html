@@ -4,7 +4,6 @@
     </th:block>
 
     <th:block th:fragment="main_head">
-        <meta charset="ISO-8859-1">
         <title>Javier</title>
         <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
         <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.css">
@@ -28,12 +27,12 @@
 
 <header class="main__header">
     <nav>
-    <a class="gohome_link" th:href = "@{/}">
-        <div class=logo__holder>
-            <img th:src="@{/images/logo-eps2.png}" alt="logo">
-            <p>kommunalka</p>
-        </div>
-    </a>
+        <a class="gohome_link" th:href="@{/}">
+            <div class=logo__holder>
+                <img th:src="@{/images/logo-eps2.png}" alt="logo">
+                <p>kommunalka</p>
+            </div>
+        </a>
 
         <!-- <ul class="site__navigation">
             <li><a href="#">A propos</a></li>
@@ -60,7 +59,7 @@
         </a>
 
         <div class="user__greeting" sec:authorize="isAuthenticated()">
-            <span class="fa fa-user"></span>
+            <span class="fa fa-user"><a th:href="@{/my_profile}"></a></span>
             <span class="text" th:text="'Bonjour, ' + ${username}" />
             <a class="logout__link" th:href="@{/logout}"><span class="fa fa-sign-out" aria-hidden="true"></span>
             </a>

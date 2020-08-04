@@ -133,7 +133,8 @@ local.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# Image files #
+# User Files #
+src/main/resources/static/users/
 src/main/resources/static/users/*.*
 
 # App properties #

@@ -66,7 +66,7 @@ public class ProfileStorageService {
 
 		if (project != null) {
 			if (!fileName.isEmpty()) {
-				project.setFilePath(path.toString());
+				project.setFilePath(fileName);
 			}
 
 			profile.setProject(project);
@@ -131,9 +131,8 @@ public class ProfileStorageService {
 	}
 
 	public UsrProfile findByUsr(Usr usr) throws ProfileNotFoundException {
-
-		int usrID = usr.getId();
-		UsrProfile profile = profileRepository.findById(usrID).orElseThrow(() -> new ProfileNotFoundException(usrID));
+		
+		UsrProfile profile = profileRepository.findByAuthUser(usr).orElseThrow(() -> new ProfileNotFoundException(usr.getId()));
 		return profile;
 	}
 

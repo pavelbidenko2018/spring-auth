@@ -42,7 +42,7 @@ public class MainController {
 	@PostMapping("/sendEmail")
 	@ResponseBody
 	public String sendEmail(@RequestParam String userEmail, @RequestParam String message) {
-		emailService.sendMail(userEmail, "test", message);
+		emailService.sendMailToAdmin(userEmail, "test", message);
 		return "OK";
 	}
 

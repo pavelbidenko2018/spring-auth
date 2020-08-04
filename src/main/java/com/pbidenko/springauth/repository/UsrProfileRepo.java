@@ -18,6 +18,8 @@ public interface UsrProfileRepo extends JpaRepository<UsrProfile, Integer> {
 	public List<UsrProfile> findAll();
 
 	public Optional<UsrProfile> findById(int id);
+	
+	public Optional<UsrProfile> findByAuthUser(Usr usr);
 
 	@Modifying
 	@Query(value = "update UsrProfile u set userpic =:photo where authUser = :id")
