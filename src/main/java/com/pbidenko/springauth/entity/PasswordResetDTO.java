@@ -2,14 +2,13 @@ package com.pbidenko.springauth.entity;
 
 import javax.validation.constraints.NotEmpty;
 
-
 public class PasswordResetDTO {
 	@NotEmpty
 	private String password;
-	
+
 	@NotEmpty
 	private String confirmPassword;
-	
+
 	@NotEmpty
 	private String token;
 
@@ -47,7 +46,5 @@ public class PasswordResetDTO {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
-	
 
 }
