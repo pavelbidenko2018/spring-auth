@@ -1,14 +1,17 @@
 package com.pbidenko.springauth.entity;
 
-public class PasswordForgotEntity {
-	
+import javax.validation.constraints.Email;
+
+public class PasswordForgotDTO {
+
+	@Email
 	private String email;
-	
-	
-	public PasswordForgotEntity() {
+
+	public PasswordForgotDTO() {
 		super();
 	}
 
+	@Email
 	public String getEmail() {
 		return email;
 	}
@@ -16,7 +19,5 @@ public class PasswordForgotEntity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
 
 }
