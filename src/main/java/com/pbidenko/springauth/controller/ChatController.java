@@ -13,17 +13,18 @@ import com.pbidenko.springauth.chatmodel.ChatMessage;
 @Controller
 public class ChatController {
 
+	
 	@MessageMapping("/chat.send")
+	@SendTo("/topic/public")
+	public ChatMessage newUser(@Payload ChatMessage chatMessage, Principal principal) {
+		return chatMessage;
+	}	
+	
+	@MessageMapping("/chat.newUser/")
 	@SendTo("/topic/public")
 	public ChatMessage sendMessage(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 
 		headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-		return chatMessage;
-	}
-
-	@MessageMapping("/chat.newUser/")
-	@SendTo("/topic/public")
-	public ChatMessage newUser(@Payload ChatMessage chatMessage, Principal principal) {
 		return chatMessage;
 	}
 
