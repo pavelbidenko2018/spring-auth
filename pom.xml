@@ -46,11 +46,19 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>mysql</groupId> -->
+		<!-- <artifactId>mysql-connector-java</artifactId> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.16</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
@@ -79,7 +87,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.webjars/stomp-websocket -->
 		<dependency>
 			<groupId>org.webjars</groupId>

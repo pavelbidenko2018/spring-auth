@@ -31,7 +31,7 @@ public class Article {
 	private String base64imageFile;
 	
 	@Lob
-	@Column(name = "attachment", columnDefinition = "LONGBLOB")	
+	@Column(name = "attachment", columnDefinition = "bytea")	
 	private byte[] attachment;
 	
 	private boolean state;	

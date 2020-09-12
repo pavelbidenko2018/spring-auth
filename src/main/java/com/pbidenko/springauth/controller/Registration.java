@@ -2,6 +2,7 @@ package com.pbidenko.springauth.controller;
 
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,9 @@ public class Registration {
 
 	@Autowired
 	UsrRepo userRepo;
+	
+	@Autowired
+	BCryptPasswordEncoder encoder;
 
 	@GetMapping("/registration")
 	public String registation() {
@@ -30,7 +34,7 @@ public class Registration {
 			return "registration";
 		}
 		
-		Usr newUsr = new Usr(username, email, pwd);
+		Usr newUsr = new Usr(username, email, encoder.encode(pwd));
 		
 		newUsr.setRolesSet(new HashSet<Role>() {
 			{
