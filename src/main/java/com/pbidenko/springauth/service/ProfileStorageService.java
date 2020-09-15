@@ -1,7 +1,9 @@
 package com.pbidenko.springauth.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,6 +34,12 @@ public class ProfileStorageService {
 	@Autowired
 	private UsrStorageService usrService;
 
+	@Autowired
+	AmazonClient s3ClientService;
+
+	@Value("${amazonProperties.bucketName}")
+	private String bucketName;
+
 	@Value("${image.file}")
 	String fileLocation;
 
@@ -45,7 +53,17 @@ public class ProfileStorageService {
 	public void saveNewProfile(UsrProfile profile, MultipartFile projectFile, String projectDescription, String id) {
 
 		String fileName = "";
-		Path path = null;
+		String path = null;
+
+		/* getting the File from MultipartFile */
+		File resultFile = new File(projectFile.getOriginalFilename());
+
+		try {
+			resultFile = convertMultiPartToFile(projectFile);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		/* *********************** */
 
 		if (projectFile.getSize() != 0) {
 
@@ -75,7 +93,7 @@ public class ProfileStorageService {
 		Usr usr = usrService.findById(id);
 
 		profile.setAuthUser(usr);
-		
+
 		save(profile);
 
 	}
@@ -93,14 +111,13 @@ public class ProfileStorageService {
 			decodedBytes = Base64.getDecoder().decode(imageString.getBytes(StandardCharsets.UTF_8));
 		}
 
-		Path path = null;
 		String originalFileName = getStorageName();
 
 		try {
 
-			writeFile(id, decodedBytes, originalFileName);
+			String downloadResult = writeFile(id, decodedBytes, originalFileName);
 
-			profileRepository.updatePhoto(originalFileName, usrService.findById(String.valueOf(id)));
+			profileRepository.updatePhoto(downloadResult, usrService.findById(String.valueOf(id)));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,23 +133,27 @@ public class ProfileStorageService {
 
 	}
 
-	private Path writeFile(String id, byte[] decodedBytes, String originalFileName) throws IOException {
+	private String writeFile(String id, byte[] decodedBytes, String originalFileName) throws IOException {
 
-		String userImageLocation = fileLocation + "/" + id + "/";
-
+		String userImageLocation = "userpics/"  + id + "/";
+		
 		File dir = new File(userImageLocation);
 		if (!dir.exists())
 			dir.mkdirs();
 
-		Path path = Paths.get(dir.toString() + "/" + originalFileName);
+		Path path = Paths.get(dir.toString()  + originalFileName);
 
-		Files.write(path, decodedBytes);
-		return path;
+		File resFile = Files.write(path, decodedBytes).toFile();
+		
+		URL res = s3ClientService.uploadFileTos3bucket(userImageLocation, resFile);
+				
+		return res.toString();
 	}
 
 	public UsrProfile findByUsr(Usr usr) throws ProfileNotFoundException {
-		
-		UsrProfile profile = profileRepository.findByAuthUser(usr).orElseThrow(() -> new ProfileNotFoundException(usr.getId()));
+
+		UsrProfile profile = profileRepository.findByAuthUser(usr)
+				.orElseThrow(() -> new ProfileNotFoundException(usr.getId()));
 		return profile;
 	}
 
@@ -149,4 +170,13 @@ public class ProfileStorageService {
 
 	}
 
+	private File convertMultiPartToFile(MultipartFile file) throws IOException {
+		File convFile = new File(file.getOriginalFilename());
+		FileOutputStream fos = new FileOutputStream(convFile);
+		fos.write(file.getBytes());
+		fos.close();
+		return convFile;
+	}
+	
+		
 }
