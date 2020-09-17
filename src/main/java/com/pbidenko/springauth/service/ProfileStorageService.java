@@ -1,9 +1,7 @@
 package com.pbidenko.springauth.service;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +11,8 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,6 +28,8 @@ import com.pbidenko.springauth.repository.UsrProfileRepo;
 @Service
 public class ProfileStorageService {
 
+	private Logger logger = LoggerFactory.getLogger(ProfileStorageService.class);
+
 	@Autowired
 	private UsrProfileRepo profileRepository;
 
@@ -35,13 +37,16 @@ public class ProfileStorageService {
 	private UsrStorageService usrService;
 
 	@Autowired
-	AmazonClient s3ClientService;
+	S3ServiceImpl s3Services;
 
 	@Value("${amazonProperties.bucketName}")
 	private String bucketName;
 
-	@Value("${image.file}")
-	String fileLocation;
+	@Value("${image.folder}")
+	String userpicsLocation;
+
+	@Value("${profile.folder}")
+	String profileLocation;
 
 	public void save(UsrProfile profile) {
 
@@ -52,49 +57,43 @@ public class ProfileStorageService {
 	@Transactional
 	public void saveNewProfile(UsrProfile profile, MultipartFile projectFile, String projectDescription, String id) {
 
-		String fileName = "";
-		String path = null;
-
-		/* getting the File from MultipartFile */
-		File resultFile = new File(projectFile.getOriginalFilename());
-
-		try {
-			resultFile = convertMultiPartToFile(projectFile);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		/* *********************** */
+		String keyString = null;
+		String resURL = null;
 
 		if (projectFile.getSize() != 0) {
 
-			byte[] bytes;
+			byte[] decodedBytes;
 
 			try {
-				bytes = projectFile.getBytes();
-				fileName = projectFile.getOriginalFilename();
-				path = writeFile(id, bytes, fileName);
+				decodedBytes = projectFile.getBytes();
+				keyString = profileLocation + id + "/" + projectFile.getOriginalFilename();
+
+				if (writeFile(id, decodedBytes, keyString) != null) {
+
+					Project project = new Project(projectDescription, projectFile.getOriginalFilename());
+
+					if (project != null) {
+
+						project.setFilePath(resURL);
+						profile.setProject(project);
+					}
+
+					Usr usr = usrService.findById(id);
+
+					profile.setAuthUser(usr);
+					save(profile);
+
+					logger.info("File added sucessfully to the user profile with id = " + id);
+				} else {
+					logger.info("Error updating profile with id = " + id);
+				}
+
 			} catch (IOException e) {
 
 				e.printStackTrace();
 			}
 
 		}
-
-		Project project = new Project(projectDescription, fileName);
-
-		if (project != null) {
-			if (!fileName.isEmpty()) {
-				project.setFilePath(fileName);
-			}
-
-			profile.setProject(project);
-		}
-
-		Usr usr = usrService.findById(id);
-
-		profile.setAuthUser(usr);
-
-		save(profile);
 
 	}
 
@@ -112,12 +111,19 @@ public class ProfileStorageService {
 		}
 
 		String originalFileName = getStorageName();
+		
+		String keyString = userpicsLocation + id + "/" + originalFileName;
 
+		
 		try {
 
-			String downloadResult = writeFile(id, decodedBytes, originalFileName);
+			if (writeFile(id, decodedBytes, keyString) != null) {
 
-			profileRepository.updatePhoto(downloadResult, usrService.findById(String.valueOf(id)));
+				profileRepository.updatePhoto(originalFileName, usrService.findById(String.valueOf(id)));
+				logger.info("Userpic updated sucessfully");
+			} else {
+				logger.info("Error saving userpic: ");
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,21 +139,20 @@ public class ProfileStorageService {
 
 	}
 
-	private String writeFile(String id, byte[] decodedBytes, String originalFileName) throws IOException {
+	private String writeFile(String id, byte[] decodedBytes, String keyString) throws IOException {
 
-		String userImageLocation = "userpics/"  + id + "/";
-		
-		File dir = new File(userImageLocation);
+		File dir = new File(keyString);
 		if (!dir.exists())
 			dir.mkdirs();
 
-		Path path = Paths.get(dir.toString()  + originalFileName);
-
-		File resFile = Files.write(path, decodedBytes).toFile();
+		Path path = Paths.get(keyString);
 		
-		URL res = s3ClientService.uploadFileTos3bucket(userImageLocation, resFile);
 				
-		return res.toString();
+		File resFile = Files.write(path, decodedBytes).toFile();
+
+		String fileStoragePath = s3Services.uploadFile(keyString, resFile);
+
+		return fileStoragePath;
 	}
 
 	public UsrProfile findByUsr(Usr usr) throws ProfileNotFoundException {
@@ -170,13 +175,4 @@ public class ProfileStorageService {
 
 	}
 
-	private File convertMultiPartToFile(MultipartFile file) throws IOException {
-		File convFile = new File(file.getOriginalFilename());
-		FileOutputStream fos = new FileOutputStream(convFile);
-		fos.write(file.getBytes());
-		fos.close();
-		return convFile;
-	}
-	
-		
 }
