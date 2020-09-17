@@ -32,13 +32,16 @@ public class ProfileStorageService {
 
 	@Autowired
 	private UsrProfileRepo profileRepository;
-
+	
 	@Autowired
 	private UsrStorageService usrService;
 
 	@Autowired
 	S3ServiceImpl s3Services;
 
+	@Value("${temp.directory}")
+	String tmpDir;
+	
 	@Value("${amazonProperties.bucketName}")
 	private String bucketName;
 
@@ -141,13 +144,12 @@ public class ProfileStorageService {
 
 	private String writeFile(String id, byte[] decodedBytes, String keyString) throws IOException {
 
-		File dir = new File(keyString);
+		File dir = new File(tmpDir);
 		if (!dir.exists())
 			dir.mkdirs();
 
-		Path path = Paths.get(keyString);
-		
-				
+		Path path = Paths.get(tmpDir);
+						
 		File resFile = Files.write(path, decodedBytes).toFile();
 
 		String fileStoragePath = s3Services.uploadFile(keyString, resFile);

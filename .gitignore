@@ -138,6 +138,6 @@ src/main/resources/static/users/
 src/main/resources/static/users/*.*
 
 # App properties #
-src/main/resources/application.*
+src/main/resources/application.properties
 
 # End of https://www.gitignore.io/api/java,eclipse
