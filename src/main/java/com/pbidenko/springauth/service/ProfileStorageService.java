@@ -148,7 +148,7 @@ public class ProfileStorageService {
 		if (!dir.exists())
 			dir.mkdirs();
 
-		Path path = Paths.get(tmpDir);
+		Path path = Paths.get(tmpDir + getStorageName());
 						
 		File resFile = Files.write(path, decodedBytes).toFile();
 
@@ -175,6 +175,12 @@ public class ProfileStorageService {
 
 		profileRepository.save(profileExists);
 
+	}
+	
+	public String getUserpic(int id, String userpic) {
+		
+		String fileName = userpicsLocation + id + "/" +userpic; 		
+		return s3Services.downloadFile(fileName); 
 	}
 
 }

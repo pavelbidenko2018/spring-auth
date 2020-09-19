@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import javax.servlet.http.Cookie;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.util.Base64;
+import com.amazonaws.util.IOUtils;
 
 @Service
 public class S3ServiceImpl implements S3ServiceInterface {
@@ -32,13 +36,18 @@ public class S3ServiceImpl implements S3ServiceInterface {
 	private AmazonS3 s3client;
 
 	@Override
-	public void downloadFile(String keyName) {
+	public String downloadFile(String keyName) {
+		String encoded = "";
 		try {
 			System.out.println("Downloading an object.");
 			S3Object s3object = s3client.getObject(new GetObjectRequest(bucketName, keyName));
 			System.out.println("Content-Type: " + s3object.getObjectMetadata().getContentType());
-			displayText(s3object.getObjectContent());
+		
 			logger.info("===================== Import File - Done! =====================");
+			
+			byte[] rawArray = IOUtils.toByteArray(s3object.getObjectContent());
+			
+			encoded = Base64.encodeAsString(rawArray);
 
 		} catch (AmazonServiceException ase) {
 			logger.info("Caught an AmazonServiceException from GET requests, rejected reasons:");
@@ -53,6 +62,8 @@ public class S3ServiceImpl implements S3ServiceInterface {
 		} catch (IOException ioe) {
 			logger.info("IOE Error Message: " + ioe.getMessage());
 		}
+		
+		return encoded;
 
 	}
 

@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import com.pbidenko.springauth.entity.Usr;
 import com.pbidenko.springauth.entity.UsrProfile;
 import com.pbidenko.springauth.exception.ProfileNotFoundException;
 import com.pbidenko.springauth.service.ProfileStorageService;
+import com.pbidenko.springauth.service.S3ServiceImpl;
 import com.pbidenko.springauth.service.UsrStorageService;
 
 @Controller
@@ -34,7 +37,7 @@ public class ProfileController {
 	UsrStorageService usrStorageService;
 
 	@GetMapping("/my_profile")
-	public String profile(Model model) {
+	public String profile(Model model, @CookieValue(value = "userpic",defaultValue="") String userpic) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = "";
 
@@ -52,6 +55,8 @@ public class ProfileController {
 			UsrProfile profile = profileStorageService.findByUsr(usr);
 			model.addAttribute("profile", profile);
 			model.addAttribute("project", profile.getProject());
+
+			model.addAttribute("userpic","data:image/png;base64," + profileStorageService.getUserpic(profile.getAuthUser().getId(), profile.getUserpic()));
 
 		} catch (ProfileNotFoundException e) {
 			model.addAttribute("profile", null);
@@ -86,7 +91,7 @@ public class ProfileController {
 
 			profileExists = profile;
 			profileExists.setAuthUser(usr);
-			
+
 			profileStorageService.save(profileExists);
 			response.compute("status", (k, v) -> v = "edit");
 

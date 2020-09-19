@@ -107,7 +107,7 @@ public class UsrProfile {
 	public void setAuthUser(Usr authUser) {
 		this.authUser = authUser;
 	}
-
+	
 	public String getUserpic() {
 		return userpic;
 	}
