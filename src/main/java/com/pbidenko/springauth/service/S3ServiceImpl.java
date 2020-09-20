@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.servlet.http.Cookie;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +48,7 @@ public class S3ServiceImpl implements S3ServiceInterface {
 			encoded = Base64.encodeAsString(rawArray);
 
 		} catch (AmazonServiceException ase) {
+			logger.info("Bucket name: " + bucketName);
 			logger.info("Caught an AmazonServiceException from GET requests, rejected reasons:");
 			logger.info("Error Message:    " + ase.getMessage());
 			logger.info("HTTP Status Code: " + ase.getStatusCode());
