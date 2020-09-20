@@ -38,7 +38,7 @@ public class S3ServiceImpl implements S3ServiceInterface {
 		String encoded = "";
 		try {
 			System.out.println("Downloading an object.");
-			S3Object s3object = s3client.getObject(new GetObjectRequest(bucketName, keyName));
+			S3Object s3object = s3client.getObject(new GetObjectRequest("communalka1908", keyName));
 			System.out.println("Content-Type: " + s3object.getObjectMetadata().getContentType());
 		
 			logger.info("===================== Import File - Done! =====================");
@@ -48,7 +48,7 @@ public class S3ServiceImpl implements S3ServiceInterface {
 			encoded = Base64.encodeAsString(rawArray);
 
 		} catch (AmazonServiceException ase) {
-			logger.info("Bucket name: " + bucketName);
+			logger.info("=========================================== Bucket name: " + bucketName);
 			logger.info("Caught an AmazonServiceException from GET requests, rejected reasons:");
 			logger.info("Error Message:    " + ase.getMessage());
 			logger.info("HTTP Status Code: " + ase.getStatusCode());
@@ -73,7 +73,7 @@ public class S3ServiceImpl implements S3ServiceInterface {
 		
 		try {
 
-			fileStoragePath = s3client.putObject(new PutObjectRequest(bucketName, keyName, file)
+			fileStoragePath = s3client.putObject(new PutObjectRequest("communalka1908", keyName, file)
 					.withCannedAcl(CannedAccessControlList.AuthenticatedRead)).toString();
 
 			logger.info("===================== Upload File - Done! =====================");
