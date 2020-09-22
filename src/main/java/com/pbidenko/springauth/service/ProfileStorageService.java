@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class ProfileStorageService {
 
 	@Autowired
 	private UsrProfileRepo profileRepository;
-	
+
 	@Autowired
 	private UsrStorageService usrService;
 
@@ -41,7 +42,7 @@ public class ProfileStorageService {
 
 	@Value("${temp.directory}")
 	String tmpDir;
-	
+
 	@Value("${amazonProperties.bucketName}")
 	private String bucketName;
 
@@ -114,10 +115,9 @@ public class ProfileStorageService {
 		}
 
 		String originalFileName = getStorageName();
-		
+
 		String keyString = userpicsLocation + id + "/" + originalFileName;
 
-		
 		try {
 
 			if (writeFile(id, decodedBytes, keyString) != null) {
@@ -149,7 +149,7 @@ public class ProfileStorageService {
 			dir.mkdirs();
 
 		Path path = Paths.get(tmpDir + getStorageName());
-						
+
 		File resFile = Files.write(path, decodedBytes).toFile();
 
 		String fileStoragePath = s3Services.uploadFile(keyString, resFile);
@@ -176,11 +176,22 @@ public class ProfileStorageService {
 		profileRepository.save(profileExists);
 
 	}
-	
-	public String getUserpic(int id, String userpic) {
-		
-		String fileName = userpicsLocation + id + "/" +userpic; 		
-		return s3Services.downloadFile(fileName); 
+
+	public String getProfileUserpic(int id, String userpic) {
+
+		String fileName = userpicsLocation + id + "/" + userpic;
+		return s3Services.downloadFile(fileName);
+	}
+
+	public List<UsrProfile> findAllWithUserpics() {
+		List<UsrProfile> profiles = profileRepository.findAll();
+
+		if (profiles.size() == 0)
+			return null;
+
+		profiles.forEach(item -> item.setUserpic(getProfileUserpic(item.getAuthUser().getId(), item.getUserpic())));
+
+		return profiles;
 	}
 
 }

@@ -134,6 +134,13 @@ h5 {
     transition: 0.3s;
 }
 
+.user__greeting img {
+	height: 30px;
+    width: 30px;
+    cursor: pointer;
+    transition: 0.3s;	
+}
+
 .user__greeting a.logout__link {
     display: inline-block;
     color: #fff;
