@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,6 @@ import com.pbidenko.springauth.entity.Usr;
 import com.pbidenko.springauth.entity.UsrProfile;
 import com.pbidenko.springauth.exception.ProfileNotFoundException;
 import com.pbidenko.springauth.service.ProfileStorageService;
-import com.pbidenko.springauth.service.S3ServiceImpl;
 import com.pbidenko.springauth.service.UsrStorageService;
 
 @Controller
