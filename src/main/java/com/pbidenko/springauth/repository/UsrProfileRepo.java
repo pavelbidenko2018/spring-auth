@@ -24,6 +24,8 @@ public interface UsrProfileRepo extends JpaRepository<UsrProfile, Integer> {
 	@Modifying
 	@Query(value = "update UsrProfile u set userpic =:photo where authUser = :id")
 	public int updatePhoto(@Param("photo") String photo, @Param("id") Usr id);
+	
+	public List<UsrProfile> findAllByAuthUserNot(Usr usr);
 
 	
 }

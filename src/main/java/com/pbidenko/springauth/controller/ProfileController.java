@@ -3,6 +3,7 @@ package com.pbidenko.springauth.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,19 +51,15 @@ public class ProfileController {
 		model.addAttribute("usr", usr);
 
 		try {
-			UsrProfile profile = profileStorageService.findByUsr(usr);
-
-			List<UsrProfile> allProfiles = profileStorageService.findAllWithUserpics();
-
-			model.addAttribute("profile", profile);
-			model.addAttribute("project", profile.getProject());
-
-			String userpic = profileStorageService.getProfileUserpic(profile.getAuthUser().getId(),
-					profile.getUserpic());
-			model.addAttribute("userpic", userpic);
-
-			model.addAttribute("allProfiles", allProfiles);
-
+			UsrProfile thisProfile = profileStorageService.findByUsr(usr);
+			
+			List<UsrProfile> allOtherProfiles = profileStorageService.findAllProfilesExceptThis(usr);			
+			
+			model.addAttribute("profile", thisProfile);
+			model.addAttribute("project", thisProfile.getProject());
+						
+			model.addAttribute("allProfiles", allOtherProfiles);
+		
 		} catch (ProfileNotFoundException e) {
 			model.addAttribute("profile", null);
 			model.addAttribute("project", null);

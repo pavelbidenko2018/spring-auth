@@ -1,6 +1,5 @@
 <th:block th:fragment="editprofile">
 
-
 	<div class="bar_container">
 
 		<div class="left_panel">
@@ -13,7 +12,8 @@
 
 					<div class="image_holder2">
 						<span class="fa fa-user"></span> <img id="userpic"
-							th:if="${profile!=null}" th:src="@{${userpic}}">
+							th:if="${profile!=null}"
+							th:src="@{'data:image/png;base64,' + ${profile.userpic}}">
 					</div>
 
 					<div class="image_upload">
@@ -162,11 +162,14 @@
 
 		</div>
 		<div class="right_panel">
-			<h2>Mes amies</h2>
-			<ul  th:each="item : ${allProfiles}">
-				<li th:text = "${item.name}" />
+			<h3>Mes amies <span th:text = "'(' + ${allProfiles.size()} + ')'"/></h3>
+			<ul th:if="${profile!=null}" th:each="item : ${allProfiles}">
+				<li><img class="small_userpic"
+					th:src="@{'data:image/png;base64,' + ${item.userpic}}"/>
+					<a th:text="${item.name}"/>
+				</li>
 			</ul>
-			
+
 		</div>
 
 	</div>

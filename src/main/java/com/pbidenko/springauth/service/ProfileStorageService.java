@@ -11,6 +11,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -161,6 +162,9 @@ public class ProfileStorageService {
 
 		UsrProfile profile = profileRepository.findByAuthUser(usr)
 				.orElseThrow(() -> new ProfileNotFoundException(usr.getId()));
+	
+		profile.setUserpic(getProfileUserpic(usr.getId(), profile.getUserpic()));
+		
 		return profile;
 	}
 
@@ -192,6 +196,18 @@ public class ProfileStorageService {
 		profiles.forEach(item -> item.setUserpic(getProfileUserpic(item.getAuthUser().getId(), item.getUserpic())));
 
 		return profiles;
+	}
+
+	public List<UsrProfile> findAllProfilesExceptThis(Usr usr) {
+		
+		List<UsrProfile> allProfilesExceptOne = profileRepository.findAllByAuthUserNot(usr);
+		
+		if (allProfilesExceptOne.size() == 0)
+			return null;
+			
+		allProfilesExceptOne.forEach(item -> item.setUserpic(getProfileUserpic(item.getAuthUser().getId(), item.getUserpic())));
+				
+		return allProfilesExceptOne;
 	}
 
 }
