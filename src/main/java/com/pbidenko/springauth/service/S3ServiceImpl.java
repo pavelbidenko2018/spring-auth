@@ -1,11 +1,7 @@
 package com.pbidenko.springauth.service;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +36,11 @@ public class S3ServiceImpl implements S3ServiceInterface {
 			System.out.println("Downloading an object.");
 			S3Object s3object = s3client.getObject(new GetObjectRequest("communalka1908", keyName));
 			System.out.println("Content-Type: " + s3object.getObjectMetadata().getContentType());
-		
+
 			logger.info("===================== Import File - Done! =====================");
-			
+
 			byte[] rawArray = IOUtils.toByteArray(s3object.getObjectContent());
-			
+
 			encoded = Base64.encodeAsString(rawArray);
 
 		} catch (AmazonServiceException ase) {
@@ -61,24 +57,23 @@ public class S3ServiceImpl implements S3ServiceInterface {
 		} catch (IOException ioe) {
 			logger.info("IOE Error Message: " + ioe.getMessage());
 		}
-		
+
 		return encoded;
 
 	}
 
 	@Override
 	public String uploadFile(String keyName, File file) {
-		
+
 		String fileStoragePath = null;
-		
+
 		try {
 
 			fileStoragePath = s3client.putObject(new PutObjectRequest("communalka1908", keyName, file)
 					.withCannedAcl(CannedAccessControlList.AuthenticatedRead)).toString();
 
 			logger.info("===================== Upload File - Done! =====================");
-			
-			
+
 		} catch (AmazonServiceException ase) {
 			logger.info("Caught an AmazonServiceException from PUT requests, rejected reasons:");
 			logger.info("Error Message:    " + ase.getMessage());
@@ -90,22 +85,9 @@ public class S3ServiceImpl implements S3ServiceInterface {
 			logger.info("Caught an AmazonClientException: ");
 			logger.info("Error Message: " + ace.getMessage());
 		}
-		
+
 		return fileStoragePath;
 
 	}
 
-	private void displayText(InputStream input) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-		while (true) {
-			String line = reader.readLine();
-			if (line == null) {
-				break;
-			}
-			System.out.println("    " + line);
-		}
-
-	}
-
 }
-

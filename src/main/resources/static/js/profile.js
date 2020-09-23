@@ -35,6 +35,7 @@ $(document).ready(function() {
         }).then(function(response) {
 
             $("#userpic").attr('src', response);
+            $("#bonjourUserpic").attr('src', response);
 
             $.ajax({
                 url: "/loadImage/" + id,

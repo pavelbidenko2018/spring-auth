@@ -59,11 +59,15 @@
         </a>
 
         <div class="user__greeting" sec:authorize="isAuthenticated()">
-            <span class="fa fa-user"><a th:href="@{/my_profile}"></a></span>
+            <span class="fa fa-user" th:if="${profile==null}"><a th:href="@{/my_profile}"></a></span>
+            <img id="bonjourUserpic" class="small_userpic" alt="" th:unless = "${profile==null}" th:src="@{'data:image/png;base64,' + ${profile.userpic}}">
+
             <span class="text" th:text="'Bonjour, ' + ${username}" />
             <a class="logout__link" th:href="@{/logout}"><span class="fa fa-sign-out" aria-hidden="true"></span>
             </a>
         </div>
+
+
 
         <!-- <ul class="language__menu">
             <li><a href="#"><span>Fr</span></a></li>

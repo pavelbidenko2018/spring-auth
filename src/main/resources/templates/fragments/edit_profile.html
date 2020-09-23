@@ -1,141 +1,177 @@
 <th:block th:fragment="editprofile">
 
+	<div class="bar_container">
 
-    <div class="bar_container">
+		<div class="left_panel">
 
+			<form id="mainProfileForm"
+				th:action="@{'/updateProfile/' + ${usr.id}}" th:object="${profile}"
+				enctype="multipart/form-data" method="POST">
 
+				<fieldset>
 
-        <form id="mainProfileForm" th:action="@{'/updateProfile/' + ${usr.id}}" th:object="${profile}" enctype="multipart/form-data" method="POST">
+					<div class="image_holder2">
+						<span class="fa fa-user"></span> <img id="userpic"
+							th:if="${profile!=null}"
+							th:src="@{'data:image/png;base64,' + ${profile.userpic}}">
+					</div>
 
-            <fieldset>
+					<div class="image_upload">
+						<div class="custom_file">
+							<label for="file"><span class="fa fa-edit"></span> <input
+								type="file" class="custom-file-input" id="file" name="file">
+							</label>
+						</div>
+					</div>
+					<input type="hidden" th:name="userpic"
+						th:value="${profile.userpic}" th:field=" ${profile.userpic}">
 
-                <div class="image_holder2">
-                    <span class="fa fa-user"></span>
-<!--                     <img id="userpic" th:if="${profile!=null}" th:src="@{${profile.userpic}}"> -->
-                    <img id="userpic" th:if="${profile!=null}" th:src="@{${userpic}}">
-                </div>
+					<h2>General Info</h2>
 
-                <div class="image_upload">
-                    <div class="custom_file">
-                        <label for="file"><span class="fa fa-edit"></span> 
-                            <input type="file" class="custom-file-input" id="file" name="file">
-                            </label>
-                    </div>
-                </div>
-                <input type="hidden" th:name="userpic" th:value="${profile.userpic}" th:field=" ${profile.userpic}">
+					<div class="inline_block">
+						<div class="col_25">
+							<label for="nameID">Prenom:</label>
+						</div>
 
-                <h2>General Info</h2>
+						<div class="col_75">
+							<input type="text" class="form-control" id="nameID"
+								placeholder="Votre prenom" th:name="name"
+								th:value="${profile.name}" th:filed="${profile.name}"
+								th:readonly="${true}"> <span class="fa fa-edit editable"></span>
+						</div>
+					</div>
 
-                <div class="inline_block">
-                    <div class="col_25">
-                        <label for="nameID">Prenom:</label>
-                    </div>
+					<div class="inline_block">
+						<div class="col_25">
+							<label for="surnameID">Nom:</label>
+						</div>
 
-                    <div class="col_75">
-                        <input type="text" class="form-control" id="nameID" placeholder="Votre prenom" th:name="name" th:value="${profile.name}" th:filed="${profile.name}" th:readonly="${true}">
-                        <span class="fa fa-edit editable"></span>
-                    </div>
-                </div>
+						<div class="col_75">
+							<input type="text" class="form-control" id="surnameID"
+								placeholder="Votre nom" th:name="surname"
+								th:value="${profile.surname}" th:field="${profile.surname}"
+								th:readonly="${true}"> <span class="fa fa-edit editable"></span>
+						</div>
+					</div>
 
-                <div class="inline_block">
-                    <div class="col_25">
-                        <label for="surnameID">Nom:</label>
-                    </div>
+					<div class="inline_block">
+						<div class="col_25">
+							<label for="countryID">Pays:</label>
+						</div>
+						<div class="col_75">
+							<select id="countryID" class="country form-control"
+								th:name="country" th:value="${profile.country}"
+								th:field="${profile.country}">
+								<option th:value="${profile.country}"
+									th:text="${profile.country}"></option>
+							</select> <span class="fa fa-edit editable"></span>
+						</div>
+					</div>
 
-                    <div class="col_75">
-                        <input type="text" class="form-control" id="surnameID" placeholder="Votre nom" th:name="surname" th:value="${profile.surname}" th:field="${profile.surname}" th:readonly="${true}">
-                        <span class="fa fa-edit editable"></span>
-                    </div>
-                </div>
+					<div class="inline_block">
 
-                <div class="inline_block">
-                    <div class="col_25">
-                        <label for="countryID">Pays:</label>
-                    </div>
-                    <div class="col_75">
-                        <select id="countryID" class="country form-control" th:name="country" th:value="${profile.country}" th:field="${profile.country}">
-                        <option th:value = "${profile.country}" th:text="${profile.country}"></option>
-                        </select>
-                        <span class="fa fa-edit editable"></span>
-                    </div>
-                </div>
+						<div class="col_25">
+							<label for="nationalityID">Nationalite:</label>
+						</div>
+						<div class="col_75">
+							<input type="text" class="form-control" id="nationalityID"
+								placeholder="Nationalite" th:name="nationality"
+								th:value="${profile.nationality}"
+								th:field="${profile.nationality}" th:readonly="${true}">
+							<span class="fa fa-edit editable"></span>
+						</div>
 
-                <div class="inline_block">
-
-                    <div class="col_25">
-                        <label for="nationalityID">Nationalite:</label>
-                    </div>
-                    <div class="col_75">
-                        <input type="text" class="form-control" id="nationalityID" placeholder="Nationalite" th:name="nationality" th:value="${profile.nationality}" th:field="${profile.nationality}" th:readonly="${true}">
-                        <span class="fa fa-edit editable"></span>
-                    </div>
-
-                </div>
-
-
-                <div class="inline_block">
-                    <div class="col_25">
-                        <label for="ageID">Age:</label>
-                    </div>
-                    <div class="col_75">
-                        <input type="text" class="form-control" id="ageID" placeholder="Age" th:name="age" th:value="${profile.age}" th:field="${profile.age}" th:readonly="${true}">
-                        <span class="fa fa-edit editable"></span>
-                    </div>
-                </div>
-
-
-                <h2>Metier artistique</h2>
-
-                <div class="inline_block">
-                    <div class="col_25">
-                        <label for="occupationID">Metier:</label>
-                    </div>
-                    <div class="col_75">
-                        <select class="occupation form-control" id="occupationID" th:name="occupation" th:field="${profile.occupation}">
-                        <option th:value="${profile.occupation}" th:text = "${profile.occupation.isEmpty()}?'Choissir votre metier...':${profile.occupation}"></option>
-                        </select>
-                        <span class="fa fa-edit editable"></span>
-                    </div>
-                </div>
-
-                <div class="inline_block">
-                    <div class="col_25">
-                        <label for="descriptionID">Description:</label>
-                    </div>
-                    <div class="col_75">
-                        <textarea class="form-control" id="descriptionID" placeholder="Votre parsour artistique" th:name="description" th:field="${profile.description}" th:value="${profile.description}" cols="30" rows="10"></textarea>
-                        <span class="fa fa-edit editable"></span>
-                    </div>
-                </div>
+					</div>
 
 
-                <h2>Votre project artistique</h2>
-                <div class="inline_block">
-                    <div class="col_25">
-                        <label for="projectDescriptionID">Description:</label>
-                    </div>
-                    <div class="col_75">
-                        <textarea class="form-control" id="projectDescription" placeholder="Votre project artistique" th:name="projectDescription" th:field="${profile.project.projectDescription}" th:value="${profile.project.projectDescription}" cols="30" rows="10"></textarea>
-                        <span class="fa fa-edit editable"></span>
-                    </div>
-                </div>
-                <div class="inline_block">
-                    <div class="col_25">
-                        <h3>Fishes attachées:</h3>
-                    </div>
-                    <div class="col_75">
-                        <input type="hidden" th:name="filePath" th:value="${profile.project.filePath}" th:field="${profile.project.filePath}">
-                        <a th:href="@{'/users/' +  ${usr.id} + '/' + ${profile.project.filePath}}" th:text="${profile.project.filePath}"></a>
-                    </div>
-                </div>
-
-            </fieldset>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <div id="mainFormSplashID" class="splash_window"></div>
-        </form>
+					<div class="inline_block">
+						<div class="col_25">
+							<label for="ageID">Age:</label>
+						</div>
+						<div class="col_75">
+							<input type="text" class="form-control" id="ageID"
+								placeholder="Age" th:name="age" th:value="${profile.age}"
+								th:field="${profile.age}" th:readonly="${true}"> <span
+								class="fa fa-edit editable"></span>
+						</div>
+					</div>
 
 
-    </div>
+					<h2>Metier artistique</h2>
+
+					<div class="inline_block">
+						<div class="col_25">
+							<label for="occupationID">Metier:</label>
+						</div>
+						<div class="col_75">
+							<select class="occupation form-control" id="occupationID"
+								th:name="occupation" th:field="${profile.occupation}">
+								<option th:value="${profile.occupation}"
+									th:text="${profile.occupation.isEmpty()}?'Choissir votre metier...':${profile.occupation}"></option>
+							</select> <span class="fa fa-edit editable"></span>
+						</div>
+					</div>
+
+					<div class="inline_block">
+						<div class="col_25">
+							<label for="descriptionID">Description:</label>
+						</div>
+						<div class="col_75">
+							<textarea class="form-control" id="descriptionID"
+								placeholder="Votre parsour artistique" th:name="description"
+								th:field="${profile.description}"
+								th:value="${profile.description}" cols="30" rows="10"></textarea>
+							<span class="fa fa-edit editable"></span>
+						</div>
+					</div>
+
+
+					<h2>Votre project artistique</h2>
+					<div class="inline_block">
+						<div class="col_25">
+							<label for="projectDescriptionID">Description:</label>
+						</div>
+						<div class="col_75">
+							<textarea class="form-control" id="projectDescription"
+								placeholder="Votre project artistique"
+								th:name="projectDescription"
+								th:field="${profile.project.projectDescription}"
+								th:value="${profile.project.projectDescription}" cols="30"
+								rows="10"></textarea>
+							<span class="fa fa-edit editable"></span>
+						</div>
+					</div>
+					<div class="inline_block">
+						<div class="col_25">
+							<h3>Fishes attachées:</h3>
+						</div>
+						<div class="col_75">
+							<input type="hidden" th:name="filePath"
+								th:value="${profile.project.filePath}"
+								th:field="${profile.project.filePath}"> <a
+								th:href="@{'/users/' +  ${usr.id} + '/' + ${profile.project.filePath}}"
+								th:text="${profile.project.filePath}"></a>
+						</div>
+					</div>
+
+				</fieldset>
+
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<div id="mainFormSplashID" class="splash_window"></div>
+			</form>
+
+		</div>
+		<div class="right_panel">
+			<h3>Mes amies <span th:text = "'(' + ${allProfiles.size()} + ')'"/></h3>
+			<ul th:if="${profile!=null}" th:each="item : ${allProfiles}">
+				<li><img class="small_userpic"
+					th:src="@{'data:image/png;base64,' + ${item.userpic}}"/>
+					<a th:text="${item.name}"/>
+				</li>
+			</ul>
+
+		</div>
+
+	</div>
 
 </th:block>

@@ -1,14 +1,15 @@
 package com.pbidenko.springauth.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,7 @@ public class ProfileController {
 	UsrStorageService usrStorageService;
 
 	@GetMapping("/my_profile")
-	public String profile(Model model, @CookieValue(value = "userpic",defaultValue="") String userpic) {
+	public String profile(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = "";
 
@@ -50,12 +51,15 @@ public class ProfileController {
 		model.addAttribute("usr", usr);
 
 		try {
-			UsrProfile profile = profileStorageService.findByUsr(usr);
-			model.addAttribute("profile", profile);
-			model.addAttribute("project", profile.getProject());
-
-			model.addAttribute("userpic","data:image/png;base64," + profileStorageService.getUserpic(profile.getAuthUser().getId(), profile.getUserpic()));
-
+			UsrProfile thisProfile = profileStorageService.findByUsr(usr);
+			
+			List<UsrProfile> allOtherProfiles = profileStorageService.findAllProfilesExceptThis(usr);			
+			
+			model.addAttribute("profile", thisProfile);
+			model.addAttribute("project", thisProfile.getProject());
+						
+			model.addAttribute("allProfiles", allOtherProfiles);
+		
 		} catch (ProfileNotFoundException e) {
 			model.addAttribute("profile", null);
 			model.addAttribute("project", null);
@@ -66,7 +70,6 @@ public class ProfileController {
 	}
 
 	@PostMapping(value = "/saveProfile/{id}", consumes = "multipart/form-data")
-
 	public ModelAndView saveProfile(@ModelAttribute UsrProfile profile, @RequestPart MultipartFile projectFile,
 			@RequestParam String projectDescription, @PathVariable String id) {
 
