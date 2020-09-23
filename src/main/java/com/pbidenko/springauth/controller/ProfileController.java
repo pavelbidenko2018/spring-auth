@@ -70,7 +70,6 @@ public class ProfileController {
 	}
 
 	@PostMapping(value = "/saveProfile/{id}", consumes = "multipart/form-data")
-
 	public ModelAndView saveProfile(@ModelAttribute UsrProfile profile, @RequestPart MultipartFile projectFile,
 			@RequestParam String projectDescription, @PathVariable String id) {
 

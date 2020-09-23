@@ -225,12 +225,14 @@ legend {
 }
 
 .bar_container_new {
-	width: 90%;
+	width: 80%;
 	min-width: 400px;
 	margin: 20px auto 0 auto;
 	display: flex;
-	flex-direction:column;
-	border:1px solid red;
+	flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+	
 }
 
 .bar_container {
