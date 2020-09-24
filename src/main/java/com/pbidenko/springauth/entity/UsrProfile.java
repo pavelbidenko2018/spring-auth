@@ -128,10 +128,6 @@ public class UsrProfile {
 		return this.id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public Project getProject() {
 		return project;
 	}
